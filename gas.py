@@ -73,8 +73,39 @@ class peymankaran(Resource):
         db.mycursor.execute("INSERT INTO peymankaran (check_id , check_money , tarikh , tozihat) VALUES (%s , %s ,%s , %s)" , (args['check_id'],args['money'],args['tarikh'] , args['tozih'] , ))
         db.mydb.commit()
         return "saved"
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id')
+        args = parser.parse_args()
+        db.mycursor.execute("DELETE FROM peymankaran WHERE id = %s " , (args['id'],))
+        db.mydb.commit()
+        return "delete"
 
+class arazi(Resource):
+    def get(self):
+        db.mycursor.execute("SELECT * FROM arazi")
+        ret = db.mycursor.fetchall()
+        return ret
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("type")
+        parser.add_argument("date")
+        parser.add_argument("money")
+        args = parser.parse_args()
+        sql = "INSERT INTO arazi (type , date , money) VALUES (%s , %s , %s)"
+        values = (args['type'] , args['date'] , args['money'] ,)
+        db.mycursor.execute(sql , values)
+        db.mydb.commit()
+        return "saved"
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("id")
+        args = parser.parse_args()
+        db.mycursor.execute("DELETE FROM arazi WHERE id = %s " , (args['id'],))
+        db.mydb.commit()
+        return "delete"
 
+    
 class pipeLinesF(Resource):
     def post(self):
         parser = reqparse.RequestParser()
@@ -91,14 +122,8 @@ class pipeLinesF(Resource):
         parser.add_argument('hazineAnbar')
         parser.add_argument('hazineSodoor')
         parser.add_argument('hazineBime')
-        parser.add_argument('mablagheVaragh')
-        parser.add_argument('avarezGomrok')
-        parser.add_argument('hazineSakhtLoole')
-        parser.add_argument('hazinePooshesh')
-        parser.add_argument('maliatVaragh')
-        parser.add_argument('maliatSakht')
         args = parser.parse_args()
-
+        
         # mysql = "INSERT INTO pipelinesf (tarikh ,zekhamat , metraj , tonaj , tarikhTahvil,typeKalaTahvil ,shomareHavaleAnbar , shomareTaghaza,shomareGhalam ,nerkhTashilBankMarkazi ,hazineAnbar , hazineSodoor, hazineBime , mablagheVaragh , avarezGomrok , hazineSakhteLoole , hazinePooshesh , maliatVaragh, maliatSakht )"
         mysql = "INSERT INTO pipelinesf (" \
                 "tarikh ," \
@@ -113,13 +138,7 @@ class pipeLinesF(Resource):
                 "nerkhTashilBankMarkazi ," \
                 "hazineAnbar , " \
                 "hazineSodoor, " \
-                "hazineBime , " \
-                "mablagheVaragh , " \
-                "avarezGomrok , " \
-                "hazineSakhtLoole , " \
-                "hazinePooshesh ," \
-                "maliatVaragh, " \
-                "maliatSakht ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                "hazineBime ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         values = (args['tarikh'] ,
                   args['zekhamat'],
                   args['metraj'],
@@ -132,20 +151,21 @@ class pipeLinesF(Resource):
                   args['nerkhBank'],
                   args['hazineAnbar'],
                   args['hazineSodoor'],
-                  args['hazineBime'],
-                  args['mablagheVaragh'],
-                  args['avarezGomrok'],
-                  args['hazineSakhtLoole'],
-                  args['hazinePooshesh'],args['maliatVaragh'],args['maliatSakht'],)
+                  args['hazineBime'],)
         db.mycursor.execute(mysql ,values)
         db.mydb.commit()
+        return "saved"
+    
+    def get(self):
+        db.mycursor.execute("SELECT * FROM pipelinesf")
+        ret = db.mycursor.fetchall()
+        return ret
 
-        return args
 
 api.add_resource(gostare,"/gostare")
 api.add_resource(peymankaran,"/peymankaran")
 api.add_resource(pipeLinesF,"/pipeLinesF")
-
+api.add_resource(arazi , "/arazi")
 
 
 app.run(debug=True)
