@@ -1,3 +1,5 @@
+import os
+import werkzeug
 from flask import Flask , jsonify
 from flask_restful import Api, Resource, reqparse
 app = Flask(__name__)
@@ -161,11 +163,42 @@ class pipeLinesF(Resource):
         ret = db.mycursor.fetchall()
         return ret
 
+class pardakht_naftanir(Resource):
+    def get(self):
+        ret = {}
+        db.mycursor.execute("SELECT * FROM pardakht_naftanir WHERE softDelete is NULL ")
+        ready = db.mycursor.fetchall()
+        db.mycursor.execute("SELECT * FROM pardakht_naftanir WHERE softDelete is NOT NULL ")
+        softDeletes = db.mycursor.fetchall()
+        ret['softDeletes'] = softDeletes
+        ret['ready'] = ready
+        return ret
+
+    def post(self):
+        # parser = reqparse.RequestParser()
+        # parser.add_argument("peyvast",type=werkzeug.datastructures.FileStorage)
+        parser = reqparse.RequestParser()
+        parser.add_argument("peyvast",type=werkzeug.datastructures.FileStorage,location = 'files')
+        parser.add_argument("date")
+        parser.add_argument("sharh")
+        parser.add_argument("dollar")
+        parser.add_argument("riyal")
+        parser.add_argument("tozihat")
+        args = parser.parse_args()
+        file = args['peyvast']
+        file.save(os.path.join("C:/Users/hossein/PycharmProjects/gas/files",file.filename))
+        db.mycursor.execute("INSERT INTO pardakht_naftanir ( tarikh ,sharh , dollar , riyal, peyvast_address , tozihat ) VALUES (%s,%s,%s,%s,%s,%s)" ,
+                            (args['date'],args['sharh'] , args['dollar'] , args['riyal'] , file.filename ,args['tozihat'], ))
+        db.mydb.commit()
+
+        return "done"
+
 
 api.add_resource(gostare,"/gostare")
 api.add_resource(peymankaran,"/peymankaran")
 api.add_resource(pipeLinesF,"/pipeLinesF")
 api.add_resource(arazi , "/arazi")
+api.add_resource(pardakht_naftanir , "/pardakht_naftanir")
 
 
 app.run(debug=True)
