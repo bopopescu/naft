@@ -1,0 +1,538 @@
+{
+	"info": {
+		"_postman_id": "4d65672c-37c0-4e40-ac90-708078f881f6",
+		"name": "gas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "gostareha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/gostare",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"gostare"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gostare inputs",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "darsade_bardari",
+							"value": "a",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "tarikh",
+							"value": "18/5/1398",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "mahe_khali",
+							"value": "sa",
+							"type": "text"
+						},
+						{
+							"key": "id_gostare",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/gostare",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"gostare"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete gostare",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "darsade_bardari",
+							"value": "a",
+							"type": "text"
+						},
+						{
+							"key": "tarikh",
+							"value": "18/5/1398",
+							"type": "text"
+						},
+						{
+							"key": "mahe_khali",
+							"value": "sa",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "id_gostare",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/gostare",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"gostare"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "peymankaran get",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id_gostare",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/peymankaran",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"peymankaran"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post peymankaran",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "check_id",
+							"value": "198450",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "5000002131546541",
+							"type": "text"
+						},
+						{
+							"key": "tarikh",
+							"value": "15/7/98",
+							"type": "text"
+						},
+						{
+							"key": "tozih",
+							"value": "nothing",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/peymankaran",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"peymankaran"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete prymankaran",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/peymankaran",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"peymankaran"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pipelines 50 inch",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:5000/pipeLinesF",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"pipeLinesF"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pipeLine 50 inch ",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "hazinePooshesh",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "tarikh",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "zekhamat",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "metraj",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "tonaj",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "tarikhTahvil",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "typeKalaTahvili",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "shomareHavaleAnbar",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "shomareTaghaza",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "shomareGhalam",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "nerkhBank",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "hazineAnbar",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "hazineSodoor",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "hazineBime",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/pipeLinesF",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"pipeLinesF"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "arazi",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/arazi",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"arazi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "arazi",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/arazi",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"arazi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "arazi",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/arazi",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"arazi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pardakht_naftanir",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/pardakht_naftanir",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"pardakht_naftanir"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pardakht_naftanir",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "peyvast",
+							"description": "sa",
+							"type": "file",
+							"src": ""
+						},
+						{
+							"key": "date",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "sharh",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "dollar",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "riyal",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "tozihat",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/pardakht_naftanir",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"pardakht_naftanir"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
