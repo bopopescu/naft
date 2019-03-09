@@ -2,7 +2,9 @@ import os
 import werkzeug
 from flask import Flask , jsonify
 from flask_restful import Api, Resource, reqparse
+from flask_cors import CORS
 app = Flask(__name__)
+cors = CORS(app, resources={r"*": {"origins": "*"}})
 api = Api(app)
 import DB as db
 import mysql.connector
