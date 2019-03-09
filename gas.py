@@ -37,13 +37,15 @@ class gostare(Resource):
             # print(values)
             db.mycursor.execute("INSERT INTO gostare_pishraft(gostare_id , darsad , tarikh) values (%s , %s , %s)", values)
             db.mydb.commit()
+            return True
 
         if args['darsade_bardari'] and args['tarikh'] and args['id_gostare']:
             values = (args['id_gostare'],args['darsade_bardari'] , args['tarikh'] , )
             # print(values)
             db.mycursor.execute("INSERT INTO gostare_pishraft(gostare_id , darsad , tarikh) values (%s , %s , %s)", values)
             db.mydb.commit()
-        return args["mahe_khali"]
+            return True
+        return False
 
     def delete(self):
         parser = reqparse.RequestParser()
