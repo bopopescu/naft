@@ -13,6 +13,13 @@ import mysql.connector
 class gostare(Resource):
 
     def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id_gostare')
+        args = parser.parse_args()
+        if args['id_gostare']:
+            db.mycursor.execute("SELECT * FROM gostare_pishraft WHERE gostare_id =%s ",(args['id_gostare'],))
+            pihraft_with_id = db.mycursor.fetchall()
+            return pihraft_with_id
         db.mycursor.execute("""SELECT * FROM gostare""")
         gostare = db.mycursor.fetchall()
         db.mycursor.execute("""SELECT * FROM gostare_pishraft""")
