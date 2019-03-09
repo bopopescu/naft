@@ -192,6 +192,35 @@ class pardakht_naftanir(Resource):
         db.mydb.commit()
 
         return "done"
+    #TODO: add update and delete
+
+class pardakht_tose_gas(Resource):
+    def get(self):
+        ret = {}
+        db.mycursor.execute("SELECT * FROM pardakht_gas WHERE softDelete is NULL ")
+        ready = db.mycursor.fetchall()
+        db.mycursor.execute("SELECT * FROM pardakht_gas WHERE softDelete is NOT NULL ")
+        softDeletes = db.mycursor.fetchall()
+        ret['softDeletes'] = softDeletes
+        ret['ready'] = ready
+        return ret
+    
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("peyvast",type=werkzeug.datastructures.FileStorage,location = 'files')
+        parser.add_argument("date")
+        parser.add_argument("sharh")
+        parser.add_argument("dollar")
+        parser.add_argument("riyal")
+        parser.add_argument("tozihat")
+        args = parser.parse_args()
+        file = args['peyvast']
+        file.save(os.path.join("C:/Users/hossein/PycharmProjects/gas/files",file.filename))
+        db.mycursor.execute("INSERT INTO pardakht_gas ( tarikh ,sharh , dollar , riyal, peyvast_address , tozihat ) VALUES (%s,%s,%s,%s,%s,%s)" ,
+                            (args['date'],args['sharh'] , args['dollar'] , args['riyal'] , file.filename ,args['tozihat'], ))
+        db.mydb.commit()
+
+
 
 
 api.add_resource(gostare,"/gostare")
