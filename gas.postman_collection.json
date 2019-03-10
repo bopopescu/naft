@@ -435,8 +435,39 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": ""
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "sharh",
+							"value": "w",
+							"type": "text"
+						},
+						{
+							"key": "mablaghe_darkhasti_naftanir",
+							"value": "sad",
+							"type": "text"
+						},
+						{
+							"key": "mablaghe_hoghooghi",
+							"value": "sadqwexz",
+							"type": "text"
+						},
+						{
+							"key": "tarikh_hoghooghi",
+							"value": "846513",
+							"type": "text"
+						},
+						{
+							"key": "mablaghe_taeed_mali",
+							"value": "okas;,",
+							"type": "text"
+						},
+						{
+							"key": "tarikh_taeed_omoor_mali",
+							"value": "pwol",
+							"type": "text"
+						}
+					]
 				},
 				"url": {
 					"raw": "http://127.0.0.1:5000/arazi",
@@ -522,35 +553,34 @@
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "peyvast",
-							"description": "sa",
-							"type": "file",
-							"src": ""
-						},
-						{
 							"key": "date",
-							"value": "",
+							"value": "date",
 							"type": "text"
 						},
 						{
 							"key": "sharh",
-							"value": "",
+							"value": "sharh",
 							"type": "text"
 						},
 						{
 							"key": "dollar",
-							"value": "",
+							"value": "dollar",
 							"type": "text"
 						},
 						{
 							"key": "riyal",
-							"value": "",
+							"value": "riyal",
 							"type": "text"
 						},
 						{
 							"key": "tozihat",
-							"value": "",
+							"value": "tozihat",
 							"type": "text"
+						},
+						{
+							"key": "peyvast",
+							"type": "file",
+							"src": ""
 						}
 					]
 				},
@@ -664,6 +694,230 @@
 					"port": "5000",
 					"path": [
 						"comperosor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "comperosor",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/comperosor",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"comperosor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pardakht_shode_tavasote_naftanir_TM",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/pardakht_shode_tavasote_naftanir_TM",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"pardakht_shode_tavasote_naftanir_TM"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pardakht_shode_tavasote_naftanir_TM",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tarikh",
+							"value": "tar",
+							"type": "text"
+						},
+						{
+							"key": "mablagh",
+							"value": "mab",
+							"type": "text"
+						},
+						{
+							"key": "pardakht_shod_babate",
+							"value": "pard",
+							"type": "text"
+						},
+						{
+							"key": "shomare_sanad",
+							"value": "shom",
+							"type": "text"
+						},
+						{
+							"key": "tozihat",
+							"value": "tozi",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/pardakht_shode_tavasote_naftanir_TM",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"pardakht_shode_tavasote_naftanir_TM"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pardakht_shode_tavasote_naftanir_TM",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tarikh",
+							"value": "tar",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/pardakht_shode_tavasote_naftanir_TM",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"pardakht_shode_tavasote_naftanir_TM"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pipeline_30_inch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "estelam1",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "estelam2",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "estelam3",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/pipeline_30",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"pipeline_30"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pipeline_30_inch",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:5000/pipeline_30",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"pipeline_30"
 					]
 				}
 			},
