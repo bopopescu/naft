@@ -81,6 +81,43 @@
 			"response": []
 		},
 		{
+			"name": "gostare",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "darsad",
+							"value": "20",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/gostare",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"gostare"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "delete gostare",
 			"request": {
 				"method": "DELETE",
@@ -529,6 +566,104 @@
 					"port": "5000",
 					"path": [
 						"pardakht_naftanir"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "comperosor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/comperosor",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"comperosor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "comperosor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "name",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "type",
+							"type": "text"
+						},
+						{
+							"key": "dollar",
+							"value": "dollar",
+							"type": "text"
+						},
+						{
+							"key": "euro",
+							"value": "euro",
+							"type": "text"
+						},
+						{
+							"key": "nerkh_dollar",
+							"value": "naerkh_dollar",
+							"type": "text"
+						},
+						{
+							"key": "nerkh_euro",
+							"value": "nerkh_euro",
+							"type": "text"
+						},
+						{
+							"key": "tarikh_shoroo_tahvil",
+							"value": "tarikh_shoroo_tahvil",
+							"type": "text"
+						},
+						{
+							"key": "tarikh_pardakht",
+							"value": "tarikh_pardakht",
+							"type": "text"
+						},
+						{
+							"key": "tozihat",
+							"value": "توسش",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/comperosor",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"comperosor"
 					]
 				}
 			},

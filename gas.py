@@ -39,12 +39,12 @@ class gostare(Resource):
         parser.add_argument('mahe_khali')
         parser.add_argument('id_gostare')
         args = parser.parse_args()
-        if args['mahe_khali'] and args['id_gostare']:
-            values =  ( int(args['id_gostare']) ,0 ,args['mahe_khali'] ,)
-            # print(values)
-            db.mycursor.execute("INSERT INTO gostare_pishraft(gostare_id , darsad , tarikh) values (%s , %s , %s)", values)
-            db.mydb.commit()
-            return True
+        #if args['mahe_khali'] and args['id_gostare']:
+            #values =  ( int(args['id_gostare']) ,0 ,args['mahe_khali'] ,)
+            ## print(values)
+            #db.mycursor.execute("INSERT INTO gostare_pishraft(gostare_id , darsad , tarikh) values (%s , %s , %s)", values)
+            #db.mydb.commit()
+            #return True
 
         if args['darsade_bardari'] and args['tarikh'] and args['id_gostare']:
             values = (args['id_gostare'],args['darsade_bardari'] , args['tarikh'] , )
@@ -69,7 +69,15 @@ class gostare(Resource):
             db.mydb.commit()
             return "pishraft deleted"
 
-
+    def put(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id')
+        parser.add_argument('darsad')
+        args = parser.parse_args()
+        db.mycursor.execute("UPDATE gostare_pishraft SET darsad = %s WHERE id = %s " , (args['darsad'], args['id'],))
+        db.mydb.commit()
+        return "salam"
+        
 
 class peymankaran(Resource):
     def get(self):
@@ -232,9 +240,31 @@ class pardakht_tose_gas(Resource):
         db.mydb.commit()
 
 
-
-
+class comper(Resource):
+    def get(self):
+        db.mycursor.execute("SELECT * FROM comper")
+        ret = db.mycursor.fetchall()
+        return ret
+    def post(self):
+        parser = reqparse.RequestParser()
+        #//TODO:: have to add peyvast file 
+        parser.add_argument("name")
+        parser.add_argument("type")
+        parser.add_argument("dollar")
+        parser.add_argument("euro")
+        parser.add_argument("nerkh_dollar")
+        parser.add_argument("nerkh_euro")
+        parser.add_argument("tarikh_shoroo_tahvil")
+        parser.add_argument("tarikh_pardakht")
+        parser.add_argument("tozihat")
+        args = parser.parse_args()
+        db.mycursor.execute('INSERT INTO comper (name , type , dollar , euro , nerkh_dollar , nerkh_euro , tarikh_shoroo_tahvil , tarikh_pardakht , tozihat) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)',
+                            (args['name'],args['type'],args['dollar'],args['euro'],args['nerkh_dollar'],args['nerkh_euro'],args['tarikh_shoroo_tahvil'],args['tarikh_pardakht'],args['tozihat'],))
+        db.mydb.commit()
+        return True
+        
 api.add_resource(gostare,"/gostare")
+api.add_resource(comper,"/comperosor")
 api.add_resource(peymankaran,"/peymankaran")
 api.add_resource(pipeLinesF,"/pipeLinesF")
 api.add_resource(arazi , "/arazi")
