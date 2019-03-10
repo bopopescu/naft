@@ -109,15 +109,19 @@ class arazi(Resource):
         return ret
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument("type")
-        parser.add_argument("date")
-        parser.add_argument("money")
+        parser.add_argument("sharh")
+        parser.add_argument("mablaghe_darkhasti_naftanir")
+        parser.add_argument("mablaghe_hoghooghi")
+        parser.add_argument("tarikh_hoghooghi")
+        parser.add_argument("mablaghe_taeed_mali")
+        parser.add_argument("tarikh_taeed_omoor_mali")
+        
         args = parser.parse_args()
-        sql = "INSERT INTO arazi (type , date , money) VALUES (%s , %s , %s)"
-        values = (args['type'] , args['date'] , args['money'] ,)
+        sql = "INSERT INTO arazi (sharh , mablaghe_darkhasti_naftanir , mablaghe_hoghooghi,tarikh_hoghooghi ,mablaghe_taeed_mali ,tarikh_taeed_omoor_mali) VALUES (%s , %s , %s, %s,%s,%s)"
+        values = (args['sharh'] , args['mablaghe_darkhasti_naftanir'] , args['mablaghe_hoghooghi'] ,args['tarikh_hoghooghi'],args['mablaghe_taeed_mali'],args['tarikh_taeed_omoor_mali'],)
         db.mycursor.execute(sql , values)
         db.mydb.commit()
-        return "saved"
+        return True
     def delete(self):
         parser = reqparse.RequestParser()
         parser.add_argument("id")
@@ -205,13 +209,16 @@ class pardakht_naftanir(Resource):
         parser.add_argument("tozihat")
         args = parser.parse_args()
         file = args['peyvast']
-        file.save(os.path.join("C:/Users/hossein/PycharmProjects/gas/files",file.filename))
+        dirname = os.path.dirname(__file__)
+        file.save(os.path.join(dirname,'files',file.filename))
         db.mycursor.execute("INSERT INTO pardakht_naftanir ( tarikh ,sharh , dollar , riyal, peyvast_address , tozihat ) VALUES (%s,%s,%s,%s,%s,%s)" ,
                             (args['date'],args['sharh'] , args['dollar'] , args['riyal'] , file.filename ,args['tozihat'], ))
         db.mydb.commit()
 
-        return "done"
+        return True
     #TODO: add update and delete
+    #def delete(self):
+        #parser = 
 
 class pardakht_tose_gas(Resource):
     def get(self):
@@ -234,7 +241,8 @@ class pardakht_tose_gas(Resource):
         parser.add_argument("tozihat")
         args = parser.parse_args()
         file = args['peyvast']
-        file.save(os.path.join("C:/Users/hossein/PycharmProjects/gas/files",file.filename))
+        dirname = os.path.dirname(__file__)
+        file.save(os.path.join(dirname,'files',file.filename))
         db.mycursor.execute("INSERT INTO pardakht_gas ( tarikh ,sharh , dollar , riyal, peyvast_address , tozihat ) VALUES (%s,%s,%s,%s,%s,%s)" ,
                             (args['date'],args['sharh'] , args['dollar'] , args['riyal'] , file.filename ,args['tozihat'], ))
         db.mydb.commit()
@@ -262,13 +270,70 @@ class comper(Resource):
                             (args['name'],args['type'],args['dollar'],args['euro'],args['nerkh_dollar'],args['nerkh_euro'],args['tarikh_shoroo_tahvil'],args['tarikh_pardakht'],args['tozihat'],))
         db.mydb.commit()
         return True
-        
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("id")
+        args = parser.parse_args()
+        db.mycursor.execute('DELETE FROM comper WHERE id = %s' , (args['id'],))
+        db.mydb.commit()
+        return True
+
+
+#// taraz mali
+class pardakht_shode_tavasote_naftanir(Resource):
+    def get(self):
+        db.mycursor.execute("SELECT * FROM pardakht_shode_tavasote_naftanir_tm ")
+        ret = db.mycursor.fetchall()
+        return ret
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("tarikh")
+        parser.add_argument("mablagh")
+        parser.add_argument("pardakht_shod_babate")
+        parser.add_argument("shomare_sanad")
+        parser.add_argument("tozihat")
+        args = parser.parse_args()
+        db.mycursor.execute("INSERT INTO pardakht_shode_tavasote_naftanir_tm (tarikh , mablagh , pardakht_shod_babate,shomare_sanad , tozihat) VALUES (%s,%s,%s,%s,%s)",
+                            (args['tarikh'] , args['mablagh'],args['pardakht_shod_babate'],args['shomare_sanad'],args['tozihat'],))
+        db.mydb.commit()
+        return True
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("id")
+        parser.add_argument("tarikh")
+        args = parser.parse_args()
+        if args['id'] and args['tarikh']:
+            db.mycursor.execute("UPDATE pardakht_shode_tavasote_naftanir_tm SET softdelete = %s WHERE id = %s" , (args['id'] , args['tarikh'],))
+            db.mydb.commit()
+            return True
+        if args['id']:
+            db.mycursor.execute("DELETE FROM pardakht_shode_tavasote_naftanir_tm where id = %s" ,(args['id'],))
+            db.mydb.commit()
+            return True
+        return False
+
+class pipeline_30(Resource):
+    def get(self):
+        db.mycursor.execute("select * from pipeline_30_inch ")
+        ret = db.mycursor.fetchall()
+        return ret
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('estelam1')
+        parser.add_argument('estelam2')
+        parser.add_argument('estelam3')
+        args = parser.parse_args()
+        db.mycursor.execute("INSERT INTO pipeline_30_inch (estelam_1 , estelam_2, estelam_3) VALUES (%s , %s ,%s )",
+                            (args['estelam1'],args['estelam2'],args['estelam3'],))
+        db.mydb.commit()
+        return True
 api.add_resource(gostare,"/gostare")
 api.add_resource(comper,"/comperosor")
 api.add_resource(peymankaran,"/peymankaran")
 api.add_resource(pipeLinesF,"/pipeLinesF")
 api.add_resource(arazi , "/arazi")
 api.add_resource(pardakht_naftanir , "/pardakht_naftanir")
-
+api.add_resource(pardakht_shode_tavasote_naftanir , "/pardakht_shode_tavasote_naftanir_TM")
+api.add_resource(pipeline_30 , "/pipeline_30")
 
 app.run(debug=True)
