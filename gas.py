@@ -312,7 +312,7 @@ class pardakht_shode_tavasote_naftanir(Resource):
             return True
         return False
 
-class pipeline_30(Resource):
+class kala_30(Resource):
     def get(self):
         db.mycursor.execute("select * from pipeline_30_inch ")
         ret = db.mycursor.fetchall()
@@ -334,6 +334,6 @@ api.add_resource(pipeLinesF,"/pipeLinesF")
 api.add_resource(arazi , "/arazi")
 api.add_resource(pardakht_naftanir , "/pardakht_naftanir")
 api.add_resource(pardakht_shode_tavasote_naftanir , "/pardakht_shode_tavasote_naftanir_TM")
-api.add_resource(pipeline_30 , "/pipeline_30")
+api.add_resource(kala_30 , "/kala_30")
 
 app.run(debug=True)
