@@ -108,6 +108,7 @@ class arazi(Resource):
         ret = db.mycursor.fetchall()
         return ret
     def post(self):
+        #//TODO: have to add peyvast FIles
         parser = reqparse.RequestParser()
         parser.add_argument("sharh")
         parser.add_argument("mablaghe_darkhasti_naftanir")
@@ -183,8 +184,22 @@ class pipeLinesF(Resource):
     
     def get(self):
         db.mycursor.execute("SELECT * FROM pipelinesf")
-        ret = db.mycursor.fetchall()
-        return ret
+        data = db.mycursor.fetchall()
+        for record in data:
+            mablaghe_varagh = record[4]*1033
+            avarez_gomrok = mablaghe_varagh * record[10] * 4/100
+            maliyat_bar_arzesh_afzoode_varagh = avarez_gomrok * 1/10
+            hazine_sakht_loole = 0
+            if record[6] == "varagh" :
+                hazine_sakht_loole = 0
+            else :
+                hazine_sakht_loole = record[4] * 125
+            hazine_pooshesh = 0
+            if record[6] == "pooshesh":
+                hazine_pooshesh = record[4]*95
+            maliyat_bar_arzesh_afzoode_sakht_pooshesh = (hazine_sakht_loole + hazine_pooshesh) *  record[10] * 10/100
+            motalebate_riyali
+        # return ret
 
 class pardakht_naftanir(Resource):
     def get(self):
@@ -314,8 +329,17 @@ class pardakht_shode_tavasote_naftanir(Resource):
 
 class kala_30(Resource):
     def get(self):
-        db.mycursor.execute("select * from pipeline_30_inch ")
-        ret = db.mycursor.fetchall()
+        db.mycursor.execute("select * from kala_30_inch ")
+        data = db.mycursor.fetchall()
+        ret = {}
+        # ret['miyangin']=(int(data[0][1])+int(data[0][2])+int(data[0][3])) / 3
+        # ret['shandool']= "shandool"
+        miyangin = {}
+        # return data
+        for record in data:
+            ret['database_record'+str(record[0])] = int(record[1]),int(record[2]),int(record[3])
+            ret['miyangin__'+str(record[0])] = (int(record[1]) + int(record[2]) + int(record[3])) / 3
+            ret['maliayt__'+str(record[0])] = ((int(record[1]) + int(record[2]) + int(record[3])) / 3) * 1/10
         return ret
     def post(self):
         parser = reqparse.RequestParser()
