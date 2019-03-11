@@ -364,7 +364,7 @@ class kala_30(Resource):
         parser.add_argument('estelam2')
         parser.add_argument('estelam3')
         args = parser.parse_args()
-        db.mycursor.execute("INSERT INTO pipeline_30_inch (estelam_1 , estelam_2, estelam_3) VALUES (%s , %s ,%s )",
+        db.mycursor.execute("INSERT INTO kala_30_inch (estelam_1 , estelam_2, estelam_3) VALUES (%s , %s ,%s )",
                             (args['estelam1'],args['estelam2'],args['estelam3'],))
         db.mydb.commit()
         return True
