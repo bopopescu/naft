@@ -8,7 +8,7 @@ cors = CORS(app, resources={r"*": {"origins": "*"}})
 api = Api(app)
 import DB as db
 import mysql.connector
-
+import json
 
 class gostare(Resource):
 
@@ -116,9 +116,10 @@ class arazi(Resource):
         parser.add_argument("tarikh_hoghooghi")
         parser.add_argument("mablaghe_taeed_mali")
         parser.add_argument("tarikh_taeed_omoor_mali")
-        
+        parser.add_argument("stateDate")
+
         args = parser.parse_args()
-        sql = "INSERT INTO arazi (sharh , mablaghe_darkhasti_naftanir , mablaghe_hoghooghi,tarikh_hoghooghi ,mablaghe_taeed_mali ,tarikh_taeed_omoor_mali) VALUES (%s , %s , %s, %s,%s,%s)"
+        sql = "INSERT INTO arazi (sharh , mablaghe_darkhasti_naftanir , mablaghe_hoghooghi,tarikh_hoghooghi ,mablaghe_taeed_mali ,tarikh_taeed_omoor_mali ,tarikh) VALUES (%s , %s , %s, %s,%s,%s)"
         values = (args['sharh'] , args['mablaghe_darkhasti_naftanir'] , args['mablaghe_hoghooghi'] ,args['tarikh_hoghooghi'],args['mablaghe_taeed_mali'],args['tarikh_taeed_omoor_mali'],)
         db.mycursor.execute(sql , values)
         db.mydb.commit()
@@ -185,21 +186,33 @@ class pipeLinesF(Resource):
     def get(self):
         db.mycursor.execute("SELECT * FROM pipelinesf")
         data = db.mycursor.fetchall()
+        ret = {}
         for record in data:
-            mablaghe_varagh = record[4]*1033
-            avarez_gomrok = mablaghe_varagh * record[10] * 4/100
+            mablaghe_varagh = int(record[4])*1033
+            avarez_gomrok = mablaghe_varagh * int(record[10]) * 4/100
             maliyat_bar_arzesh_afzoode_varagh = avarez_gomrok * 1/10
             hazine_sakht_loole = 0
             if record[6] == "varagh" :
                 hazine_sakht_loole = 0
             else :
-                hazine_sakht_loole = record[4] * 125
+                hazine_sakht_loole = int(record[4]) * 125
             hazine_pooshesh = 0
             if record[6] == "pooshesh":
-                hazine_pooshesh = record[4]*95
-            maliyat_bar_arzesh_afzoode_sakht_pooshesh = (hazine_sakht_loole + hazine_pooshesh) *  record[10] * 10/100
-            motalebate_riyali
-        # return ret
+                hazine_pooshesh = int(record[4])*95
+            maliyat_bar_arzesh_afzoode_sakht_pooshesh = (hazine_sakht_loole + hazine_pooshesh) *  int(record[10]) * 10/100
+            motalebate_riyali = int(record[11]) + int(record[12]) + avarez_gomrok + maliyat_bar_arzesh_afzoode_varagh + maliyat_bar_arzesh_afzoode_sakht_pooshesh
+            motalebat_arzi = hazine_pooshesh + hazine_sakht_loole
+
+            ret[record[0]] ={'dataBase' : record ,
+                             'mablaghe_varagh':mablaghe_varagh,
+                             'avarez_gomrok':avarez_gomrok,
+                             'maliyat_bar_arzesh_varagh':maliyat_bar_arzesh_afzoode_varagh,
+                             'hazine_sakhte_loole':hazine_sakht_loole,
+                             'hazine_pooshesh':hazine_pooshesh,
+                             'maliyat_bara_arzesh_afzoode_sakhte_pooshesh':maliyat_bar_arzesh_afzoode_sakht_pooshesh,
+                             'motalebat_riyali':motalebate_riyali,
+                             'motalebat_arzi':motalebat_arzi}
+        return ret
 
 class pardakht_naftanir(Resource):
     def get(self):
