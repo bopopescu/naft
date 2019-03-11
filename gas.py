@@ -90,10 +90,12 @@ class peymankaran(Resource):
         parser.add_argument('money')
         parser.add_argument('tarikh')
         parser.add_argument('tozih')
+        parser.add_argument('name')
+
         args = parser.parse_args()
-        db.mycursor.execute("INSERT INTO peymankaran (check_id , check_money , tarikh , tozihat) VALUES (%s , %s ,%s , %s)" , (args['check_id'],args['money'],args['tarikh'] , args['tozih'] , ))
+        db.mycursor.execute("INSERT INTO peymankaran (peymankar_name,check_id , check_money , tarikh , tozihat) VALUES (%s,%s , %s ,%s , %s)" , (args['name'],args['check_id'],args['money'],args['tarikh'] , args['tozih'] , ))
         db.mydb.commit()
-        return "saved"
+        return True
     def delete(self):
         parser = reqparse.RequestParser()
         parser.add_argument('id')
@@ -119,8 +121,8 @@ class arazi(Resource):
         parser.add_argument("stateDate")
 
         args = parser.parse_args()
-        sql = "INSERT INTO arazi (sharh , mablaghe_darkhasti_naftanir , mablaghe_hoghooghi,tarikh_hoghooghi ,mablaghe_taeed_mali ,tarikh_taeed_omoor_mali ,tarikh) VALUES (%s , %s , %s, %s,%s,%s)"
-        values = (args['sharh'] , args['mablaghe_darkhasti_naftanir'] , args['mablaghe_hoghooghi'] ,args['tarikh_hoghooghi'],args['mablaghe_taeed_mali'],args['tarikh_taeed_omoor_mali'],)
+        sql = "INSERT INTO arazi (sharh , mablaghe_darkhasti_naftanir , mablaghe_hoghooghi,tarikh_hoghooghi ,mablaghe_taeed_mali ,tarikh_taeed_omoor_mali ,tarikh) VALUES (%s , %s , %s, %s,%s,%s,%s)"
+        values = (args['sharh'] , args['mablaghe_darkhasti_naftanir'] , args['mablaghe_hoghooghi'] ,args['tarikh_hoghooghi'],args['mablaghe_taeed_mali'],args['tarikh_taeed_omoor_mali'],args['stateDate'],)
         db.mycursor.execute(sql , values)
         db.mydb.commit()
         return True
@@ -164,9 +166,8 @@ class pipeLinesF(Resource):
                 "shomareGhalam ," \
                 "nerkhTashilBankMarkazi ," \
                 "hazineAnbar , " \
-                "hazineSodoor, " \
-                "hazineBime ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        values = (args['tarikh'] ,
+                "hazineSodoorBime,) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        values = (
                   args['zekhamat'],
                   args['metraj'],
                   args['tonaj'],
@@ -177,8 +178,7 @@ class pipeLinesF(Resource):
                   args['shomareGhalam'],
                   args['nerkhBank'],
                   args['hazineAnbar'],
-                  args['hazineSodoor'],
-                  args['hazineBime'],)
+                  args['hazineSodoor'],)
         db.mycursor.execute(mysql ,values)
         db.mydb.commit()
         return "saved"
@@ -279,7 +279,11 @@ class pardakht_tose_gas(Resource):
 class comper(Resource):
     def get(self):
         db.mycursor.execute("SELECT * FROM comper")
-        ret = db.mycursor.fetchall()
+        data = db.mycursor.fetchall()
+        ret = {}
+        for record in data:
+            ret[record[0]] = {'dataBase': record ,
+                              'natayej_motalebat': (int(record[4]) * (int(record[5])/int(record[6])))}
         return ret
     def post(self):
         parser = reqparse.RequestParser()
