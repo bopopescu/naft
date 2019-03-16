@@ -385,8 +385,9 @@ class sadid_mahshahr(Resource):
         parse = reqparse.RequestParser()
         parse.add_argument("money")
         parse.add_argument("tik")
+        parse.add_argument("tarikh")
         args = parse.parse_args()
-        db.mycursor.execute("INSERT INTO sadid_mahshahr(money , tik)  VALUES(%s , %s) " , (args['money'] , args['tik'],))
+        db.mycursor.execute("INSERT INTO sadid_mahshahr(money , tik)  VALUES(%s , %s) " , (args['money'] , args['tik'],args['tarikh']))
         return True
 class jadval56(Resource):
     def get(self):
@@ -425,16 +426,32 @@ class jadvalArazi(Resource):
 
 class looleSaziSadid(Resource):
     def get(self):
-        # sadid = sadid_mahshahr()
-        # sadid = sadid.get()
-        # ret = {}
+        sadid = sadid_mahshahr()
+        sadid = sadid.get()
+        ret = {}
         # ret['pardakht_shode_tavasote_naftanir'] = 0
         # ret['taahod_be_pardakht'] = int(sadid[0][0]) / 3
         # ret['pardakht_nashode_dore_ghabl'] = 0
         # ret['jarime_dore_ghable'] = 0
         # ret['kole_motalebat'] = int(ret['jarime_dore_ghable']) + int(ret['pardakht_nashode_dore_ghabl'])
-        return  "todo : havent done yet"
-
+        # return str(sadid[0][2])
+        # return ret
+        for i in range(3):
+            ret[i] = {}
+            ret[i]['tarikh'] = sadid[0][2]
+            ret[i]['naftanir'] = 0
+            ret[i]['taahod'] = int(sadid[0][0])/3
+            if i == 0:
+                ret[i]['dore_ghabl'] = 0
+                ret[i]['jarime'] = 0
+            else :
+                ret[i]['dore_ghabl'] = ret[i-1]['kol']
+                ret[i]['jarime'] = 1
+            ret[i]['kol'] = ret[i]['jarime'] + int(ret[i]['dore_ghabl'] ) + int(sadid[0][0])/3
+        return  ret
+class jadvalPeymankaran(Resource):
+    def get(self):
+        return "bayad soal beshe hanooz kamel nist"
 api.add_resource(gostare,"/gostare")
 api.add_resource(comper,"/comperosor")
 api.add_resource(peymankaran,"/peymankaran")
@@ -447,6 +464,7 @@ api.add_resource(sadid_mahshahr , "/sadid_mahshahr")
 api.add_resource(jadval56 , "/jadval56")
 api.add_resource(jadvalArazi , "/jadvalArazi")
 api.add_resource(looleSaziSadid , "/jadval_loole_sazi_sadid")
+api.add_resource(jadvalPeymankaran , "/jadval_peymankaran")
 import locale , jdatetime
 from datetime import datetime , date
 def jarime(dore_ghable , nerkh_jarime , tarikh_khod , tarikh_ghabl):

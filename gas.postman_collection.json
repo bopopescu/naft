@@ -227,6 +227,11 @@
 							"key": "tozih",
 							"value": "nothing",
 							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "shandool",
+							"type": "text"
 						}
 					]
 				},
@@ -320,11 +325,6 @@
 							"disabled": true
 						},
 						{
-							"key": "tarikh",
-							"value": "1",
-							"type": "text"
-						},
-						{
 							"key": "zekhamat",
 							"value": "1",
 							"type": "text"
@@ -346,7 +346,8 @@
 						},
 						{
 							"key": "typeKalaTahvili",
-							"value": "1",
+							"value": "لوله",
+							"description": "فقط این باید حرف باشه . بقیه اگر عدد نباشه ارور میده",
 							"type": "text"
 						},
 						{
@@ -375,12 +376,7 @@
 							"type": "text"
 						},
 						{
-							"key": "hazineSodoor",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "hazineBime",
+							"key": "hazineSodoorBime",
 							"value": "1",
 							"type": "text"
 						}
@@ -398,32 +394,6 @@
 					"port": "5000",
 					"path": [
 						"pipeLinesF"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "arazi",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://127.0.0.1:5000/arazi",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "5000",
-					"path": [
-						"arazi"
 					]
 				}
 			},
@@ -465,6 +435,11 @@
 						{
 							"key": "tarikh_taeed_omoor_mali",
 							"value": "pwol",
+							"type": "text"
+						},
+						{
+							"key": "stateDate",
+							"value": "20/15/46",
 							"type": "text"
 						}
 					]
@@ -856,7 +831,33 @@
 			"response": []
 		},
 		{
-			"name": "pipeline_30_inch",
+			"name": "kala_30",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:5000/kala_30",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"kala_30"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "kala_30",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -881,7 +882,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/pipeline_30",
+					"raw": "http://127.0.0.1:5000/kala_30",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -891,23 +892,23 @@
 					],
 					"port": "5000",
 					"path": [
-						"pipeline_30"
+						"kala_30"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "pipeline_30_inch",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "jadval56",
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/pipeline_30",
+					"raw": "http://127.0.0.1:5000/jadval56",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -917,7 +918,235 @@
 					],
 					"port": "5000",
 					"path": [
-						"pipeline_30"
+						"jadval56"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sadid_mahshahr",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "money",
+							"value": "50000",
+							"type": "text"
+						},
+						{
+							"key": "tik",
+							"value": "yes",
+							"type": "text"
+						},
+						{
+							"key": "tarikh",
+							"value": "20/11/1395",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/sadid_mahshahr",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sadid_mahshahr"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sadid_mahshahr",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "money",
+							"value": "50000",
+							"type": "text"
+						},
+						{
+							"key": "tik",
+							"value": "yes",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/sadid_mahshahr",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sadid_mahshahr"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jadval_loole_sazi_sadid",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "money",
+							"value": "50000",
+							"type": "text"
+						},
+						{
+							"key": "tik",
+							"value": "yes",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/jadval_loole_sazi_sadid",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"jadval_loole_sazi_sadid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jadvalArazi",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/jadvalArazi",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"jadvalArazi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jadval_loole_sazi_sadid",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "money",
+							"value": "50000",
+							"type": "text"
+						},
+						{
+							"key": "tik",
+							"value": "yes",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/jadval_loole_sazi_sadid",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"jadval_loole_sazi_sadid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jadval_peymankaran",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "money",
+							"value": "50000",
+							"type": "text"
+						},
+						{
+							"key": "tik",
+							"value": "yes",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/jadval_peymankaran",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"jadval_peymankaran"
 					]
 				}
 			},
