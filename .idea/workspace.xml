@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4f2014d-a8d8-48a2-8c79-6ce61c795a45" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/gas.py" beforeDir="false" afterPath="$PROJECT_DIR$/gas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/createDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/createDatabase.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,7 +29,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gas.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="263">
@@ -56,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/createDatabase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="23" column="441" selection-start-line="23" selection-start-column="441" selection-end-line="23" selection-end-column="441" />
+            <state relative-caret-position="485">
+              <caret line="30" column="47" lean-forward="true" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -92,8 +92,8 @@
         <option value="$PROJECT_DIR$/secrets.py" />
         <option value="$PROJECT_DIR$/DB.py" />
         <option value="$PROJECT_DIR$/dropDB.py" />
-        <option value="$PROJECT_DIR$/createDatabase.py" />
         <option value="$PROJECT_DIR$/gas.py" />
+        <option value="$PROJECT_DIR$/createDatabase.py" />
       </list>
     </option>
   </component>
@@ -182,12 +182,12 @@
       <workItem from="1551346200137" duration="83000" />
       <workItem from="1552321917701" duration="4791000" />
       <workItem from="1552816072238" duration="607000" />
-      <workItem from="1552817734216" duration="7969000" />
+      <workItem from="1552817734216" duration="8047000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13450000" />
+    <option name="totallyTimeSpent" value="13528000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -268,6 +268,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/gas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="402" column="8" selection-start-line="402" selection-start-column="8" selection-end-line="402" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/DB.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
@@ -277,15 +284,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/createDatabase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="23" column="441" selection-start-line="23" selection-start-column="441" selection-end-line="23" selection-end-column="441" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="402" column="8" selection-start-line="402" selection-start-column="8" selection-end-line="402" selection-end-column="8" />
+        <state relative-caret-position="485">
+          <caret line="30" column="47" lean-forward="true" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
         </state>
       </provider>
     </entry>
