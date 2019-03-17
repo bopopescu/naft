@@ -158,7 +158,7 @@ class pipeLinesF(Resource):
         parser.add_argument('hazineAnbar')
         parser.add_argument('hazineSodoorBime')
         parser.add_argument('hazineBime')
-        parser.add_argument('36Inch')
+        parser.add_argument('Inch36')
         parser.add_argument('tarikh')
         args = parser.parse_args()
         
@@ -187,16 +187,16 @@ class pipeLinesF(Resource):
                   args['nerkhBank'],
                   args['hazineAnbar'],
                   args['hazineSodoorBime'],
-                  args['36Inch'],args['tarikh'])
+                  args['Inch36'],args['tarikh'])
         db.mycursor.execute(mysql ,values)
         db.mydb.commit()
         return True
     
     def get(self):
         parser = reqparse.RequestParser()
-        parser.add_argument("36_inch")
+        parser.add_argument("inch36")
         args = parser.parse_args()
-        if args['36_inch']:
+        if args['inch36']:
             db.mycursor.execute("SELECT * FROM pipelinesf WHERE se IS NOT NULL ")
         else:
             db.mycursor.execute("SELECT * FROM pipelinesf WHERE se IS NULL")
