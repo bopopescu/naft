@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4f2014d-a8d8-48a2-8c79-6ce61c795a45" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/createDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/createDatabase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gas.py" beforeDir="false" afterPath="$PROJECT_DIR$/gas.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="197" column="19" selection-start-line="197" selection-start-column="19" selection-end-line="197" selection-end-column="19" />
+            <state relative-caret-position="-569">
+              <caret line="192" column="19" selection-start-line="192" selection-start-column="19" selection-end-line="192" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -56,7 +57,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/createDatabase.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="366">
@@ -92,8 +93,8 @@
         <option value="$PROJECT_DIR$/secrets.py" />
         <option value="$PROJECT_DIR$/DB.py" />
         <option value="$PROJECT_DIR$/dropDB.py" />
-        <option value="$PROJECT_DIR$/gas.py" />
         <option value="$PROJECT_DIR$/createDatabase.py" />
+        <option value="$PROJECT_DIR$/gas.py" />
       </list>
     </option>
   </component>
@@ -182,12 +183,12 @@
       <workItem from="1551346200137" duration="83000" />
       <workItem from="1552321917701" duration="4791000" />
       <workItem from="1552816072238" duration="607000" />
-      <workItem from="1552817734216" duration="5008000" />
+      <workItem from="1552817734216" duration="5707000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10489000" />
+    <option name="totallyTimeSpent" value="11188000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -268,13 +269,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="197" column="19" selection-start-line="197" selection-start-column="19" selection-end-line="197" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DB.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
@@ -286,6 +280,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="366">
           <caret line="23" column="441" selection-start-line="23" selection-start-column="441" selection-end-line="23" selection-end-column="441" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-569">
+          <caret line="192" column="19" selection-start-line="192" selection-start-column="19" selection-end-line="192" selection-end-column="19" />
         </state>
       </provider>
     </entry>

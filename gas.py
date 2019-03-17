@@ -190,7 +190,7 @@ class pipeLinesF(Resource):
                   args['36Inch'],args['tarikh'])
         db.mycursor.execute(mysql ,values)
         db.mydb.commit()
-        return "saved"
+        return True
     
     def get(self):
         parser = reqparse.RequestParser()
