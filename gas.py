@@ -303,9 +303,18 @@ class comper(Resource):
         parser.add_argument("tarikh_shoroo_tahvil")
         parser.add_argument("tarikh_pardakht")
         parser.add_argument("tozihat")
+        parser.add_argument("peyvast",type=werkzeug.datastructures.FileStorage,location = 'files')
         args = parser.parse_args()
-        db.mycursor.execute('INSERT INTO comper (name , type , dollar , euro , nerkh_dollar , nerkh_euro , tarikh_shoroo_tahvil , tarikh_pardakht , tozihat) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)',
-                            (args['name'],args['type'],args['dollar'],args['euro'],args['nerkh_dollar'],args['nerkh_euro'],args['tarikh_shoroo_tahvil'],args['tarikh_pardakht'],args['tozihat'],))
+        file = args['peyvast']
+        # return args
+        if file:
+            dirname = os.path.dirname(__file__)
+            file.save(os.path.join(dirname, 'files', file.filename))
+            fileName = file.filename
+        else:
+            fileName = None
+        db.mycursor.execute('INSERT INTO comper (name , type , dollar , euro , nerkh_dollar , nerkh_euro , tarikh_shoroo_tahvil , tarikh_pardakht , tozihat,peyvast) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
+                            (args['name'],args['type'],args['dollar'],args['euro'],args['nerkh_dollar'],args['nerkh_euro'],args['tarikh_shoroo_tahvil'],args['tarikh_pardakht'],args['tozihat'],fileName))
         db.mydb.commit()
         return True
     def delete(self):

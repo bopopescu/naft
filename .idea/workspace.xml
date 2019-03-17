@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4f2014d-a8d8-48a2-8c79-6ce61c795a45" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/createDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/createDatabase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/files/Lenna_(test_image).png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/gas.py" beforeDir="false" afterPath="$PROJECT_DIR$/gas.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="131" column="211" selection-start-line="131" selection-start-column="211" selection-end-line="131" selection-end-column="211" />
+            <state relative-caret-position="433">
+              <caret line="314" selection-start-line="314" selection-end-line="314" />
             </state>
           </provider>
         </entry>
@@ -60,8 +61,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/createDatabase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="30" column="106" selection-start-line="30" selection-start-column="106" selection-end-line="30" selection-end-column="106" />
+            <state relative-caret-position="459">
+              <caret line="27" column="321" selection-start-line="27" selection-start-column="321" selection-end-line="27" selection-end-column="321" />
             </state>
           </provider>
         </entry>
@@ -92,8 +93,8 @@
       <list>
         <option value="$PROJECT_DIR$/secrets.py" />
         <option value="$PROJECT_DIR$/DB.py" />
-        <option value="$PROJECT_DIR$/createDatabase.py" />
         <option value="$PROJECT_DIR$/dropDB.py" />
+        <option value="$PROJECT_DIR$/createDatabase.py" />
         <option value="$PROJECT_DIR$/gas.py" />
       </list>
     </option>
@@ -116,11 +117,6 @@
             <path>
               <item name="naft" type="b2602c69:ProjectViewProjectNode" />
               <item name="naft" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="naft" type="b2602c69:ProjectViewProjectNode" />
-              <item name="naft" type="462c0819:PsiDirectoryNode" />
-              <item name="files" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -183,12 +179,12 @@
       <workItem from="1551346200137" duration="83000" />
       <workItem from="1552321917701" duration="4791000" />
       <workItem from="1552816072238" duration="607000" />
-      <workItem from="1552817734216" duration="622000" />
+      <workItem from="1552817734216" duration="2339000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6103000" />
+    <option name="totallyTimeSpent" value="7820000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -262,13 +258,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="131" column="211" selection-start-line="131" selection-start-column="211" selection-end-line="131" selection-end-column="211" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dropDB.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -285,10 +274,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/createDatabase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="106" selection-start-line="30" selection-start-column="106" selection-end-line="30" selection-end-column="106" />
+        <state relative-caret-position="459">
+          <caret line="27" column="321" selection-start-line="27" selection-start-column="321" selection-end-line="27" selection-end-column="321" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/gas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="314" selection-start-line="314" selection-end-line="314" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
