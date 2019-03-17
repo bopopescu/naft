@@ -400,11 +400,6 @@ class sadid_mahshahr(Resource):
         ret = db.mycursor.fetchall()
         return ret
     def post(self):
-        db.mycursor.execute("SELECT * FROM sadid_mahshahr")
-        DATA = db.mycursor.fetchall()
-        for d in DATA:
-            db.mycursor.execute("DELETE FROM sadid_mahshahr WHERE money = %s" ,(d[0],))
-            db.mydb.commit()
         parse = reqparse.RequestParser()
         parse.add_argument("money")
         parse.add_argument("tik")
