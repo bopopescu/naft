@@ -158,6 +158,7 @@ class pipeLinesF(Resource):
         parser.add_argument('hazineAnbar')
         parser.add_argument('hazineSodoorBime')
         parser.add_argument('hazineBime')
+        parser.add_argument('36Inch')
         args = parser.parse_args()
         
         # mysql = "INSERT INTO pipelinesf (tarikh ,zekhamat , metraj , tonaj , tarikhTahvil,typeKalaTahvil ,shomareHavaleAnbar , shomareTaghaza,shomareGhalam ,nerkhTashilBankMarkazi ,hazineAnbar , hazineSodoor, hazineBime , mablagheVaragh , avarezGomrok , hazineSakhteLoole , hazinePooshesh , maliatVaragh, maliatSakht )"
@@ -172,7 +173,7 @@ class pipeLinesF(Resource):
                 "shomareGhalam ," \
                 "nerkhTashilBankMarkazi ," \
                 "hazineAnbar , " \
-                "hazineSodoorBime) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                "hazineSodoorBime , se) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         values = (
                   args['zekhamat'],
                   args['metraj'],
@@ -184,13 +185,20 @@ class pipeLinesF(Resource):
                   args['shomareGhalam'],
                   args['nerkhBank'],
                   args['hazineAnbar'],
-                  args['hazineSodoorBime'],)
+                  args['hazineSodoorBime'],
+                  args['36Inch'],)
         db.mycursor.execute(mysql ,values)
         db.mydb.commit()
         return "saved"
     
     def get(self):
-        db.mycursor.execute("SELECT * FROM pipelinesf")
+        parser = reqparse.RequestParser()
+        parser.add_argument("36_inch")
+        args = parser.parse_args()
+        if args['36_inch']:
+            db.mycursor.execute("SELECT * FROM pipelinesf WHERE se IS NOT NULL ")
+        else:
+            db.mycursor.execute("SELECT * FROM pipelinesf WHERE se IS NULL")
         data = db.mycursor.fetchall()
         ret = {}
         for record in data:
@@ -306,7 +314,6 @@ class comper(Resource):
         parser.add_argument("peyvast",type=werkzeug.datastructures.FileStorage,location = 'files')
         args = parser.parse_args()
         file = args['peyvast']
-        # return args
         if file:
             dirname = os.path.dirname(__file__)
             file.save(os.path.join(dirname, 'files', file.filename))
