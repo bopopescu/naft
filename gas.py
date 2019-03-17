@@ -159,6 +159,7 @@ class pipeLinesF(Resource):
         parser.add_argument('hazineSodoorBime')
         parser.add_argument('hazineBime')
         parser.add_argument('36Inch')
+        parser.add_argument('tarikh')
         args = parser.parse_args()
         
         # mysql = "INSERT INTO pipelinesf (tarikh ,zekhamat , metraj , tonaj , tarikhTahvil,typeKalaTahvil ,shomareHavaleAnbar , shomareTaghaza,shomareGhalam ,nerkhTashilBankMarkazi ,hazineAnbar , hazineSodoor, hazineBime , mablagheVaragh , avarezGomrok , hazineSakhteLoole , hazinePooshesh , maliatVaragh, maliatSakht )"
@@ -173,7 +174,7 @@ class pipeLinesF(Resource):
                 "shomareGhalam ," \
                 "nerkhTashilBankMarkazi ," \
                 "hazineAnbar , " \
-                "hazineSodoorBime , se) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                "hazineSodoorBime , se , tarikh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s ,%s)"
         values = (
                   args['zekhamat'],
                   args['metraj'],
@@ -186,7 +187,7 @@ class pipeLinesF(Resource):
                   args['nerkhBank'],
                   args['hazineAnbar'],
                   args['hazineSodoorBime'],
-                  args['36Inch'],)
+                  args['36Inch'],args['tarikh'])
         db.mycursor.execute(mysql ,values)
         db.mydb.commit()
         return "saved"
