@@ -202,6 +202,7 @@ class pipeLinesF(Resource):
             db.mycursor.execute("SELECT * FROM pipelinesf WHERE se IS NULL")
         data = db.mycursor.fetchall()
         ret = {}
+        i = 0
         for record in data:
             mablaghe_varagh = int(record[3])*1033
             avarez_gomrok = mablaghe_varagh * int(record[9]) * 4/100
@@ -218,7 +219,7 @@ class pipeLinesF(Resource):
             motalebate_riyali = int(record[10]) + int(record[11]) + avarez_gomrok + maliyat_bar_arzesh_afzoode_varagh + maliyat_bar_arzesh_afzoode_sakht_pooshesh
             motalebat_arzi = hazine_pooshesh + hazine_sakht_loole
 
-            ret[record[0]] ={'dataBase' : record ,
+            ret[i] ={'dataBase' : record ,
                              'mablaghe_varagh':mablaghe_varagh,
                              'avarez_gomrok':avarez_gomrok,
                              'maliyat_bar_arzesh_varagh':maliyat_bar_arzesh_afzoode_varagh,
@@ -227,6 +228,7 @@ class pipeLinesF(Resource):
                              'maliyat_bara_arzesh_afzoode_sakhte_pooshesh':maliyat_bar_arzesh_afzoode_sakht_pooshesh,
                              'motalebat_riyali':motalebate_riyali,
                              'motalebat_arzi':motalebat_arzi}
+            i = i+ 1
         return ret
 
 class pardakht_naftanir(Resource):
