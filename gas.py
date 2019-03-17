@@ -122,10 +122,14 @@ class arazi(Resource):
         parser.add_argument("peyvast",type=werkzeug.datastructures.FileStorage,location = 'files')
         args = parser.parse_args()
         file = args['peyvast']
-        dirname = os.path.dirname(__file__)
-        file.save(os.path.join(dirname,'files',file.filename))
-        sql = "INSERT INTO arazi (sharh , mablaghe_darkhasti_naftanir , mablaghe_hoghooghi,tarikh_hoghooghi ,mablaghe_taeed_mali ,tarikh_taeed_omoor_mali ,tarikh) VALUES (%s , %s , %s, %s,%s,%s,%s)"
-        values = (args['sharh'] , args['mablaghe_darkhasti_naftanir'] , args['mablaghe_hoghooghi'] ,args['tarikh_hoghooghi'],args['mablaghe_taeed_mali'],args['tarikh_taeed_omoor_mali'],args['stateDate'],)
+        if file:
+            dirname = os.path.dirname(__file__)
+            file.save(os.path.join(dirname,'files',file.filename))
+            fileName = file.filename
+        else:
+            fileName = None
+        sql = "INSERT INTO arazi (sharh , mablaghe_darkhasti_naftanir , mablaghe_hoghooghi,tarikh_hoghooghi ,mablaghe_taeed_mali ,tarikh_taeed_omoor_mali ,tarikh , peyvast) VALUES (%s , %s , %s, %s,%s,%s,%s,%s)"
+        values = (args['sharh'] , args['mablaghe_darkhasti_naftanir'] , args['mablaghe_hoghooghi'] ,args['tarikh_hoghooghi'],args['mablaghe_taeed_mali'],args['tarikh_taeed_omoor_mali'],args['stateDate'],fileName)
         db.mycursor.execute(sql , values)
         db.mydb.commit()
         return True
@@ -465,7 +469,7 @@ api.add_resource(jadval56 , "/jadval56")
 api.add_resource(jadvalArazi , "/jadvalArazi")
 api.add_resource(looleSaziSadid , "/jadval_loole_sazi_sadid")
 api.add_resource(jadvalPeymankaran , "/jadval_peymankaran")
-import locale , jdatetime
+# import locale , jdatetime
 from datetime import datetime , date
 def jarime(dore_ghable , nerkh_jarime , tarikh_khod , tarikh_ghabl):
     # TODO:: have to complete this and i am sleepy and cant do it
