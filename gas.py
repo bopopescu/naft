@@ -410,7 +410,8 @@ class sadid_mahshahr(Resource):
         parse.add_argument("tik")
         parse.add_argument("tarikh")
         args = parse.parse_args()
-        db.mycursor.execute("INSERT INTO sadid_mahshahr(money , tik , tarikh)  VALUES(%s , %s ,%s) " , (args['money'] , args['tik'],args['tarikh']))
+        db.mycursor.execute("INSERT INTO sadid_mahshahr(money , tik , tarikh)  VALUES(%s , %s ,%s) " , (args['money'] , args['tik'],args['tarikh'],))
+        db.mydb.commit()
         return True
 class jadval56(Resource):
     def get(self):
