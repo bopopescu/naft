@@ -452,12 +452,14 @@ class sadid_mahshahr(Resource):
         db.mycursor.execute("INSERT INTO sadid_mahshahr(money , tik , tarikh , jarime)  VALUES(%s , %s ,%s , %s) " , (args['money'] , args['tik'],args['tarikh'],args['jarime'],))
         db.mydb.commit()
         return True
+from operator import itemgetter
+import operator
 class jadval56(Resource):
     def get(self):
-        p56 = pipeLinesF()
-        p56 =  p56.get()
-        p56 = json.dumps(p56)
-        p56 = json.loads(p56)
+        # p56 = pipeLinesF()
+        # p56 =  p56.get2()
+        # p56 = json.dumps(p56)
+        # p56 = json.loads(p56)
         # # pipeline56 = {}
         # for id in  p56:
         #      pipeline56[id] = {}
@@ -471,15 +473,97 @@ class jadval56(Resource):
         #      pipeline56[id]['pardakht_nashode_dore_ghable'] = pndg
         #      pipeline56[id]['kole_motalebat'] = float(pipeline56[id]['jarime']) + pndg + pipeline56[id]['taahod_be_pardakht']
         # return pipeline56
-        # db.mycursor.execute("select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s" ,("لوله",))
-        # naftanir = db.mycursor.fetchall()
+        db.mycursor.execute("select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s" ,("لوله",))
+        naftanir = db.mycursor.fetchall()
+        db.mycursor.execute("SELECT * FROM pipelinesf")
+        p56 = db.mycursor.fetchall()
+        merger = {}
+        i = 0
+        for record in p56:
+
+            mablaghe_varagh = float(record[3]) * 1033
+            avarez_gomrok = mablaghe_varagh * float(record[9]) * 4 / 100
+            hazine_sakht_loole = 0
+            if record[5] == "ورق":
+                hazine_sakht_loole = 0
+                hazine_pooshesh = 0
+            else:
+                hazine_sakht_loole = float(record[3]) * 125
+                hazine_pooshesh = 0
+            if record[5] == "پوشش داده شده":
+                hazine_sakht_loole = float(record[3]) * 95
+                hazine_pooshesh = float(record[3]) * 125
+            maliyat_bar_arzesh_afzoode_sakht_pooshesh = (hazine_sakht_loole + hazine_pooshesh) * float(
+                record[9]) * 10 / 100
+            maliyat_bar_arzesh_afzoode_varagh = ((mablaghe_varagh * float(record[9])) + float(record[10]) + float(
+                record[11]) + avarez_gomrok) * 1 / 10
+            motalebate_riyali = float(record[10]) + float(record[
+                                                              11]) + avarez_gomrok + maliyat_bar_arzesh_afzoode_varagh + maliyat_bar_arzesh_afzoode_sakht_pooshesh
+            motalebat_arzi = hazine_pooshesh + hazine_sakht_loole
+
+            ret = {'dataBase': record,
+                      'mablaghe_varagh': mablaghe_varagh,
+                      'avarez_gomrok': avarez_gomrok,
+                      'maliyat_bar_arzesh_varagh': maliyat_bar_arzesh_afzoode_varagh,
+                      'hazine_sakhte_loole': hazine_sakht_loole,
+                      'hazine_pooshesh': hazine_pooshesh,
+                      'maliyat_bara_arzesh_afzoode_sakhte_pooshesh': maliyat_bar_arzesh_afzoode_sakht_pooshesh,
+                      'motalebat_riyali': motalebate_riyali,
+                      'motalebat_arzi': motalebat_arzi}
+
+            d1 = moment.date(record[13]).strftime("%Y-%m-%d")
+            d2 = moment.date("1350-1-1").strftime("%Y-%m-%d")
+            d1 = moment.date(d1).locale("Asia/Tehran").date
+            d2 = moment.date(d2).locale("Asia/Tehran").date
+            ekh = d1 - d2
+            ekh = str(ekh)
+            ekh = ekh.split(' ')
+            merger[i] = {
+                'pool':ret['motalebat_riyali'],
+                'tarikh': record[13],
+                'ekhtelaf': int(ekh[0])
+            }
+            i = i+1
+        for n in naftanir:
+            d1 = moment.date(n[1]).strftime("%Y-%m-%d")
+            d2 = moment.date("1350-1-1").strftime("%Y-%m-%d")
+            d1 = moment.date(d1).locale("Asia/Tehran").date
+            d2 = moment.date(d2).locale("Asia/Tehran").date
+            ekh = d1 - d2
+            ekh = str(ekh)
+            ekh = ekh.split(' ')
+            merger[i] = {
+                'pool':n[2],
+                'tarikh':n[1],
+                'ekhtelaf': int(ekh[0])
+            }
+            i = i +1
+        # merger.sort(merger[2])
+        # merger = json.dumps(merger)
+        # merger = json.loads(merger)
+        # merger.sort(key=itemgetter('amount'))
+        # print (type(merger))
+        keys = merger.keys()
+        print (merger)
+
+        sortedss = sorted(merger.items() , key = itemgetter('ekhtelaf'))
+        return sortedss
+
+
+
+
+        return 0
+        for n in naftanir:
+            merger[merger]
+        return p56
         ret = {}
         for i in p56:
-            # if i == 0:
-            #     ghabl = 0
-            # else:
-            #     ghabl =
-            #
+            if i == 0:
+                ghabl = 0
+                jarime = 0
+            else:
+                ghabl =0
+                jarime = (float(i[i-1]['dore_ghabl']) * (1 + nerkh_jarime )(ekhtelaf_date(i[-i]['tarikh'] , i[i]['tarikh']))) - i[i]['dore_ghabl']
             ret[i] = {
                 "sharh" : i[5],
                 'tarikh': i[12],
@@ -489,6 +573,33 @@ class jadval56(Resource):
                 'jarime' : "formoole_jarime bayad joda add beshe",
                 'jame_kol':"have to add "
             }
+
+import moment
+from datetime import datetime
+def ekhtelaf_date(date1 , date2):
+    d1 =moment.date(date1).strftime("%Y-%m-%d")
+    d1 = moment.date(d1).locale("Asia/Tehran").date
+    d2 =moment.date(date2).strftime("%Y-%m-%d")
+    d2 = moment.date(d2).locale("Asia/Tehran").date
+    sal = {}
+    sal[1] = 31
+    sal[2] = 31
+    sal[3] = 31
+    sal[4] = 31
+    sal[5] = 31
+    sal[6] = 31
+    sal[7] = 30
+    sal[8] = 30
+    sal[9] = 30
+    sal[10] = 30
+    sal[11] = 30
+    sal[11] = 30
+    sal[12] = 29
+    ekh = d1 - d2
+    ekh = str(ekh)
+    ekh = ekh.split(' ')
+    date2 = date2.split('-')
+    return float(int(ekh[0]) / int(sal[int(date2[1])]))
 class jadvalArazi(Resource):
     def get(self):
         arz = arazi()
@@ -530,6 +641,13 @@ class looleSaziSadid(Resource):
                 ret[i]['jarime'] = 1
             ret[i]['kol'] = ret[i]['jarime'] + float(ret[i]['dore_ghabl'] ) + float(sadid[0][0])/3
         return  ret
+
+
+
+
+
+
+
 class jadvalPeymankaran(Resource):
     def get(self):
         return "bayad soal beshe hanooz kamel nist"
