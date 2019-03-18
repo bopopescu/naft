@@ -234,6 +234,46 @@ class pipeLinesF(Resource):
             i = i+ 1
         return ret
 
+    def get2(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument("inch36")
+        args = parser.parse_args()
+        # if args['inch36']:
+        db.mycursor.execute("SELECT * FROM pipelinesf")
+        data = db.mycursor.fetchall()
+        ret = {}
+        i = 0
+        for record in data:
+            mablaghe_varagh = float(record[3])*1033
+            avarez_gomrok = mablaghe_varagh * float(record[9]) * 4/100
+            # maliyat_bar_arzesh_afzoode_varagh = avarez_gomrok * 1/10
+            hazine_sakht_loole = 0
+            if record[5] == "ورق" :
+                hazine_sakht_loole = 0
+                hazine_pooshesh = 0
+            else :
+                hazine_sakht_loole = float(record[3]) * 125
+                hazine_pooshesh = 0
+            if record[5] == "پوشش داده شده":
+                hazine_sakht_loole = float(record[3])*95
+                hazine_pooshesh = float(record[3]) * 125
+            maliyat_bar_arzesh_afzoode_sakht_pooshesh = (hazine_sakht_loole + hazine_pooshesh) *  float(record[9]) * 10/100
+            maliyat_bar_arzesh_afzoode_varagh = ((mablaghe_varagh * float(record[9])) + float(record[10]) + float(record[11]) + avarez_gomrok) * 1 / 10
+            motalebate_riyali = float(record[10]) + float(record[11]) + avarez_gomrok + maliyat_bar_arzesh_afzoode_varagh + maliyat_bar_arzesh_afzoode_sakht_pooshesh
+            motalebat_arzi = hazine_pooshesh + hazine_sakht_loole
+
+            ret[i] ={'dataBase' : record ,
+                             'mablaghe_varagh':mablaghe_varagh,
+                             'avarez_gomrok':avarez_gomrok,
+                             'maliyat_bar_arzesh_varagh':maliyat_bar_arzesh_afzoode_varagh,
+                             'hazine_sakhte_loole':hazine_sakht_loole,
+                             'hazine_pooshesh':hazine_pooshesh,
+                             'maliyat_bara_arzesh_afzoode_sakhte_pooshesh':maliyat_bar_arzesh_afzoode_sakht_pooshesh,
+                             'motalebat_riyali':motalebate_riyali,
+                             'motalebat_arzi':motalebat_arzi}
+            i = i+ 1
+        return ret
+
 class pardakht_naftanir(Resource):
     def get(self):
         ret = {}
@@ -407,8 +447,9 @@ class sadid_mahshahr(Resource):
         parse.add_argument("money")
         parse.add_argument("tik")
         parse.add_argument("tarikh")
+        parse.add_argument("jarime")
         args = parse.parse_args()
-        db.mycursor.execute("INSERT INTO sadid_mahshahr(money , tik , tarikh)  VALUES(%s , %s ,%s) " , (args['money'] , args['tik'],args['tarikh'],))
+        db.mycursor.execute("INSERT INTO sadid_mahshahr(money , tik , tarikh , jarime)  VALUES(%s , %s ,%s , %s) " , (args['money'] , args['tik'],args['tarikh'],args['jarime'],))
         db.mydb.commit()
         return True
 class jadval56(Resource):
@@ -417,19 +458,37 @@ class jadval56(Resource):
         p56 =  p56.get()
         p56 = json.dumps(p56)
         p56 = json.loads(p56)
-        pipeline56 = {}
-        for id in  p56:
-             pipeline56[id] = {}
-             pipeline56[id]['taahod_be_pardakht'] = p56[id]['motalebat_riyali']
-             # jareme = jarime(1 ,1 ,1 ,1)
-             pipeline56[id]['jarime'] = 1
-             if float(id) == 1:
-                pndg = 0
-             else:
-                pndg = pipeline56[str(float(id) - 1)]['kole_motalebat']
-             pipeline56[id]['pardakht_nashode_dore_ghable'] = pndg
-             pipeline56[id]['kole_motalebat'] = float(pipeline56[id]['jarime']) + pndg + pipeline56[id]['taahod_be_pardakht']
-        return pipeline56
+        # # pipeline56 = {}
+        # for id in  p56:
+        #      pipeline56[id] = {}
+        #      pipeline56[id]['taahod_be_pardakht'] = p56[id]['motalebat_riyali']
+        #      # jareme = jarime(1 ,1 ,1 ,1)
+        #      pipeline56[id]['jarime'] = 1
+        #      if float(id) == 1:
+        #         pndg = 0
+        #      else:
+        #         pndg = pipeline56[str(float(id) - 1)]['kole_motalebat']
+        #      pipeline56[id]['pardakht_nashode_dore_ghable'] = pndg
+        #      pipeline56[id]['kole_motalebat'] = float(pipeline56[id]['jarime']) + pndg + pipeline56[id]['taahod_be_pardakht']
+        # return pipeline56
+        # db.mycursor.execute("select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s" ,("لوله",))
+        # naftanir = db.mycursor.fetchall()
+        ret = {}
+        for i in p56:
+            # if i == 0:
+            #     ghabl = 0
+            # else:
+            #     ghabl =
+            #
+            ret[i] = {
+                "sharh" : i[5],
+                'tarikh': i[12],
+                'pardakht_shode_tavasote_naftanir': 0,
+                'taahod_be_pardakht':i['motalebat_riyali'],
+                'dore_ghabl' : "hanooz ad nakardam",
+                'jarime' : "formoole_jarime bayad joda add beshe",
+                'jame_kol':"have to add "
+            }
 class jadvalArazi(Resource):
     def get(self):
         arz = arazi()
