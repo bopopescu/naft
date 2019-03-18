@@ -83,7 +83,11 @@
       <find>sadid_mahshahr</find>
       <find>null</find>
       <find>file</find>
+      <find>int</find>
     </findStrings>
+    <replaceStrings>
+      <replace>float</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

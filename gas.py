@@ -303,7 +303,7 @@ class comper(Resource):
         ret = {}
         for record in data:
             ret[record[0]] = {'dataBase': record ,
-                              'natayej_motalebat': (int(record[4]) * (int(record[5])/int(record[6])))}
+                              'natayej_motalebat': (float(record[4]) * (float(record[5])/float(record[6])))}
         return ret
     def post(self):
         parser = reqparse.RequestParser()
@@ -377,14 +377,14 @@ class kala_30(Resource):
         db.mycursor.execute("select * from kala_30_inch ")
         data = db.mycursor.fetchall()
         ret = {}
-        # ret['miyangin']=(int(data[0][1])+int(data[0][2])+int(data[0][3])) / 3
+        # ret['miyangin']=(float(data[0][1])+float(data[0][2])+float(data[0][3])) / 3
         # ret['shandool']= "shandool"
         miyangin = {}
         # return data
         for record in data:
-            ret['database_record'+str(record[0])] = int(record[1]),int(record[2]),int(record[3])
-            ret['miyangin__'+str(record[0])] = (int(record[1]) + int(record[2]) + int(record[3])) / 3
-            ret['maliayt__'+str(record[0])] = ((int(record[1]) + int(record[2]) + int(record[3])) / 3) * 1/10
+            ret['database_record'+str(record[0])] = float(record[1]),float(record[2]),float(record[3])
+            ret['miyangin__'+str(record[0])] = (float(record[1]) + float(record[2]) + float(record[3])) / 3
+            ret['maliayt__'+str(record[0])] = ((float(record[1]) + float(record[2]) + float(record[3])) / 3) * 1/10
         return ret
     def post(self):
         parser = reqparse.RequestParser()
@@ -423,12 +423,12 @@ class jadval56(Resource):
              pipeline56[id]['taahod_be_pardakht'] = p56[id]['motalebat_riyali']
              # jareme = jarime(1 ,1 ,1 ,1)
              pipeline56[id]['jarime'] = 1
-             if int(id) == 1:
+             if float(id) == 1:
                 pndg = 0
              else:
-                pndg = pipeline56[str(int(id) - 1)]['kole_motalebat']
+                pndg = pipeline56[str(float(id) - 1)]['kole_motalebat']
              pipeline56[id]['pardakht_nashode_dore_ghable'] = pndg
-             pipeline56[id]['kole_motalebat'] = int(pipeline56[id]['jarime']) + pndg + pipeline56[id]['taahod_be_pardakht']
+             pipeline56[id]['kole_motalebat'] = float(pipeline56[id]['jarime']) + pndg + pipeline56[id]['taahod_be_pardakht']
         return pipeline56
 class jadvalArazi(Resource):
     def get(self):
@@ -442,7 +442,7 @@ class jadvalArazi(Resource):
             jarazi[id]['pardakht_shode_tavasote_naftanir'] = arz[id][3]
             jarazi[id]['tarikh_taaid_hoghooghi'] = arz[id][3]
             jarazi[id]['taahod_be_pardakht_naftanir'] = 85747896194
-            jarazi[id]['jame_kole_mohasebat'] = int(jarazi[id]['taahod_be_pardakht_naftanir']) - int(arz[id][3])
+            jarazi[id]['jame_kole_mohasebat'] = float(jarazi[id]['taahod_be_pardakht_naftanir']) - float(arz[id][3])
             jarazi[id]['jarime'] = "todo : havent add it"
         return jarazi
 
@@ -452,24 +452,24 @@ class looleSaziSadid(Resource):
         sadid = sadid.get()
         ret = {}
         # ret['pardakht_shode_tavasote_naftanir'] = 0
-        # ret['taahod_be_pardakht'] = int(sadid[0][0]) / 3
+        # ret['taahod_be_pardakht'] = float(sadid[0][0]) / 3
         # ret['pardakht_nashode_dore_ghabl'] = 0
         # ret['jarime_dore_ghable'] = 0
-        # ret['kole_motalebat'] = int(ret['jarime_dore_ghable']) + int(ret['pardakht_nashode_dore_ghabl'])
+        # ret['kole_motalebat'] = float(ret['jarime_dore_ghable']) + float(ret['pardakht_nashode_dore_ghabl'])
         # return str(sadid[0][2])
         # return ret
         for i in range(3):
             ret[i] = {}
             ret[i]['tarikh'] = sadid[0][2]
             ret[i]['naftanir'] = 0
-            ret[i]['taahod'] = int(sadid[0][0])/3
+            ret[i]['taahod'] = float(sadid[0][0])/3
             if i == 0:
                 ret[i]['dore_ghabl'] = 0
                 ret[i]['jarime'] = 0
             else :
                 ret[i]['dore_ghabl'] = ret[i-1]['kol']
                 ret[i]['jarime'] = 1
-            ret[i]['kol'] = ret[i]['jarime'] + int(ret[i]['dore_ghabl'] ) + int(sadid[0][0])/3
+            ret[i]['kol'] = ret[i]['jarime'] + float(ret[i]['dore_ghabl'] ) + float(sadid[0][0])/3
         return  ret
 class jadvalPeymankaran(Resource):
     def get(self):
@@ -511,42 +511,42 @@ def ekhtelaf_rooz(datee1 , datee2):
     date2 = datee2
     date1 = date1.split('/')
     date2 = date2.split('/')
-    if int(date1[0]) - int(date2[0]) == 0:
-        roozHa = int(date1[2]) - int(sal[int(date1[1])])
+    if float(date1[0]) - float(date2[0]) == 0:
+        roozHa = float(date1[2]) - float(sal[float(date1[1])])
         roozHa = abs(roozHa)
-        if int(date1[1]) - int(date2[1]) == 0:
-            rooHamoonMah = int(date2[2]) - int(sal[int(date2[1])])
+        if float(date1[1]) - float(date2[1]) == 0:
+            rooHamoonMah = float(date2[2]) - float(sal[float(date2[1])])
             roozHa = roozHa - abs(rooHamoonMah)
             return roozHa
-        roozHa = roozHa + int(date2[2])
-        mah = int(date1[1]) - int(date2[1])
+        roozHa = roozHa + float(date2[2])
+        mah = float(date1[1]) - float(date2[1])
         mah = abs(mah)
         # return mah
-        mah_shomar = int(date1[2])
+        mah_shomar = float(date1[2])
         if mah != 0:
             for i in range(mah):
-                roozHa = roozHa + int(sal[int(mah_shomar)])
+                roozHa = roozHa + float(sal[float(mah_shomar)])
                 mah_shomar = mah_shomar + 1
                 if mah_shomar == 12:
                     mah_shomar = 1
         return roozHa
-    if abs(int(date1[0]) - int(date2[0])) != 0:
-        roozHa = int(date1[2]) - int(sal[int(date1[1])])
+    if abs(float(date1[0]) - float(date2[0])) != 0:
+        roozHa = float(date1[2]) - float(sal[float(date1[1])])
         roozHa = abs(roozHa)
-        roozHa = roozHa + int(date2[2])
+        roozHa = roozHa + float(date2[2])
         dateee1 = datetime.strptime((datee1) , '%Y/%m/%d')
         dateee2 = datetime.strptime((datee2) , '%Y/%m/%d')
         from dateutil import relativedelta
         diffs = relativedelta.relativedelta(dateee1, dateee2)
         mah = abs(diffs.months)
         print(mah)
-        mah = mah +  abs(int(diffs.months))
+        mah = mah +  abs(float(diffs.months))
         print(mah)
         mah = mah + (abs(diffs.years) * 12 )
-        mah_shomar = int(date1[2])
+        mah_shomar = float(date1[2])
         if mah != 0:
             for i in range(mah):
-                roozHa = roozHa + int(sal[int(mah_shomar)])
+                roozHa = roozHa + float(sal[float(mah_shomar)])
                 mah_shomar = mah_shomar + 1
                 if mah_shomar == 12:
                     mah_shomar = 1
