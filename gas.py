@@ -40,7 +40,7 @@ class gostare(Resource):
         parser.add_argument('id_gostare')
         args = parser.parse_args()
         #if args['mahe_khali'] and args['id_gostare']:
-            #values =  ( int(args['id_gostare']) ,0 ,args['mahe_khali'] ,)
+            #values =  ( float(args['id_gostare']) ,0 ,args['mahe_khali'] ,)
             ## print(values)
             #db.mycursor.execute("INSERT INTO gostare_pishraft(gostare_id , darsad , tarikh) values (%s , %s , %s)", values)
             #db.mydb.commit()
@@ -204,19 +204,22 @@ class pipeLinesF(Resource):
         ret = {}
         i = 0
         for record in data:
-            mablaghe_varagh = int(record[3])*1033
-            avarez_gomrok = mablaghe_varagh * int(record[9]) * 4/100
-            maliyat_bar_arzesh_afzoode_varagh = avarez_gomrok * 1/10
+            mablaghe_varagh = float(record[3])*1033
+            avarez_gomrok = mablaghe_varagh * float(record[9]) * 4/100
+            # maliyat_bar_arzesh_afzoode_varagh = avarez_gomrok * 1/10
             hazine_sakht_loole = 0
             if record[5] == "ورق" :
                 hazine_sakht_loole = 0
+                hazine_pooshesh = 0
             else :
-                hazine_sakht_loole = int(record[3]) * 125
-            hazine_pooshesh = 0
+                hazine_sakht_loole = float(record[3]) * 125
+                hazine_pooshesh = 0
             if record[5] == "پوشش داده شده":
-                hazine_pooshesh = int(record[3])*95
-            maliyat_bar_arzesh_afzoode_sakht_pooshesh = (hazine_sakht_loole + hazine_pooshesh) *  int(record[9]) * 10/100
-            motalebate_riyali = int(record[10]) + int(record[11]) + avarez_gomrok + maliyat_bar_arzesh_afzoode_varagh + maliyat_bar_arzesh_afzoode_sakht_pooshesh
+                hazine_sakht_loole = float(record[3])*95
+                hazine_pooshesh = float(record[3]) * 125
+            maliyat_bar_arzesh_afzoode_sakht_pooshesh = (hazine_sakht_loole + hazine_pooshesh) *  float(record[9]) * 10/100
+            maliyat_bar_arzesh_afzoode_varagh = ((mablaghe_varagh * float(record[9])) + float(record[10]) + float(record[11]) + avarez_gomrok) * 1 / 10
+            motalebate_riyali = float(record[10]) + float(record[11]) + avarez_gomrok + maliyat_bar_arzesh_afzoode_varagh + maliyat_bar_arzesh_afzoode_sakht_pooshesh
             motalebat_arzi = hazine_pooshesh + hazine_sakht_loole
 
             ret[i] ={'dataBase' : record ,
