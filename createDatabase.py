@@ -29,3 +29,4 @@ mycursor.execute("CREATE TABLE comper (id INTEGER AUTO_INCREMENT PRIMARY key , n
 mycursor.execute("CREATE TABLE pardakht_shode_tavasote_naftanir_TM (id INTEGER AUTO_INCREMENT PRIMARY KEY , tarikh VARCHAR(255), mablagh VARCHAR(255), pardakht_shod_babate VARCHAR(255),shomare_sanad VARCHAR(255),tozihat VARCHAR(255),softDelete VARCHAR(255))")
 mycursor.execute("CREATE TABLE kala_30_inch (id INTEGER AUTO_INCREMENT PRIMARY key , estelam_1 VARCHAR(255) , estelam_2 VARCHAR(255) , estelam_3 VARCHAR(255))")
 mycursor.execute("CREATE TABLE sadid_mahshahr (id INTEGER AUTO_INCREMENT PRIMARY key, money varchar(255), tik varchar(255) , tarikh VARCHAR (255) , jarime VARCHAR (255))")
+mycursor.execute("CREATE TABLE jadval56 (id INTEGER AUTO_INCREMENT PRIMARY key, pool varchar(255), tarikh VARCHAR (255) , ekhtelaf INTEGER (255) , sharh VARCHAR (255))")

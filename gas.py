@@ -477,7 +477,7 @@ class jadval56(Resource):
         naftanir = db.mycursor.fetchall()
         db.mycursor.execute("SELECT * FROM pipelinesf")
         p56 = db.mycursor.fetchall()
-        merger = {}
+        merger ={}
         i = 0
         for record in p56:
 
@@ -521,7 +521,8 @@ class jadval56(Resource):
             merger[i] = {
                 'pool':ret['motalebat_riyali'],
                 'tarikh': record[13],
-                'ekhtelaf': int(ekh[0])
+                'ekhtelaf': int(ekh[0]),
+                'sharh':"loole"
             }
             i = i+1
         for n in naftanir:
@@ -535,44 +536,51 @@ class jadval56(Resource):
             merger[i] = {
                 'pool':n[2],
                 'tarikh':n[1],
-                'ekhtelaf': int(ekh[0])
+                'ekhtelaf': int(ekh[0]),
+                'sharh':'naftanir'
             }
             i = i +1
-        # merger.sort(merger[2])
-        # merger = json.dumps(merger)
-        # merger = json.loads(merger)
-        # merger.sort(key=itemgetter('amount'))
-        # print (type(merger))
-        keys = merger.keys()
-        print (merger)
+        db.mycursor.execute("select * from jadval56")
+        jadvals = db.mycursor.fetchall()
+        for i in jadvals:
+            db.mycursor.execute('delete from jadval56 where id =%s',(i[0],))
+        db.mydb.commit()
+        for i in merger:
+            db.mycursor.execute("insert into jadval56 (pool , tarikh , ekhtelaf,sharh ) VALUES (%s , %s ,%s ,%s)" , (merger[i]['pool'],
+                                                                                                                     merger[i]['tarikh'],
+                                                                                                                     merger[i]['ekhtelaf'],
+                                                                                                                     merger[i]['sharh']))
+            db.mydb.commit()
 
-        sortedss = sorted(merger.items() , key = itemgetter('ekhtelaf'))
-        return sortedss
-
-
-
-
-        return 0
-        for n in naftanir:
-            merger[merger]
-        return p56
-        ret = {}
-        for i in p56:
+        db.mycursor.execute("select * from jadval56")
+        data = db.mycursor.fetchall()
+        jadval = {}
+        nerkh_jarime = 1
+        i = 0
+        for n in data:
             if i == 0:
-                ghabl = 0
-                jarime = 0
+                jarime_dore_ghabl =0
+                pardakht_nashode_dore_ghabl = 0
+                kole_motalebat = 0
             else:
-                ghabl =0
-                jarime = (float(i[i-1]['dore_ghabl']) * (1 + nerkh_jarime )(ekhtelaf_date(i[-i]['tarikh'] , i[i]['tarikh']))) - i[i]['dore_ghabl']
-            ret[i] = {
-                "sharh" : i[5],
-                'tarikh': i[12],
-                'pardakht_shode_tavasote_naftanir': 0,
-                'taahod_be_pardakht':i['motalebat_riyali'],
-                'dore_ghabl' : "hanooz ad nakardam",
-                'jarime' : "formoole_jarime bayad joda add beshe",
-                'jame_kol':"have to add "
+                pardakht_nashode_dore_ghabl = jadval[i-1]['jame_kole_motalebat']
+                jarime_dore_ghabl = (pardakht_nashode_dore_ghabl * ( 1 + nerkh_jarime)**(ekhtelaf_date(jadval[i-1]['tarikh'],data[i][2]))) - pardakht_nashode_dore_ghabl
+            if data[4] == 'naftanir':
+                sharh = "پرداخت شده توسط نفتانیر"
+                tarikh = data[i][2]
+                pool = float(data[i][1]) * -1
+            else:
+                pool = abs(float(data[i][1]))
+                sharh = data[i][4]
+            jadval[i] = {
+                'sharh':sharh,
+                'tarikh':data[i][2],
+                'pool':pool,
+                'jarime':jarime_dore_ghabl,
+                'jame_kole_motalebat': jarime_dore_ghabl + jarime_dore_ghabl + pool
             }
+            i = i+1
+        return jadval
 
 import moment
 from datetime import datetime
@@ -599,7 +607,10 @@ def ekhtelaf_date(date1 , date2):
     ekh = str(ekh)
     ekh = ekh.split(' ')
     date2 = date2.split('-')
-    return float(int(ekh[0]) / int(sal[int(date2[1])]))
+    print("salam")
+    print(date2)
+    return  1
+    # return float(int(ekh[0]) / int(sal[int(date2[1])]))
 class jadvalArazi(Resource):
     def get(self):
         arz = arazi()
