@@ -618,13 +618,28 @@ class jadvalArazi(Resource):
         arz = json.dumps(arz)
         arz = json.loads(arz)
         jarazi = {}
+        jarazi['0'] = {
+            'sharh' : "مبلغ ریالی پرداخت شده",
+            'tarikh' : '1394-12-27',
+            'pardakht_shode_tavasote_naftanir': 85747896194,
+            'taahod_be_pardakht': 0,
+            'pardakht_nashode_dore_ghabl': 0,
+            'jarime' : 0,
+            'motalebat':-85747896194,
+        }
+        nerkh_jarime = 1
+        i = 1
         for id in arz:
-            jarazi[id] ={}
-            jarazi[id]['pardakht_shode_tavasote_naftanir'] = arz[id][3]
-            jarazi[id]['tarikh_taaid_hoghooghi'] = arz[id][3]
-            jarazi[id]['taahod_be_pardakht_naftanir'] = 85747896194
-            jarazi[id]['jame_kole_mohasebat'] = float(jarazi[id]['taahod_be_pardakht_naftanir']) - float(arz[id][3])
-            jarazi[id]['jarime'] = "todo : havent add it"
+            jarazi[i] ={}
+            jarazi[i]['pardakht_shode_tavasote_naftanir'] = 0
+            jarazi[i]['taahod_be_pardakht'] = arz[i-1][3]
+            jarazi[i]['tarikh_taaid_hoghooghi'] = arz[i-1][4]
+            taahod = arz[i-1][3]
+            # taahod = arz[i-1][3]
+            jarazi[i]['kole_motalebat'] = int(taahod) - 85747896194
+            # jarazi[i]['kole_motalebat'] = 0
+            jarazi[i]['jarime'] = 0
+            i = i+1
         return jarazi
 
 class looleSaziSadid(Resource):
