@@ -673,14 +673,11 @@ class looleSaziSadid(Resource):
                 ret[i]['pardakht_nashode_dore_ghabl'] = ret[i-1]['kole_motalebat']
                 # print(ret[i]['pardakht_nashode_dore_ghabl'])
                 # print(int(ret[i]['pardakht_nashode_dore_ghabl'])*(1 + nerkh )**(abs(ekhtelaf_date(mahshahr[i][3],mahshahr[i-1][3])) / rooze_mah) - int(ret[i]['pardakht_nashode_dore_ghabl']))
-                ret[i]['jarime'] = (int(ret[i]['pardakht_nashode_dore_ghabl']) *(1 + nerkh )**(abs(ekhtelaf_date(mahshahr[i][3],mahshahr[i-1][3])) / rooze_mah)) - int(ret[i]['pardakht_nashode_dore_ghabl'])
+                ret[i]['jarime'] = (int(ret[i]['pardakht_nashode_dore_ghabl']) *(1 + nerkh )**(abs(ekhtelaf_date(mahshahr[i][3],mahshahr[i-1][3])))) - int(ret[i]['pardakht_nashode_dore_ghabl'])
                 # print(ret[i]['jarime'])
             ret[i]['kole_motalebat'] = int(ret[i]['jarime']) + int(ret[i]['pardakht_nashode_dore_ghabl'])  + int(ret[i]['taahod_be_pardakht'])
             i = i+1
         return  ret
-
-
-
 
 import moment
 from datetime import datetime
@@ -706,19 +703,19 @@ def ekhtelaf_date(date1 , date2):
     # print (d1)
     # print (d2)
     ekh = d1 - d2
-    return ekh.days
+    # return ekh.days
     ekh = str(ekh)
     ekh = ekh.split(' ')
     date2 = date2.split('-')
-    print("salam")
-    print(date2)
-    return  1
-    # return float(int(ekh[0]) / int(sal[int(date2[1])]))
+    return float(int(ekh[0]) / int(sal[int(date2[1])]))
 
 
 class jadvalPeymankaran(Resource):
     def get(self):
-        return "bayad soal beshe hanooz kamel nist"
+        jadval = db.mycursor.execute("SELECT * FROM peymankaran")
+        jadval = db.mycursor.fetchall()
+        ret = {}
+
 api.add_resource(gostare,"/gostare")
 api.add_resource(comper,"/comperosor")
 api.add_resource(peymankaran,"/peymankaran")
