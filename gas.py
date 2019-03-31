@@ -603,6 +603,8 @@ class jadvalArazi(Resource):
         i = 1
         for id in arz:
             jarazi[i] ={}
+            jarazi[i]['sharh'] = 'مبالغ ریالی در تعهد'
+            jarazi[i]['tarikh'] = '1394-12-27'
             jarazi[i]['pardakht_shode_tavasote_naftanir'] = 0
             jarazi[i]['taahod_be_pardakht'] = arz[i-1][3]
             jarazi[i]['tarikh_taaid_hoghooghi'] = arz[i-1][4]
@@ -723,7 +725,9 @@ class jadvalPeymankaran(Resource):
         i = 0
         while i < len(jadval):
             ret[i]={}
-            ret[i]['sharh'] = jadval[i][5]
+            ret[i]['sharh'] = 'مبلغ ریالی پرداخت شده'
+            ret[i]['noe'] = jadval[i][1]
+            ret[i]['tozihat'] = jadval[i][5]
             ret[i]['tarikh'] = jadval[i][4]
             ret[i]['pool']=jadval[i][3]
             if i == 0:
