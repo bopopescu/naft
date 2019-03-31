@@ -565,7 +565,7 @@ class jadval56(Resource):
             else:
                 pardakht_nashode_dore_ghabl = jadval[i-1]['jame_kole_motalebat']
                 jarime_dore_ghabl = (pardakht_nashode_dore_ghabl * ( 1 + nerkh_jarime)**(ekhtelaf_date(jadval[i-1]['tarikh'],data[i][2]))) - pardakht_nashode_dore_ghabl
-            if data[4] == 'naftanir':
+            if data[i][4] == 'naftanir':
                 sharh = "پرداخت شده توسط نفتانیر"
                 tarikh = data[i][2]
                 pool = float(data[i][1]) * -1
