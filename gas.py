@@ -582,35 +582,7 @@ class jadval56(Resource):
             i = i+1
         return jadval
 
-import moment
-from datetime import datetime
-def ekhtelaf_date(date1 , date2):
-    d1 =moment.date(date1).strftime("%Y-%m-%d")
-    d1 = moment.date(d1).locale("Asia/Tehran").date
-    d2 =moment.date(date2).strftime("%Y-%m-%d")
-    d2 = moment.date(d2).locale("Asia/Tehran").date
-    sal = {}
-    sal[1] = 31
-    sal[2] = 31
-    sal[3] = 31
-    sal[4] = 31
-    sal[5] = 31
-    sal[6] = 31
-    sal[7] = 30
-    sal[8] = 30
-    sal[9] = 30
-    sal[10] = 30
-    sal[11] = 30
-    sal[11] = 30
-    sal[12] = 29
-    ekh = d1 - d2
-    ekh = str(ekh)
-    ekh = ekh.split(' ')
-    date2 = date2.split('-')
-    print("salam")
-    print(date2)
-    return  1
-    # return float(int(ekh[0]) / int(sal[int(date2[1])]))
+
 class jadvalArazi(Resource):
     def get(self):
         arz = arazi()
@@ -654,24 +626,94 @@ class looleSaziSadid(Resource):
         # ret['kole_motalebat'] = float(ret['jarime_dore_ghable']) + float(ret['pardakht_nashode_dore_ghabl'])
         # return str(sadid[0][2])
         # return ret
-        for i in range(3):
+        # i = 0
+        # while i < len(sadid):
+        #     ret[i] = {}
+        #     ret[i]['tarikh'] = sadid[i][2]
+        #     ret[i]['naftanir'] = 0
+        #     ret[i]['taahod'] = float(sadid[0][0])
+        #     if i == 0:
+        #         ret[i]['dore_ghabl'] = 0
+        #         ret[i]['jarime'] = 0
+        #     else :
+        #         ret[i]['dore_ghabl'] = ret[i-1]['kol']
+        #         ret[i]['jarime'] = 1
+        #     ret[i]['kol'] = ret[i]['jarime'] + float(ret[i]['dore_ghabl'] ) + float(sadid[0][0])/3
+        #     i = i + 1
+        sal = {}
+        sal[1] = 31
+        sal[2] = 31
+        sal[3] = 31
+        sal[4] = 31
+        sal[5] = 31
+        sal[6] = 31
+        sal[7] = 30
+        sal[8] = 30
+        sal[9] = 30
+        sal[10] = 30
+        sal[11] = 30
+        sal[12] = 29
+        mahshahr = db.mycursor.execute("SELECT * FROM sadid_mahshahr")
+        mahshahr = db.mycursor.fetchall()
+        nerkh = 5
+        i = 0
+        while i < len(mahshahr):
+            rooze_mah = mahshahr[i][3].split('-')
+            # return 0
+            rooze_mah =  sal[int(rooze_mah[1])]
+            # print(abs(ekhtelaf_date(mahshahr[1][3], mahshahr[-3][3])))
+            # print(abs(ekhtelaf_date(mahshahr[i][3], mahshahr[i - 1][3])) / rooze_mah)
             ret[i] = {}
-            ret[i]['tarikh'] = sadid[0][2]
-            ret[i]['naftanir'] = 0
-            ret[i]['taahod'] = float(sadid[0][0])/3
+            ret[i]['taahod_be_pardakht'] = mahshahr[i][1]
+            ret[i]['tarikh'] = mahshahr[i][3]
             if i == 0:
-                ret[i]['dore_ghabl'] = 0
+                ret[i]['pardakht_nashode_dore_ghabl'] = 0
                 ret[i]['jarime'] = 0
             else :
-                ret[i]['dore_ghabl'] = ret[i-1]['kol']
-                ret[i]['jarime'] = 1
-            ret[i]['kol'] = ret[i]['jarime'] + float(ret[i]['dore_ghabl'] ) + float(sadid[0][0])/3
+                ret[i]['pardakht_nashode_dore_ghabl'] = ret[i-1]['kole_motalebat']
+                # print(ret[i]['pardakht_nashode_dore_ghabl'])
+                # print(int(ret[i]['pardakht_nashode_dore_ghabl'])*(1 + nerkh )**(abs(ekhtelaf_date(mahshahr[i][3],mahshahr[i-1][3])) / rooze_mah) - int(ret[i]['pardakht_nashode_dore_ghabl']))
+                ret[i]['jarime'] = (int(ret[i]['pardakht_nashode_dore_ghabl']) *(1 + nerkh )**(abs(ekhtelaf_date(mahshahr[i][3],mahshahr[i-1][3])) / rooze_mah)) - int(ret[i]['pardakht_nashode_dore_ghabl'])
+                # print(ret[i]['jarime'])
+            ret[i]['kole_motalebat'] = int(ret[i]['jarime']) + int(ret[i]['pardakht_nashode_dore_ghabl'])  + int(ret[i]['taahod_be_pardakht'])
+            i = i+1
         return  ret
 
 
 
 
-
+import moment
+from datetime import datetime
+def ekhtelaf_date(date1 , date2):
+    d1 =moment.date(date1).strftime("%Y-%m-%d")
+    d1 = moment.date(d1).locale("Asia/Tehran").date
+    d2 =moment.date(date2).strftime("%Y-%m-%d")
+    d2 = moment.date(d2).locale("Asia/Tehran").date
+    sal = {}
+    sal[1] = 31
+    sal[2] = 31
+    sal[3] = 31
+    sal[4] = 31
+    sal[5] = 31
+    sal[6] = 31
+    sal[7] = 30
+    sal[8] = 30
+    sal[9] = 30
+    sal[10] = 30
+    sal[11] = 30
+    sal[11] = 30
+    sal[12] = 29
+    # print (d1)
+    # print (d2)
+    ekh = d1 - d2
+    return ekh.days
+    ekh = str(ekh)
+    ekh = ekh.split(' ')
+    date2 = date2.split('-')
+    print("salam")
+    print(date2)
+    return  1
+    # return float(int(ekh[0]) / int(sal[int(date2[1])]))
 
 
 class jadvalPeymankaran(Resource):
