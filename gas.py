@@ -700,21 +700,43 @@ def ekhtelaf_date(date1 , date2):
     sal[11] = 30
     sal[11] = 30
     sal[12] = 29
-    # print (d1)
-    # print (d2)
+    print (d1)
+    print (d2)
     ekh = d1 - d2
+    # return str(ekh)
     # return ekh.days
-    ekh = str(ekh)
-    ekh = ekh.split(' ')
+    # ekh = str(ekh)
+    # ekh = ekh.split(' ')
+    ekh = ekh.days
+    # return ekh
     date2 = date2.split('-')
-    return float(int(ekh[0]) / int(sal[int(date2[1])]))
+    return float(int(ekh) / int(sal[int(date2[1])]))
 
 
 class jadvalPeymankaran(Resource):
     def get(self):
+        nerkh = 4
         jadval = db.mycursor.execute("SELECT * FROM peymankaran")
         jadval = db.mycursor.fetchall()
+        # return ekhtelaf_date(jadval[0][4] , jadval[1][4] )
         ret = {}
+        i = 0
+        while i < len(jadval):
+            ret[i]={}
+            ret[i]['sharh'] = jadval[i][5]
+            ret[i]['tarikh'] = jadval[i][4]
+            ret[i]['pool']=jadval[i][3]
+            if i == 0:
+                ret[i]['pardakht_nashode_dore_ghable'] = 0
+                ret[i]['jarime'] = 0
+            else:
+                ret[i]['pardakht_nashode_dore_ghable'] = ret[i-1]['kole_motalebat']
+                ret[i]['jarime'] = (int(ret[i]['pardakht_nashode_dore_ghable']) * (1 + nerkh) ** (
+                    abs(ekhtelaf_date(jadval[i][4], jadval[i - 1][4])))) - int(
+                    ret[i]['pardakht_nashode_dore_ghable'])
+            ret[i]['kole_motalebat'] = int(ret[i]['jarime']) + int(ret[i]['pardakht_nashode_dore_ghable']) + int(ret[i]['pool'])
+            i = i+1
+        return ret
 
 api.add_resource(gostare,"/gostare")
 api.add_resource(comper,"/comperosor")
