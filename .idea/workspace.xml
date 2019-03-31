@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d4f2014d-a8d8-48a2-8c79-6ce61c795a45" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/gas.py" afterPath="$PROJECT_DIR$/gas.py" />
-    </list>
+    <list default="true" id="d4f2014d-a8d8-48a2-8c79-6ce61c795a45" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,8 +32,8 @@
       <file leaf-file-name="gas.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="725" column="30" lean-forward="true" selection-start-line="725" selection-start-column="30" selection-end-line="725" selection-end-column="30" />
+            <state relative-caret-position="308">
+              <caret line="730" column="43" lean-forward="true" selection-start-line="730" selection-start-column="43" selection-end-line="730" selection-end-column="43" />
               <folding>
                 <marker date="1554054207281" expanded="true" signature="508:559" ph="SELECT * FRO... gostare_pishraft" />
                 <marker date="1554054207281" expanded="true" signature="704:725" ph="SELECT * FRO... gostare" />
@@ -900,8 +897,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="725" column="30" lean-forward="true" selection-start-line="725" selection-start-column="30" selection-end-line="725" selection-end-column="30" />
+        <state relative-caret-position="308">
+          <caret line="730" column="43" lean-forward="true" selection-start-line="730" selection-start-column="43" selection-end-line="730" selection-end-column="43" />
           <folding>
             <marker date="1554054207281" expanded="true" signature="508:559" ph="SELECT * FRO... gostare_pishraft" />
             <marker date="1554054207281" expanded="true" signature="704:725" ph="SELECT * FRO... gostare" />
