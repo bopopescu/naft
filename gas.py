@@ -751,9 +751,10 @@ class jadvalPeymankaran(Resource):
         nerkh = 0.0180885824835107
         jadval = db.mycursor.execute("SELECT * FROM peymankaran")
         jadval = db.mycursor.fetchall()
-        # return ekhtelaf_date(jadval[0][4] , jadval[1][4] )
         ret = {}
         i = 0
+        if len(jadval) == 0:
+            return "TODO:: BAYAD ezafe Beshe"
         while i < len(jadval):
             ret[i]={}
             ret[i]['sharh'] = 'مبلغ ریالی پرداخت شده'
@@ -762,14 +763,12 @@ class jadvalPeymankaran(Resource):
             ret[i]['tarikh'] = jadval[i][4]
             ret[i]['pool']=jadval[i][3]
             if i == 0:
-                db.mycursor.execute("select * from peymankaran_adam_ghateyat")
+                db.mycursor.execute("select * from naftanir_peymankaran_adam")
                 dore_ghable_db = db.mycursor.fetchall()
                 n = 0
                 dore_ghable = 0
-                # return len(dore_ghable_db)
                 while n < len(dore_ghable_db):
-                    # return "salam"
-                    dore_ghable = float(dore_ghable_db[n][3]) + float(dore_ghable)
+                    dore_ghable = float(dore_ghable_db[n][2]) + float(dore_ghable)
                     n = n+1
                 ret[i]['pardakht_nashode_dore_ghable'] = dore_ghable * -1
                 ret[i]['jarime'] = 0
@@ -786,19 +785,19 @@ class jadvalPeymankaran(Resource):
 
 class adam_ghateyat_peymankaran(Resource):
     def get(self):
-        db.mycursor.execute('select * from peymankaran_adam_ghateyat')
+        db.mycursor.execute('select * from naftanir_peymankaran_adam')
         data = db.mycursor.fetchall()
         return data
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('peymankar_name')
-        parser.add_argument('check_id')
-        parser.add_argument('check_money')
         parser.add_argument('tarikh')
+        parser.add_argument('mablagh')
+        parser.add_argument('pardakht_shod_babate')
+        parser.add_argument('shomare_sanad')
         parser.add_argument('tozihat')
         args = parser.parse_args()
-        db.mycursor.execute("insert into peymankaran_adam_ghateyat (peymankar_name , check_id , check_money,tarikh,tozihat) values "
-                            "(%s,%s,%s,%s,%s)" , (args['peymankar_name'] , args['check_id'] , args['check_money'] , args['tarikh'] , args['tozihat']))
+        db.mycursor.execute('insert into naftanir_peymankaran_adam (tarikh,mablagh,pardakht_shod_babate,shomare_sanad,tozihat)'
+                            'values(%s,%s,%s,%s,%s)',(args['tarikh'],args['mablagh'],args['pardakht_shod_babate'],args['shomare_sanad'],args['tozihat']))
         db.mydb.commit()
         return True
 
