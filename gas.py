@@ -686,8 +686,10 @@ from datetime import datetime
 def ekhtelaf_date(date1 , date2):
     d1 =moment.date(date1).strftime("%Y-%m-%d")
     d1 = moment.date(d1).locale("Asia/Tehran").date
+    print(d1)
     d2 =moment.date(date2).strftime("%Y-%m-%d")
     d2 = moment.date(d2).locale("Asia/Tehran").date
+    print(d2)
     sal = {}
     sal[1] = 31
     sal[2] = 31
@@ -702,22 +704,51 @@ def ekhtelaf_date(date1 , date2):
     sal[11] = 30
     sal[11] = 30
     sal[12] = 29
-    print (d1)
-    print (d2)
     ekh = d1 - d2
-    # return str(ekh)
-    # return ekh.days
-    # ekh = str(ekh)
-    # ekh = ekh.split(' ')
+    print(ekh)
     ekh = ekh.days
-    # return ekh
     date2 = date2.split('-')
     return float(int(ekh) / int(sal[int(date2[1])]))
 
 
+def ekhtelaf_dateV2(date1 , date2):
+    d1 =moment.date(date1).strftime("%Y-%m-%d")
+    d1 = moment.date(d1).locale("Asia/Tehran").date
+    print(d1)
+    d2 =moment.date(date2).strftime("%Y-%m-%d")
+    d2 = moment.date(d2).locale("Asia/Tehran").date
+    print(d2)
+    sal = {}
+    sal[1] = 31
+    sal[2] = 31
+    sal[3] = 31
+    sal[4] = 31
+    sal[5] = 31
+    sal[6] = 31
+    sal[7] = 30
+    sal[8] = 30
+    sal[9] = 30
+    sal[10] = 30
+    sal[11] = 30
+    sal[11] = 30
+    sal[12] = 29
+    rooz_aval = str(d1).split('-')
+    mah_aval = rooz_aval[1]
+    rooz_aval = int(str(rooz_aval[2]).split(' ')[0]) - sal[int(mah_aval)]
+    # print(rooz_aval)
+    rooz_dovom = str(d2).split('-')
+    rooz_dovom = str(rooz_dovom[2]).split(' ')[0]
+    # print (rooz_dovom)
+    # print('finally')
+    ekhtelaf_roozha = int(rooz_dovom) - int(rooz_aval)
+    # print (ekhtelaf_roozha)
+    print( float(ekhtelaf_roozha / int(sal[int(date2[1])])))
+    return float(ekhtelaf_roozha / int(sal[int(date2[1])]))
+
+
 class jadvalPeymankaran(Resource):
     def get(self):
-        nerkh = 4
+        nerkh = 0.0180885824835107
         jadval = db.mycursor.execute("SELECT * FROM peymankaran")
         jadval = db.mycursor.fetchall()
         # return ekhtelaf_date(jadval[0][4] , jadval[1][4] )
@@ -731,17 +762,52 @@ class jadvalPeymankaran(Resource):
             ret[i]['tarikh'] = jadval[i][4]
             ret[i]['pool']=jadval[i][3]
             if i == 0:
-                ret[i]['pardakht_nashode_dore_ghable'] = 0
+                db.mycursor.execute("select * from peymankaran_adam_ghateyat")
+                dore_ghable_db = db.mycursor.fetchall()
+                n = 0
+                dore_ghable = 0
+                # return len(dore_ghable_db)
+                while n < len(dore_ghable_db):
+                    # return "salam"
+                    dore_ghable = float(dore_ghable_db[n][3]) + float(dore_ghable)
+                    n = n+1
+                ret[i]['pardakht_nashode_dore_ghable'] = dore_ghable * -1
                 ret[i]['jarime'] = 0
             else:
                 ret[i]['pardakht_nashode_dore_ghable'] = ret[i-1]['kole_motalebat']
-                ret[i]['jarime'] = (int(ret[i]['pardakht_nashode_dore_ghable']) * (1 + nerkh) ** (
-                    abs(ekhtelaf_date(jadval[i][4], jadval[i - 1][4])))) - int(
+                ret[i]['jarime'] = (float(ret[i]['pardakht_nashode_dore_ghable']) * (1 + nerkh) ** (
+                    abs(ekhtelaf_dateV2(jadval[i-1][4], jadval[i][4])))) - float(
                     ret[i]['pardakht_nashode_dore_ghable'])
-            ret[i]['kole_motalebat'] = int(ret[i]['jarime']) + int(ret[i]['pardakht_nashode_dore_ghable']) + int(ret[i]['pool'])
+            ret[i]['kole_motalebat'] = float(ret[i]['jarime']) + float(ret[i]['pardakht_nashode_dore_ghable']) + float(ret[i]['pool'])
             i = i+1
         return ret
 
+
+
+class adam_ghateyat_peymankaran(Resource):
+    def get(self):
+        db.mycursor.execute('select * from peymankaran_adam_ghateyat')
+        data = db.mycursor.fetchall()
+        return data
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('peymankar_name')
+        parser.add_argument('check_id')
+        parser.add_argument('check_money')
+        parser.add_argument('tarikh')
+        parser.add_argument('tozihat')
+        args = parser.parse_args()
+        db.mycursor.execute("insert into peymankaran_adam_ghateyat (peymankar_name , check_id , check_money,tarikh,tozihat) values "
+                            "(%s,%s,%s,%s,%s)" , (args['peymankar_name'] , args['check_id'] , args['check_money'] , args['tarikh'] , args['tozihat']))
+        db.mydb.commit()
+        return True
+
+
+
+
+
+
+api.add_resource(adam_ghateyat_peymankaran,"/peymankaran_a")
 api.add_resource(gostare,"/gostare")
 api.add_resource(comper,"/comperosor")
 api.add_resource(peymankaran,"/peymankaran")
