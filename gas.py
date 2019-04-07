@@ -445,11 +445,11 @@ class sadid_mahshahr(Resource):
     def post(self):
         parse = reqparse.RequestParser()
         parse.add_argument("money")
-        parse.add_argument("tik")
+        parse.add_argument("asl_dar_mohasebat")
         parse.add_argument("tarikh")
         parse.add_argument("jarime")
         args = parse.parse_args()
-        db.mycursor.execute("INSERT INTO sadid_mahshahr(money , tik , tarikh , jarime)  VALUES(%s , %s ,%s , %s) " , (args['money'] , args['tik'],args['tarikh'],args['jarime'],))
+        db.mycursor.execute("INSERT INTO sadid_mahshahr(money , asl_dar_mohasebat , tarikh , jarime)  VALUES(%s , %s ,%s , %s) " , (args['money'] , args['asl_dar_mohasebat'],args['tarikh'],args['jarime'],))
         db.mydb.commit()
         return True
 from operator import itemgetter
@@ -618,66 +618,51 @@ class jadvalArazi(Resource):
 
 class looleSaziSadid(Resource):
     def get(self):
-        sadid = sadid_mahshahr()
-        sadid = sadid.get()
-        ret = {}
-        # ret['pardakht_shode_tavasote_naftanir'] = 0
-        # ret['taahod_be_pardakht'] = float(sadid[0][0]) / 3
-        # ret['pardakht_nashode_dore_ghabl'] = 0
-        # ret['jarime_dore_ghable'] = 0
-        # ret['kole_motalebat'] = float(ret['jarime_dore_ghable']) + float(ret['pardakht_nashode_dore_ghabl'])
-        # return str(sadid[0][2])
-        # return ret
+        # sadid = sadid_mahshahr()
+        # sadid = sadid.get()
+        # ret = {}
+        # sal = {}
+        # sal[1] = 31
+        # sal[2] = 31
+        # sal[3] = 31
+        # sal[4] = 31
+        # sal[5] = 31
+        # sal[6] = 31
+        # sal[7] = 30
+        # sal[8] = 30
+        # sal[9] = 30
+        # sal[10] = 30
+        # sal[11] = 30
+        # sal[12] = 29
+        # mahshahr = db.mycursor.execute("SELECT * FROM sadid_mahshahr")
+        # mahshahr = db.mycursor.fetchall()
+        # nerkh = 0.0180885824835107
         # i = 0
-        # while i < len(sadid):
+        # while i < len(mahshahr):
+        #     rooze_mah = mahshahr[i][3].split('-')
+        #     rooze_mah =  sal[int(rooze_mah[1])]
         #     ret[i] = {}
-        #     ret[i]['tarikh'] = sadid[i][2]
-        #     ret[i]['naftanir'] = 0
-        #     ret[i]['taahod'] = float(sadid[0][0])
+        #     ret[i]['taahod_be_pardakht'] = mahshahr[i][1]
+        #     ret[i]['tarikh'] = mahshahr[i][3]
         #     if i == 0:
-        #         ret[i]['dore_ghabl'] = 0
+        #         ret[i]['pardakht_nashode_dore_ghabl'] = 0
         #         ret[i]['jarime'] = 0
         #     else :
-        #         ret[i]['dore_ghabl'] = ret[i-1]['kol']
-        #         ret[i]['jarime'] = 1
-        #     ret[i]['kol'] = ret[i]['jarime'] + float(ret[i]['dore_ghabl'] ) + float(sadid[0][0])/3
-        #     i = i + 1
-        sal = {}
-        sal[1] = 31
-        sal[2] = 31
-        sal[3] = 31
-        sal[4] = 31
-        sal[5] = 31
-        sal[6] = 31
-        sal[7] = 30
-        sal[8] = 30
-        sal[9] = 30
-        sal[10] = 30
-        sal[11] = 30
-        sal[12] = 29
-        mahshahr = db.mycursor.execute("SELECT * FROM sadid_mahshahr")
-        mahshahr = db.mycursor.fetchall()
-        nerkh = 5
+        #         ret[i]['pardakht_nashode_dore_ghabl'] = ret[i-1]['kole_motalebat']
+        #         ret[i]['jarime'] = (int(ret[i]['pardakht_nashode_dore_ghabl']) *(1 + nerkh )**(abs(ekhtelaf_date(mahshahr[i][3],mahshahr[i-1][3])))) - int(ret[i]['pardakht_nashode_dore_ghabl'])
+        #     ret[i]['kole_motalebat'] = int(ret[i]['jarime']) + int(ret[i]['pardakht_nashode_dore_ghabl'])  + int(ret[i]['taahod_be_pardakht'])
+        #     i = i+1
+        db.mycursor.execute('select * from sadid_mahshahr')
+        data = db.mycursor.fetchall()
         i = 0
-        while i < len(mahshahr):
-            rooze_mah = mahshahr[i][3].split('-')
-            # return 0
-            rooze_mah =  sal[int(rooze_mah[1])]
-            # print(abs(ekhtelaf_date(mahshahr[1][3], mahshahr[-3][3])))
-            # print(abs(ekhtelaf_date(mahshahr[i][3], mahshahr[i - 1][3])) / rooze_mah)
-            ret[i] = {}
-            ret[i]['taahod_be_pardakht'] = mahshahr[i][1]
-            ret[i]['tarikh'] = mahshahr[i][3]
-            if i == 0:
-                ret[i]['pardakht_nashode_dore_ghabl'] = 0
-                ret[i]['jarime'] = 0
-            else :
-                ret[i]['pardakht_nashode_dore_ghabl'] = ret[i-1]['kole_motalebat']
-                # print(ret[i]['pardakht_nashode_dore_ghabl'])
-                # print(int(ret[i]['pardakht_nashode_dore_ghabl'])*(1 + nerkh )**(abs(ekhtelaf_date(mahshahr[i][3],mahshahr[i-1][3])) / rooze_mah) - int(ret[i]['pardakht_nashode_dore_ghabl']))
-                ret[i]['jarime'] = (int(ret[i]['pardakht_nashode_dore_ghabl']) *(1 + nerkh )**(abs(ekhtelaf_date(mahshahr[i][3],mahshahr[i-1][3])))) - int(ret[i]['pardakht_nashode_dore_ghabl'])
-                # print(ret[i]['jarime'])
-            ret[i]['kole_motalebat'] = int(ret[i]['jarime']) + int(ret[i]['pardakht_nashode_dore_ghabl'])  + int(ret[i]['taahod_be_pardakht'])
+        ret = {}
+        nerkh = 0.0180885824835107
+        while i < 2:
+            ret[i]['taahod_be_pardakht'] = float(data[0][1])/3
+            ret[i]['pardakht_nashod_dore_ghabl'] = 0
+            if i == 1:
+                ret[i]['pardakht_nashod_dore_ghabl'] = ret['taahod_be_pardakht']
+                ret[i]['jarime'] = (ret[i]['taahod_be_pardakht'] *(1+nerkh)**(ekhtelaf_dateV2('1394-12-27','1395-01-27'))) -ret['taahod_be_pardakht']
             i = i+1
         return  ret
 
