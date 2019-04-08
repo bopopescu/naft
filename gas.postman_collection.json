@@ -215,12 +215,12 @@
 						},
 						{
 							"key": "money",
-							"value": "5000002131546541",
+							"value": "414641461341",
 							"type": "text"
 						},
 						{
 							"key": "tarikh",
-							"value": "15/7/98",
+							"value": "95-1-27",
 							"type": "text"
 						},
 						{
@@ -935,18 +935,19 @@
 					"formdata": [
 						{
 							"key": "money",
-							"value": "264682046500",
+							"value": "794046139500",
 							"type": "text"
 						},
 						{
-							"key": "tik",
+							"key": "asl_dar_mohasebat",
 							"value": "yes",
 							"type": "text"
 						},
 						{
 							"key": "tarikh",
 							"value": "27/02/1394",
-							"type": "text"
+							"type": "text",
+							"disabled": true
 						}
 					]
 				},
@@ -1123,7 +1124,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/jadval_loole_sazi_sadid",
+					"raw": "http://127.0.0.1:5000/jadval_loole_sazi_sadid?time_now=1396-9-17",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1134,6 +1135,12 @@
 					"port": "5000",
 					"path": [
 						"jadval_loole_sazi_sadid"
+					],
+					"query": [
+						{
+							"key": "time_now",
+							"value": "1396-9-17"
+						}
 					]
 				}
 			},
@@ -1180,34 +1187,31 @@
 			"response": []
 		},
 		{
-			"name": "پیمانکاران عدم قطعیت",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "naftanir_aadam_ghatiyat_peymankaran",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "peymankar_name",
-							"value": "1",
+							"key": "tarikh",
+							"value": "1394-12-27",
 							"type": "text"
 						},
 						{
-							"key": "check_id",
-							"value": "1",
+							"key": "mablagh",
+							"value": "318124260877",
 							"description": "1",
 							"type": "text"
 						},
 						{
-							"key": "check_money",
-							"value": "1",
+							"key": "pardakht_shod_babate",
+							"value": "پیمانکاران",
 							"type": "text"
 						},
 						{
-							"key": "tarikh",
+							"key": "shomare_sanad",
 							"value": "1",
 							"type": "text"
 						},
@@ -1219,7 +1223,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/peymankaran_a",
+					"raw": "http://127.0.0.1:5000/naftanir_aadam_ghatiyat_peymankaran",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1229,7 +1233,7 @@
 					],
 					"port": "5000",
 					"path": [
-						"peymankaran_a"
+						"naftanir_aadam_ghatiyat_peymankaran"
 					]
 				}
 			},
