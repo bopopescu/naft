@@ -618,53 +618,41 @@ class jadvalArazi(Resource):
 
 class looleSaziSadid(Resource):
     def get(self):
-        # sadid = sadid_mahshahr()
-        # sadid = sadid.get()
-        # ret = {}
-        # sal = {}
-        # sal[1] = 31
-        # sal[2] = 31
-        # sal[3] = 31
-        # sal[4] = 31
-        # sal[5] = 31
-        # sal[6] = 31
-        # sal[7] = 30
-        # sal[8] = 30
-        # sal[9] = 30
-        # sal[10] = 30
-        # sal[11] = 30
-        # sal[12] = 29
-        # mahshahr = db.mycursor.execute("SELECT * FROM sadid_mahshahr")
-        # mahshahr = db.mycursor.fetchall()
-        # nerkh = 0.0180885824835107
-        # i = 0
-        # while i < len(mahshahr):
-        #     rooze_mah = mahshahr[i][3].split('-')
-        #     rooze_mah =  sal[int(rooze_mah[1])]
-        #     ret[i] = {}
-        #     ret[i]['taahod_be_pardakht'] = mahshahr[i][1]
-        #     ret[i]['tarikh'] = mahshahr[i][3]
-        #     if i == 0:
-        #         ret[i]['pardakht_nashode_dore_ghabl'] = 0
-        #         ret[i]['jarime'] = 0
-        #     else :
-        #         ret[i]['pardakht_nashode_dore_ghabl'] = ret[i-1]['kole_motalebat']
-        #         ret[i]['jarime'] = (int(ret[i]['pardakht_nashode_dore_ghabl']) *(1 + nerkh )**(abs(ekhtelaf_date(mahshahr[i][3],mahshahr[i-1][3])))) - int(ret[i]['pardakht_nashode_dore_ghabl'])
-        #     ret[i]['kole_motalebat'] = int(ret[i]['jarime']) + int(ret[i]['pardakht_nashode_dore_ghabl'])  + int(ret[i]['taahod_be_pardakht'])
-        #     i = i+1
         db.mycursor.execute('select * from sadid_mahshahr')
         data = db.mycursor.fetchall()
+        # return data[0][1]
         i = 0
         ret = {}
         nerkh = 0.0180885824835107
-        while i < 2:
+        while i <= 2:
+            print(i)
+            ret[i] = {}
             ret[i]['taahod_be_pardakht'] = float(data[0][1])/3
-            ret[i]['pardakht_nashod_dore_ghabl'] = 0
+
+            if i ==0:
+                ret[i]['pardakht_nashod_dore_ghabl'] = 0
+                ret[i]['jarime'] = 0
+                ret[i]['kole_motalebat'] = float(data[0][1])/3
             if i == 1:
-                ret[i]['pardakht_nashod_dore_ghabl'] = ret['taahod_be_pardakht']
-                ret[i]['jarime'] = (ret[i]['taahod_be_pardakht'] *(1+nerkh)**(ekhtelaf_dateV2('1394-12-27','1395-01-27'))) -ret['taahod_be_pardakht']
+                ret[i]['pardakht_nashod_dore_ghabl'] = ret[i-1]['taahod_be_pardakht']
+                ret[i]['jarime'] = (ret[i-1]['kole_motalebat'] *(1+nerkh)**(
+                    khayam_type('1394-12-27','1395-01-27'))) -ret[i-1]['kole_motalebat']
+                ret[i]['kole_motalebat'] = ret[i]['jarime'] + ret[i-1]['kole_motalebat']+(float(data[0][1])/3)
+            if i ==2:
+                ret[i]['pardakht_nashod_dore_ghabl'] = ret[i-1]['taahod_be_pardakht']
+                ret[i]['jarime'] = (ret[i-1]['kole_motalebat'] *(1+nerkh)**(
+                    khayam_type('1395-01-27','1395-02-27'))) -ret[i-1]['kole_motalebat']
+                ret[i]['kole_motalebat'] = ret[i]['jarime'] + ret[i - 1]['kole_motalebat'] + (float(data[0][1]) / 3)
             i = i+1
+        parser = reqparse.RequestParser()
+        parser.add_argument('time_now')
+        args = parser.parse_args()
+        if args['time_now']:
+            ret['end'] = {}
+            ret['end']['jarime'] = (ret[2]['kole_motalebat'] * (1+nerkh)**khayam_type('1395-02-27' , args['time_now'])) -  ret[2]['kole_motalebat']
+            ret['end']['kole_motalebat'] = ret[2]['kole_motalebat'] + ret['end']['jarime']
         return  ret
+
 
 import moment
 from datetime import datetime
@@ -699,10 +687,10 @@ def ekhtelaf_date(date1 , date2):
 def ekhtelaf_dateV2(date1 , date2):
     d1 =moment.date(date1).strftime("%Y-%m-%d")
     d1 = moment.date(d1).locale("Asia/Tehran").date
-    print(d1)
+    # print(d1)
     d2 =moment.date(date2).strftime("%Y-%m-%d")
     d2 = moment.date(d2).locale("Asia/Tehran").date
-    print(d2)
+    # print(d2)
     sal = {}
     sal[1] = 31
     sal[2] = 31
@@ -725,12 +713,19 @@ def ekhtelaf_dateV2(date1 , date2):
     rooz_dovom = str(rooz_dovom[2]).split(' ')[0]
     # print (rooz_dovom)
     # print('finally')
-    ekhtelaf_roozha = int(rooz_dovom) - int(rooz_aval)
+    ekhtelaf_roozha = int(rooz_dovom) - int(rooz_aval-1)
     # print (ekhtelaf_roozha)
-    print( float(ekhtelaf_roozha / int(sal[int(date2[1])])))
+    # print( float(ekhtelaf_roozha / int(sal[int(date2[1])])))
     return float(ekhtelaf_roozha / int(sal[int(date2[1])]))
-
-
+from khayyam import *
+def khayam_type(date1 , date2):
+    d1 = date1.split('-')
+    d2 = date2.split('-')
+    time = JalaliDate(d1[0],d1[1],d1[2])
+    time2 = JalaliDate(d2[0],d2[1],d2[2])
+    time = time - time2
+    days = abs(int(time.days))
+    return days/int(time2.daysinmonth)
 class jadvalPeymankaran(Resource):
     def get(self):
         nerkh = 0.0180885824835107
