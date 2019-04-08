@@ -729,12 +729,25 @@ def khayam_type(date1 , date2):
 class jadvalPeymankaran(Resource):
     def get(self):
         nerkh = 0.0180885824835107
-        jadval = db.mycursor.execute("SELECT * FROM peymankaran")
+        db.mycursor.execute("SELECT * FROM peymankaran")
         jadval = db.mycursor.fetchall()
+        db.mycursor.execute("SELECT * FROM pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate in (%s)" , ('پیمانکاران',))
+        jadval_naftanir = db.mycursor.fetchall()
+        i = 0
+        while i< len(jadval_naftanir):
+            apending = [
+                jadval_naftanir[i][0],
+                'پرداخت شده توسط نفتانیر',
+                'no_check_id',
+                jadval_naftanir[i][2],
+                jadval_naftanir[i][1],
+                jadval_naftanir[i][5]
+                ]
+            i = i+1
+            jadval.append(apending)
+        # return jadval
         ret = {}
         i = 0
-        if len(jadval) == 0:
-            return "TODO:: BAYAD ezafe Beshe"
         while i < len(jadval):
             ret[i]={}
             ret[i]['sharh'] = 'مبلغ ریالی پرداخت شده'
@@ -750,12 +763,12 @@ class jadvalPeymankaran(Resource):
                 while n < len(dore_ghable_db):
                     dore_ghable = float(dore_ghable_db[n][2]) + float(dore_ghable)
                     n = n+1
-                ret[i]['pardakht_nashode_dore_ghable'] = dore_ghable * -1
+                ret[i]['pardakht_nashode_dore_ghable'] = abs(dore_ghable )* -1
                 ret[i]['jarime'] = 0
             else:
                 ret[i]['pardakht_nashode_dore_ghable'] = ret[i-1]['kole_motalebat']
                 ret[i]['jarime'] = (float(ret[i]['pardakht_nashode_dore_ghable']) * (1 + nerkh) ** (
-                    abs(ekhtelaf_dateV2(jadval[i-1][4], jadval[i][4])))) - float(
+                    abs(khayam_type(jadval[i-1][4], jadval[i][4])))) - float(
                     ret[i]['pardakht_nashode_dore_ghable'])
             ret[i]['kole_motalebat'] = float(ret[i]['jarime']) + float(ret[i]['pardakht_nashode_dore_ghable']) + float(ret[i]['pool'])
             i = i+1
