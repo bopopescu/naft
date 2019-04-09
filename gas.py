@@ -392,9 +392,10 @@ class pardakht_shode_tavasote_naftanir(Resource):
         parser.add_argument("pardakht_shod_babate")
         parser.add_argument("shomare_sanad")
         parser.add_argument("tozihat")
+        parser.add_argument("state")
         args = parser.parse_args()
-        db.mycursor.execute("INSERT INTO pardakht_shode_tavasote_naftanir_tm (tarikh , mablagh , pardakht_shod_babate,shomare_sanad , tozihat) VALUES (%s,%s,%s,%s,%s)",
-                            (args['tarikh'] , args['mablagh'],args['pardakht_shod_babate'],args['shomare_sanad'],args['tozihat'],))
+        db.mycursor.execute("INSERT INTO pardakht_shode_tavasote_naftanir_tm (tarikh , mablagh , pardakht_shod_babate,shomare_sanad, tozihat , state) VALUES (%s,%s,%s,%s,%s)",
+                            (args['tarikh'] , args['mablagh'],args['pardakht_shod_babate'],args['shomare_sanad'],args['tozihat'],args['state']))
         db.mydb.commit()
         return True
     def delete(self):
@@ -620,7 +621,8 @@ class looleSaziSadid(Resource):
     def get(self):
         db.mycursor.execute('select * from sadid_mahshahr')
         data = db.mycursor.fetchall()
-        # return data[0][1]
+        if not data:
+            return None
         i = 0
         ret = {}
         nerkh = 0.0180885824835107
@@ -731,8 +733,12 @@ class jadvalPeymankaran(Resource):
         nerkh = 0.0180885824835107
         db.mycursor.execute("SELECT * FROM peymankaran")
         jadval = db.mycursor.fetchall()
-        db.mycursor.execute("SELECT * FROM pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate in (%s)" , ('پیمانکاران',))
+
+        sql = "SELECT * FROM pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate =  پیمانکاران AND state = before"
+        # sql = "SELECT * FROM pardakht_shode_tavasote_naftanir_tm"
+        db.mycursor.execute(sql)
         jadval_naftanir = db.mycursor.fetchall()
+        return jadval_naftanir
         i = 0
         while i< len(jadval_naftanir):
             apending = [
@@ -745,7 +751,6 @@ class jadvalPeymankaran(Resource):
                 ]
             i = i+1
             jadval.append(apending)
-        # return jadval
         ret = {}
         i = 0
         while i < len(jadval):
