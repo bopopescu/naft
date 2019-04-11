@@ -270,7 +270,8 @@ class pipeLinesF(Resource):
                              'hazine_pooshesh':hazine_pooshesh,
                              'maliyat_bara_arzesh_afzoode_sakhte_pooshesh':maliyat_bar_arzesh_afzoode_sakht_pooshesh,
                              'motalebat_riyali':motalebate_riyali,
-                             'motalebat_arzi':motalebat_arzi}
+                             'motalebat_arzi':motalebat_arzi,
+                    'tarikh':record[13]}
             i = i+ 1
         return ret
 
@@ -394,7 +395,7 @@ class pardakht_shode_tavasote_naftanir(Resource):
         parser.add_argument("tozihat")
         parser.add_argument("state")
         args = parser.parse_args()
-        db.mycursor.execute("INSERT INTO pardakht_shode_tavasote_naftanir_tm (tarikh , mablagh , pardakht_shod_babate,shomare_sanad, tozihat , state) VALUES (%s,%s,%s,%s,%s)",
+        db.mycursor.execute("INSERT INTO pardakht_shode_tavasote_naftanir_tm (tarikh , mablagh , pardakht_shod_babate,shomare_sanad, tozihat , state) VALUES (%s,%s,%s,%s,%s,%s)",
                             (args['tarikh'] , args['mablagh'],args['pardakht_shod_babate'],args['shomare_sanad'],args['tozihat'],args['state']))
         db.mydb.commit()
         return True
@@ -457,23 +458,8 @@ from operator import itemgetter
 import operator
 class jadval56(Resource):
     def get(self):
-        # p56 = pipeLinesF()
-        # p56 =  p56.get2()
-        # p56 = json.dumps(p56)
-        # p56 = json.loads(p56)
-        # # pipeline56 = {}
-        # for id in  p56:
-        #      pipeline56[id] = {}
-        #      pipeline56[id]['taahod_be_pardakht'] = p56[id]['motalebat_riyali']
-        #      # jareme = jarime(1 ,1 ,1 ,1)
-        #      pipeline56[id]['jarime'] = 1
-        #      if float(id) == 1:
-        #         pndg = 0
-        #      else:
-        #         pndg = pipeline56[str(float(id) - 1)]['kole_motalebat']
-        #      pipeline56[id]['pardakht_nashode_dore_ghable'] = pndg
-        #      pipeline56[id]['kole_motalebat'] = float(pipeline56[id]['jarime']) + pndg + pipeline56[id]['taahod_be_pardakht']
-        # return pipeline56
+        # sql = "SELECT * FROM pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate =  %s AND state = %s"
+        # values = ('پیمانکاران', 'after')
         db.mycursor.execute("select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s" ,("لوله",))
         naftanir = db.mycursor.fetchall()
         db.mycursor.execute("SELECT * FROM pipelinesf")
@@ -481,7 +467,6 @@ class jadval56(Resource):
         merger ={}
         i = 0
         for record in p56:
-
             mablaghe_varagh = float(record[3]) * 1033
             avarez_gomrok = mablaghe_varagh * float(record[9]) * 4 / 100
             hazine_sakht_loole = 0
@@ -719,26 +704,18 @@ def ekhtelaf_dateV2(date1 , date2):
     # print (ekhtelaf_roozha)
     # print( float(ekhtelaf_roozha / int(sal[int(date2[1])])))
     return float(ekhtelaf_roozha / int(sal[int(date2[1])]))
-from khayyam import *
-def khayam_type(date1 , date2):
-    d1 = date1.split('-')
-    d2 = date2.split('-')
-    time = JalaliDate(d1[0],d1[1],d1[2])
-    time2 = JalaliDate(d2[0],d2[1],d2[2])
-    time = time - time2
-    days = abs(int(time.days))
-    return days/int(time2.daysinmonth)
+
 class jadvalPeymankaran(Resource):
     def get(self):
+        ret = {}
         nerkh = 0.0180885824835107
         db.mycursor.execute("SELECT * FROM peymankaran")
         jadval = db.mycursor.fetchall()
-
-        sql = "SELECT * FROM pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate =  پیمانکاران AND state = before"
-        # sql = "SELECT * FROM pardakht_shode_tavasote_naftanir_tm"
-        db.mycursor.execute(sql)
+        sql = "SELECT * FROM pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate =  %s AND state = %s"
+        values = ('پیمانکاران' , 'after')
+        db.mycursor.execute(sql,values)
         jadval_naftanir = db.mycursor.fetchall()
-        return jadval_naftanir
+        # return jadval_naftanir
         i = 0
         while i< len(jadval_naftanir):
             apending = [
@@ -751,7 +728,24 @@ class jadvalPeymankaran(Resource):
                 ]
             i = i+1
             jadval.append(apending)
-        ret = {}
+        sql = "SELECT * FROM pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate =  %s AND state = %s"
+        values = ('پیمانکاران', 'before')
+        db.mycursor.execute(sql, values)
+        dore_ghable_db = db.mycursor.fetchall()
+        n = 0
+        dore_ghable = 0
+        while n < len(dore_ghable_db):
+            dore_ghable = float(dore_ghable_db[n][2]) + float(dore_ghable)
+            n = n + 1
+        ret['dore_ghable'] = {
+            'sharh': 'مبالغ ریالی پرداخت شده توسط نفتانیر تا تاریخ 94/12/27',
+            'tarikh': '1394-12',
+            'pool':abs(dore_ghable ),
+            'noe': 'پرداخت شده توسط نفتانیر',
+            'pardakht_nashode_dore_ghable':0,
+            'jarime':0,
+            'kole_motalebat':abs(dore_ghable )* -1
+        }
         i = 0
         while i < len(jadval):
             ret[i]={}
@@ -761,13 +755,7 @@ class jadvalPeymankaran(Resource):
             ret[i]['tarikh'] = jadval[i][4]
             ret[i]['pool']=jadval[i][3]
             if i == 0:
-                db.mycursor.execute("select * from naftanir_peymankaran_adam")
-                dore_ghable_db = db.mycursor.fetchall()
-                n = 0
-                dore_ghable = 0
-                while n < len(dore_ghable_db):
-                    dore_ghable = float(dore_ghable_db[n][2]) + float(dore_ghable)
-                    n = n+1
+
                 ret[i]['pardakht_nashode_dore_ghable'] = abs(dore_ghable )* -1
                 ret[i]['jarime'] = 0
             else:
@@ -799,12 +787,31 @@ class adam_ghateyat_peymankaran(Resource):
         db.mydb.commit()
         return True
 
+class jadval562(Resource):
+    def get(self):
+        db.mycursor.execute("select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",('لوله های 56 اینچ' , 'before'))
+        naftanir_pardakht_adam = db.mycursor.fetchall()
+        i = 0
+        final_sum=0
+        while i < len(naftanir_pardakht_adam):
+            final_sum = float(naftanir_pardakht_adam[i][2]) + final_sum
+            i = i +1
+        # return final_sum
+        data_b = {}
+        data_b['adam_ghat']={
+            'sharh': 'پرداختی شرکت توسعه گاز',
+            'tarikh': '1394-11-19',
+            'pool': final_sum,
+            'kole_motalebat': abs(final_sum) * -1
+        }
+        p56 = pipeLinesF().get2()
+        i = 0
+        while i < len(p56):
+            print(i)
+            i = i+1
+        return p56
 
-
-
-
-
-api.add_resource(adam_ghateyat_peymankaran,"/naftanir_aadam_ghatiyat_peymankaran")
+# api.add_resource(adam_ghateyat_peymankaran,"/naftanir_aadam_ghatiyat_peymankaran")
 api.add_resource(gostare,"/gostare")
 api.add_resource(comper,"/comperosor")
 api.add_resource(peymankaran,"/peymankaran")
@@ -814,7 +821,7 @@ api.add_resource(pardakht_naftanir , "/pardakht_naftanir")
 api.add_resource(pardakht_shode_tavasote_naftanir , "/pardakht_shode_tavasote_naftanir_TM")
 api.add_resource(kala_30 , "/kala_30")
 api.add_resource(sadid_mahshahr , "/sadid_mahshahr")
-api.add_resource(jadval56 , "/jadval56")
+api.add_resource(jadval562 , "/jadval56")
 api.add_resource(jadvalArazi , "/jadvalArazi")
 api.add_resource(looleSaziSadid , "/jadval_loole_sazi_sadid")
 api.add_resource(jadvalPeymankaran , "/jadval_peymankaran")
@@ -823,7 +830,20 @@ from datetime import datetime , date
 def jarime(dore_ghable , nerkh_jarime , tarikh_khod , tarikh_ghabl):
     # TODO:: have to complete this and i am sleepy and cant do it
     return ekhtelaf_rooz()
-
+from khayyam import *
+def khayyam_time_sort(date):
+    d = date.split('-')
+    time = JalaliDate(d[0],d[1],d[2])
+    time2 = JalaliDate('1350','01','01')
+    return (time - time2).days
+def khayam_type(date1, date2):
+    d1 = date1.split('-')
+    d2 = date2.split('-')
+    time = JalaliDate(d1[0], d1[1], d1[2])
+    time2 = JalaliDate(d2[0], d2[1], d2[2])
+    time = time - time2
+    days = abs(int(time.days))
+    return days / int(time2.daysinmonth)
 def ekhtelaf_rooz(datee1 , datee2):
     sal = {}
     sal[1] = 31
