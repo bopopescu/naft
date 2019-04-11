@@ -824,7 +824,7 @@ class jadval562(Resource):
         # db.mycursor.execute('select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s',('لوله های پنجاه اینچ'))
         db.mycursor.execute(
             "select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",
-            ('لوله های 56 اینچ', 'after'))
+            ('لوله های 56 اینچ', 'before'))
         data = db.mycursor.fetchall()
         i = 0
         while i < len(data):
@@ -833,7 +833,6 @@ class jadval562(Resource):
 
             db.mydb.commit()
             i = i+1
-        # return data
         while i < len(p56):
             db.mycursor.execute('INSERT INTO jadval56 (pool , tarikh , ekhtelaf , sharh) values (%s , %s , %s , %s)',
                                 (str(p56[i]['motalebat_riyali']),str(p56[i]['tarikh']) , int(khayyam_time_sort(p56[i]['tarikh'])) , str(p56[i]['dataBase'][5])))
