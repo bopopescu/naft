@@ -805,12 +805,65 @@ class jadval562(Resource):
             'kole_motalebat': abs(final_sum) * -1
         }
         p56 = pipeLinesF().get2()
+        db.mycursor.execute('select id from jadval56')
+        idies = db.mycursor.fetchall()
         i = 0
-        while i < len(p56):
-            print(i)
-            i = i+1
-        return p56
+        values = []
+        while i < len(idies):
+            # values.append(idies[i][0])
+            db.mycursor.execute('delete from jadval56 where id = '+str(idies[i][0]))
+            i = i + 1
+        # print(idies)
+        # return values
+        # return "done"
+        # if values and values[0]:
+        #     db.mycursor.execute('delete from jadval56 where id in '+str(tuple(values)))
+        #     db.mydb.commit()
+        # return "dones"
+        # ezafe kardane pardakht naftanir be p56
+        # db.mycursor.execute('select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s',('لوله های پنجاه اینچ'))
+        db.mycursor.execute(
+            "select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",
+            ('لوله های 56 اینچ', 'after'))
+        data = db.mycursor.fetchall()
+        i = 0
+        while i < len(data):
+            db.mycursor.execute('INSERT INTO jadval56 (pool , tarikh , ekhtelaf , sharh) values (%s , %s , %s , %s)',
+                                (data[i][2], data[i][1],int(khayyam_time_sort(data[i][1])) , "sharh"))
 
+            db.mydb.commit()
+            i = i+1
+        # return data
+        while i < len(p56):
+            db.mycursor.execute('INSERT INTO jadval56 (pool , tarikh , ekhtelaf , sharh) values (%s , %s , %s , %s)',
+                                (str(p56[i]['motalebat_riyali']),str(p56[i]['tarikh']) , int(khayyam_time_sort(p56[i]['tarikh'])) , str(p56[i]['dataBase'][5])))
+            db.mydb.commit()
+            i = i + 1
+        db.mycursor.execute("select * from jadval56 order by ekhtelaf")
+        data = db.mycursor.fetchall()
+        ret ={}
+        i = 0
+        nerkh = 5
+        while i <len(data):
+            ret[i]={}
+            ret[i]['pool'] = data[i][1]
+            pool = data[i][1]
+            # kole_motalebat[i] = {}
+            if i == 0 :
+                ret[i]['kole_motalebat'] = data_b['adam_ghat']['pool']
+                jarime = 0
+                pardakht_nashode_dore_ghabl = data_b['adam_ghat']['pool']
+            else:
+                pardakht_nashode_dore_ghabl =ret[i-1]['kole_motalebat']
+                jarime = (pardakht_nashode_dore_ghabl * (1 + nerkh) ** khayam_type(data[i][2], data[i - 1][
+                    2]) - pardakht_nashode_dore_ghabl)
+                ret[i]['kole_motalebat'] = float(pardakht_nashode_dore_ghabl )+ float(pool) + float(jarime)
+            #
+            ret[i]['jarime'] = jarime
+            ret[i]['pardakht_nashode_dore_ghabl'] = pardakht_nashode_dore_ghabl
+            print (i)
+            i = i +1
+        return ret
 # api.add_resource(adam_ghateyat_peymankaran,"/naftanir_aadam_ghatiyat_peymankaran")
 api.add_resource(gostare,"/gostare")
 api.add_resource(comper,"/comperosor")
