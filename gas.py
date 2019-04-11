@@ -813,18 +813,9 @@ class jadval562(Resource):
             # values.append(idies[i][0])
             db.mycursor.execute('delete from jadval56 where id = '+str(idies[i][0]))
             i = i + 1
-        # print(idies)
-        # return values
-        # return "done"
-        # if values and values[0]:
-        #     db.mycursor.execute('delete from jadval56 where id in '+str(tuple(values)))
-        #     db.mydb.commit()
-        # return "dones"
-        # ezafe kardane pardakht naftanir be p56
-        # db.mycursor.execute('select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s',('لوله های پنجاه اینچ'))
         db.mycursor.execute(
             "select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",
-            ('لوله های 56 اینچ', 'before'))
+            ('لوله های 56 اینچ', 'after'))
         data = db.mycursor.fetchall()
         i = 0
         while i < len(data):
@@ -833,14 +824,17 @@ class jadval562(Resource):
 
             db.mydb.commit()
             i = i+1
+        i = 0
         while i < len(p56):
             db.mycursor.execute('INSERT INTO jadval56 (pool , tarikh , ekhtelaf , sharh) values (%s , %s , %s , %s)',
                                 (str(p56[i]['motalebat_riyali']),str(p56[i]['tarikh']) , int(khayyam_time_sort(p56[i]['tarikh'])) , str(p56[i]['dataBase'][5])))
             db.mydb.commit()
             i = i + 1
+        i = 0
         db.mycursor.execute("select * from jadval56 order by ekhtelaf")
         data = db.mycursor.fetchall()
         ret ={}
+        ret['befor'] = data_b
         i = 0
         nerkh = 5
         while i <len(data):
