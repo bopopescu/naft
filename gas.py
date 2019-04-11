@@ -647,6 +647,8 @@ class looleSaziSadid(Resource):
             ret['end'] = {}
             ret['end']['jarime'] = (ret[2]['kole_motalebat'] * (1+nerkh)**khayam_type('1395-02-27' , args['time_now'])) -  ret[2]['kole_motalebat']
             ret['end']['kole_motalebat'] = ret[2]['kole_motalebat'] + ret['end']['jarime']
+            ret['end']['taahod_be_pardakht'] = 0
+            ret['end']['pardakht_nashod_dore_ghabl'] = ret[2]['kole_motalebat']
         return  ret
 
 
