@@ -798,7 +798,7 @@ class jadval562(Resource):
             i = i +1
         # return final_sum
         data_b = {}
-        data_b['adam_ghat']={
+        data_b={
             'sharh': 'پرداختی شرکت توسعه گاز',
             'tarikh': '1394-11-19',
             'pool': final_sum,
@@ -843,9 +843,9 @@ class jadval562(Resource):
             pool = data[i][1]
             # kole_motalebat[i] = {}
             if i == 0 :
-                ret[i]['kole_motalebat'] = data_b['adam_ghat']['pool']
+                ret[i]['kole_motalebat'] = data_b['pool']
                 jarime = 0
-                pardakht_nashode_dore_ghabl = data_b['adam_ghat']['pool']
+                pardakht_nashode_dore_ghabl = data_b['pool']
             else:
                 pardakht_nashode_dore_ghabl =ret[i-1]['kole_motalebat']
                 jarime = (pardakht_nashode_dore_ghabl * (1 + nerkh) ** khayam_type(data[i][2], data[i - 1][
