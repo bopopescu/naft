@@ -571,10 +571,10 @@ class jadval56(Resource):
 
 class jadvalArazi(Resource):
     def get(self):
-        arz = arazi()
-        arz = arz.get()
-        arz = json.dumps(arz)
-        arz = json.loads(arz)
+        # arz = arazi()
+        # arz = arz.get()
+        # arz = json.dumps(arz)
+        # arz = json.loads(arz)
         jarazi = {}
         jarazi['0'] = {
             'sharh' : "مبلغ ریالی پرداخت شده",
@@ -585,21 +585,30 @@ class jadvalArazi(Resource):
             'jarime' : 0,
             'motalebat':-85747896194,
         }
-        nerkh_jarime = 1
-        i = 1
-        for id in arz:
-            jarazi[i] ={}
-            jarazi[i]['sharh'] = 'مبالغ ریالی در تعهد'
-            jarazi[i]['tarikh'] = '1394-12-27'
-            jarazi[i]['pardakht_shode_tavasote_naftanir'] = 0
-            jarazi[i]['taahod_be_pardakht'] = arz[i-1][3]
-            jarazi[i]['tarikh_taaid_hoghooghi'] = arz[i-1][4]
-            taahod = arz[i-1][3]
+        jarazi['1'] = {
+            'sharh' : "مبالغ ریالی در تعهد",
+            'tarikh' : '95-02-12',
+            'pardakht_shode_tavasote_naftanir': 0,
+            'taahod_be_pardakht': 85747896194,
+            'pardakht_nashode_dore_ghabl': -85747896194,
+            'jarime' : 0,
+            'motalebat':0,
+        }
+        # nerkh_jarime = 1
+        # i = 1
+        # for id in arz:
+        #     jarazi[i] ={}
+        #     jarazi[i]['sharh'] = 'مبالغ ریالی در تعهد'
+        #     jarazi[i]['tarikh'] = '1394-12-27'
+        #     jarazi[i]['pardakht_shode_tavasote_naftanir'] = 0
+        #     jarazi[i]['taahod_be_pardakht'] = arz[i-1][3]
+        #     jarazi[i]['tarikh_taaid_hoghooghi'] = arz[i-1][4]
+        #     taahod = arz[i-1][3]
             # taahod = arz[i-1][3]
-            jarazi[i]['kole_motalebat'] = int(taahod) - 85747896194
+            # jarazi[i]['kole_motalebat'] = int(taahod) - 85747896194
             # jarazi[i]['kole_motalebat'] = 0
-            jarazi[i]['jarime'] = 0
-            i = i+1
+            # jarazi[i]['jarime'] = 0
+            # i = i+1
         return jarazi
 
 class looleSaziSadid(Resource):
@@ -740,7 +749,7 @@ class jadvalPeymankaran(Resource):
         ret['dore_ghable'] = {
             'sharh': 'مبالغ ریالی پرداخت شده توسط نفتانیر تا تاریخ 94/12/27',
             'tarikh': '1394-12',
-            'pool':abs(dore_ghable ),
+            'pool':abs(dore_ghable),
             'noe': 'پرداخت شده توسط نفتانیر',
             'pardakht_nashode_dore_ghable':0,
             'jarime':0,
