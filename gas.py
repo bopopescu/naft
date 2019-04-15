@@ -218,7 +218,8 @@ class pipeLinesF(Resource):
                 hazine_sakht_loole = float(record[3])*95
                 hazine_pooshesh = float(record[3]) * 125
             maliyat_bar_arzesh_afzoode_sakht_pooshesh = (hazine_sakht_loole + hazine_pooshesh) *  float(record[9]) * 10/100
-            maliyat_bar_arzesh_afzoode_varagh = ((mablaghe_varagh * float(record[9])) + float(record[10]) + float(record[11]) + avarez_gomrok) * 1 / 10
+            # maliyat_bar_arzesh_afzoode_varagh = ((mablaghe_varagh * float(record[9])) + float(record[10]) + float(record[11]) + avarez_gomrok) * 1 / 10
+            maliyat_bar_arzesh_afzoode_varagh = ((mablaghe_varagh * float(record[9])) + float(record[11]) + avarez_gomrok + float(record[8])) * 0.1
             motalebate_riyali = float(record[10]) + float(record[11]) + avarez_gomrok + maliyat_bar_arzesh_afzoode_varagh + maliyat_bar_arzesh_afzoode_sakht_pooshesh
             motalebat_arzi = hazine_pooshesh + hazine_sakht_loole
 
@@ -230,8 +231,10 @@ class pipeLinesF(Resource):
                              'hazine_pooshesh':hazine_pooshesh,
                              'maliyat_bara_arzesh_afzoode_sakhte_pooshesh':maliyat_bar_arzesh_afzoode_sakht_pooshesh,
                              'motalebat_riyali':motalebate_riyali,
-                             'motalebat_arzi':motalebat_arzi}
+                             'motalebat_arzi':motalebat_arzi,
+                    'arzi_sakht_va_pooshesh':hazine_pooshesh + hazine_sakht_loole}
             i = i+ 1
+        db.mydb.commit()
         return ret
 
     def get2(self):
@@ -613,13 +616,13 @@ class jadvalArazi(Resource):
 
 class looleSaziSadid(Resource):
     def get(self):
-        db.mycursor.execute('select * from sadid_mahshahr')
+        db.mycursor.execute('SELECT * FROM sadid_mahshahr ORDER BY ID DESC LIMIT 1')
         data = db.mycursor.fetchall()
         if not data:
             return None
         i = 0
         ret = {}
-        nerkh = 0.0180885824835107
+        nerkh = 0.0180875824835107
         while i <= 2:
             print(i)
             ret[i] = {}
@@ -645,7 +648,8 @@ class looleSaziSadid(Resource):
         args = parser.parse_args()
         if args['time_now']:
             ret['end'] = {}
-            ret['end']['jarime'] = (ret[2]['kole_motalebat'] * (1+nerkh)**khayam_type('1395-02-27' , args['time_now'])) -  ret[2]['kole_motalebat']
+            ret['end']['jarime'] = (ret[2]['kole_motalebat'] * (1+nerkh)**khayam_type('1395-02-27' , args['time_now'])) -  float(ret[2]['kole_motalebat'])
+            # ret['end']['jarime'] = (ret[2]['kole_motalebat'] * (1+nerkh)**khayam_type('1395-02-27' , '1396-9-27')) -  float(ret[2]['kole_motalebat'])
             ret['end']['kole_motalebat'] = ret[2]['kole_motalebat'] + ret['end']['jarime']
             ret['end']['taahod_be_pardakht'] = 0
             ret['end']['pardakht_nashod_dore_ghabl'] = ret[2]['kole_motalebat']
@@ -719,7 +723,7 @@ def ekhtelaf_dateV2(date1 , date2):
 class jadvalPeymankaran(Resource):
     def get(self):
         ret = {}
-        nerkh = 0.0180885824835107
+        nerkh = 0.0180875824835107
         db.mycursor.execute("SELECT * FROM peymankaran")
         jadval = db.mycursor.fetchall()
         sql = "SELECT * FROM pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate =  %s AND state = %s"
@@ -733,7 +737,7 @@ class jadvalPeymankaran(Resource):
                 jadval_naftanir[i][0],
                 'پرداخت شده توسط نفتانیر',
                 'no_check_id',
-                jadval_naftanir[i][2],
+                '-'+jadval_naftanir[i][2],
                 jadval_naftanir[i][1],
                 jadval_naftanir[i][5]
                 ]
@@ -774,6 +778,9 @@ class jadvalPeymankaran(Resource):
                 ret[i]['jarime'] = (float(ret[i]['pardakht_nashode_dore_ghable']) * (1 + nerkh) ** (
                     abs(khayam_type(jadval[i-1][4], jadval[i][4])))) - float(
                     ret[i]['pardakht_nashode_dore_ghable'])
+                print (float(ret[i]['pardakht_nashode_dore_ghable']))
+                print (abs(khayam_type(jadval[i-1][4], jadval[i][4])))
+                print ("\n")
             ret[i]['kole_motalebat'] = float(ret[i]['jarime']) + float(ret[i]['pardakht_nashode_dore_ghable']) + float(ret[i]['pool'])
             i = i+1
         return ret
@@ -897,10 +904,11 @@ def khayam_type(date1, date2):
     d1 = date1.split('-')
     d2 = date2.split('-')
     time = JalaliDate(d1[0], d1[1], d1[2])
+    time1 = JalaliDate(d1[0], d1[1], d1[2])
     time2 = JalaliDate(d2[0], d2[1], d2[2])
     time = time - time2
     days = abs(int(time.days))
-    return days / int(time2.daysinmonth)
+    return days / int(time1.daysinmonth)
 def ekhtelaf_rooz(datee1 , datee2):
     sal = {}
     sal[1] = 31
