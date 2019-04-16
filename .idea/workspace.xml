@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d4f2014d-a8d8-48a2-8c79-6ce61c795a45" name="Default" comment="" />
+    <list default="true" id="d4f2014d-a8d8-48a2-8c79-6ce61c795a45" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gas.py" beforeDir="false" afterPath="$PROJECT_DIR$/gas.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6715">
-              <caret line="144" column="6" selection-start-line="144" selection-start-column="6" selection-end-line="144" selection-end-column="6" />
+            <state relative-caret-position="323">
+              <caret line="221" column="122" selection-start-line="221" selection-start-column="122" selection-end-line="221" selection-end-column="122" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -202,7 +205,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81183000" />
+    <option name="totallyTimeSpent" value="83193000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -301,8 +304,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6715">
-          <caret line="144" column="6" selection-start-line="144" selection-start-column="6" selection-end-line="144" selection-end-column="6" />
+        <state relative-caret-position="323">
+          <caret line="221" column="122" selection-start-line="221" selection-start-column="122" selection-end-line="221" selection-end-column="122" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
