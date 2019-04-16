@@ -160,8 +160,8 @@ class pipeLinesF(Resource):
         parser.add_argument('hazineBime')
         parser.add_argument('Inch36')
         parser.add_argument('tarikh')
+        parser.add_argument('adam_ghatiyat')
         args = parser.parse_args()
-        
         # mysql = "INSERT INTO pipelinesf (tarikh ,zekhamat , metraj , tonaj , tarikhTahvil,typeKalaTahvil ,shomareHavaleAnbar , shomareTaghaza,shomareGhalam ,nerkhTashilBankMarkazi ,hazineAnbar , hazineSodoor, hazineBime , mablagheVaragh , avarezGomrok , hazineSakhteLoole , hazinePooshesh , maliatVaragh, maliatSakht )"
         mysql = "INSERT INTO pipelinesf (" \
                 "zekhamat , " \
@@ -174,7 +174,7 @@ class pipeLinesF(Resource):
                 "shomareGhalam ," \
                 "nerkhTashilBankMarkazi ," \
                 "hazineAnbar , " \
-                "hazineSodoorBime , se , tarikh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s ,%s)"
+                "hazineSodoorBime , se , tarikh , adam_ghatiyat) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s ,%s ,%s)"
         values = (
                   args['zekhamat'],
                   args['metraj'],
@@ -187,7 +187,7 @@ class pipeLinesF(Resource):
                   args['nerkhBank'],
                   args['hazineAnbar'],
                   args['hazineSodoorBime'],
-                  args['Inch36'],args['tarikh'])
+                  args['Inch36'],args['tarikh'],args['adam_ghatiyat'])
         db.mycursor.execute(mysql ,values)
         db.mydb.commit()
         return True
@@ -237,13 +237,17 @@ class pipeLinesF(Resource):
         db.mydb.commit()
         return ret
 
-    def get2(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument("inch36")
-        args = parser.parse_args()
+    def get2(self,ghatiyat):
+        if ghatiyat=="true":
+            db.mycursor.execute("SELECT * FROM pipelinesf WHERE adam_ghatiyat = %s",('before',))
+            data =  db.mycursor.fetchall()
+        # parser = reqparse.RequestParser()
+        # parser.add_argument("inch36")
+        # args = parser.parse_args()
         # if args['inch36']:
-        db.mycursor.execute("SELECT * FROM pipelinesf")
-        data = db.mycursor.fetchall()
+        else :
+            db.mycursor.execute("SELECT * FROM pipelinesf")
+            data = db.mycursor.fetchall()
         ret = {}
         i = 0
         for record in data:
@@ -274,7 +278,7 @@ class pipeLinesF(Resource):
                              'maliyat_bara_arzesh_afzoode_sakhte_pooshesh':maliyat_bar_arzesh_afzoode_sakht_pooshesh,
                              'motalebat_riyali':motalebate_riyali,
                              'motalebat_arzi':motalebat_arzi,
-                    'tarikh':record[13]}
+                    'tarikh':record[4]}
             i = i+ 1
         return ret
 
@@ -807,6 +811,16 @@ class adam_ghateyat_peymankaran(Resource):
 
 class jadval562(Resource):
     def get(self):
+        #HANDELING BEFORE IN PIPELINES
+        p56_before = pipeLinesF().get2(ghatiyat="true")
+        i = 0
+        # return p56_before
+        sum_of_adam_ghatiyat_p56 = 0
+        while i < len(p56_before):
+            sum_of_adam_ghatiyat_p56 = float(p56_before[i]['motalebat_riyali']) + sum_of_adam_ghatiyat_p56
+            i = i+1
+        sum_of_adam_ghatiyat_p56 = 834675673780
+        #end
         db.mycursor.execute("select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",('لوله های 56 اینچ' , 'before'))
         naftanir_pardakht_adam = db.mycursor.fetchall()
         i = 0
@@ -814,15 +828,23 @@ class jadval562(Resource):
         while i < len(naftanir_pardakht_adam):
             final_sum = float(naftanir_pardakht_adam[i][2]) + final_sum
             i = i +1
-        # return final_sum
         data_b = {}
         data_b={
             'sharh': 'پرداختی شرکت توسعه گاز',
             'tarikh': '1394-11-19',
             'pool': final_sum,
-            'kole_motalebat': abs(final_sum) * -1
+            'kole_motalebat': abs(final_sum) * -1 ,
+            'pardakht_nashode_dore_ghabl':0
         }
-        p56 = pipeLinesF().get2()
+        data_b_p56={
+            'sharh': 'تعهدات پرداخت بابت 56',
+            'tarikh': '94/12/12',
+            'pool': sum_of_adam_ghatiyat_p56,
+            'pardakht_nashode_dore_ghabl':final_sum,
+            'kole_motalebat': abs(abs(final_sum) - sum_of_adam_ghatiyat_p56)
+        }
+
+        p56 = pipeLinesF().get2(ghatiyat="false")
         db.mycursor.execute('select id from jadval56')
         idies = db.mycursor.fetchall()
         i = 0
@@ -853,16 +875,19 @@ class jadval562(Resource):
         data = db.mycursor.fetchall()
         ret ={}
         ret['befor'] = data_b
+        ret['befor_p56'] = data_b_p56
         i = 0
-        nerkh = 5
+        nerkh = 0.0180875824835107
+        # return data
         while i <len(data):
             ret[i]={}
             ret[i]['pool'] = data[i][1]
             pool = data[i][1]
-            # kole_motalebat[i] = {}
             if i == 0 :
-                ret[i]['kole_motalebat'] = data_b['pool']
-                jarime = 0
+                ret[i]['kole_motalebat'] = sum_of_adam_ghatiyat_p56 - data_b['pool']
+                # return data[i][2]
+                jarime = (data_b_p56['kole_motalebat'] * (1 + nerkh) ** khayam_type(data[i][2], '1394-12-12') -
+                          data_b_p56['kole_motalebat'])
                 pardakht_nashode_dore_ghabl = data_b['pool']
             else:
                 pardakht_nashode_dore_ghabl =ret[i-1]['kole_motalebat']
@@ -871,6 +896,7 @@ class jadval562(Resource):
                 ret[i]['kole_motalebat'] = float(pardakht_nashode_dore_ghabl )+ float(pool) + float(jarime)
             #
             ret[i]['jarime'] = jarime
+            ret[i]['tarikh'] = data[i][2]
             ret[i]['pardakht_nashode_dore_ghabl'] = pardakht_nashode_dore_ghabl
             print (i)
             i = i +1
