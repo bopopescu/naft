@@ -246,7 +246,7 @@ class pipeLinesF(Resource):
         # args = parser.parse_args()
         # if args['inch36']:
         else :
-            db.mycursor.execute("SELECT * FROM pipelinesf")
+            db.mycursor.execute("SELECT * FROM pipelinesf WHERE adam_ghatiyat = %s",('after',))
             data = db.mycursor.fetchall()
         ret = {}
         i = 0

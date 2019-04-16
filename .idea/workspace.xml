@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4f2014d-a8d8-48a2-8c79-6ce61c795a45" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/createDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/createDatabase.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gas.py" beforeDir="false" afterPath="$PROJECT_DIR$/gas.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,7 +34,7 @@
         <entry file="file://$PROJECT_DIR$/gas.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
-              <caret line="888" column="103" selection-start-line="888" selection-start-column="103" selection-end-line="888" selection-end-column="103" />
+              <caret line="248" column="91" selection-start-line="248" selection-start-column="91" selection-end-line="248" selection-end-column="91" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -205,7 +204,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77731000" />
+    <option name="totallyTimeSpent" value="78627000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -305,7 +304,7 @@
     <entry file="file://$PROJECT_DIR$/gas.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
-          <caret line="888" column="103" selection-start-line="888" selection-start-column="103" selection-end-line="888" selection-end-column="103" />
+          <caret line="248" column="91" selection-start-line="248" selection-start-column="91" selection-end-line="248" selection-end-column="91" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
