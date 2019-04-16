@@ -631,21 +631,23 @@ class looleSaziSadid(Resource):
             print(i)
             ret[i] = {}
             ret[i]['taahod_be_pardakht'] = float(data[0][1])/3
-
             if i ==0:
                 ret[i]['pardakht_nashod_dore_ghabl'] = 0
                 ret[i]['jarime'] = 0
                 ret[i]['kole_motalebat'] = float(data[0][1])/3
+                ret[i]['tarikh']='1394-12-27'
             if i == 1:
                 ret[i]['pardakht_nashod_dore_ghabl'] = ret[i-1]['taahod_be_pardakht']
                 ret[i]['jarime'] = (ret[i-1]['kole_motalebat'] *(1+nerkh)**(
                     khayam_type('1394-12-27','1395-01-27'))) -ret[i-1]['kole_motalebat']
                 ret[i]['kole_motalebat'] = ret[i]['jarime'] + ret[i-1]['kole_motalebat']+(float(data[0][1])/3)
+                ret[i]['tarikh'] = '1395-01-27'
             if i ==2:
                 ret[i]['pardakht_nashod_dore_ghabl'] = ret[i-1]['taahod_be_pardakht']
                 ret[i]['jarime'] = (ret[i-1]['kole_motalebat'] *(1+nerkh)**(
                     khayam_type('1395-01-27','1395-02-27'))) -ret[i-1]['kole_motalebat']
                 ret[i]['kole_motalebat'] = ret[i]['jarime'] + ret[i - 1]['kole_motalebat'] + (float(data[0][1]) / 3)
+                ret[i]['tarikh'] = '1395-02-27'
             i = i+1
         parser = reqparse.RequestParser()
         parser.add_argument('time_now')
@@ -819,7 +821,7 @@ class jadval562(Resource):
         while i < len(p56_before):
             sum_of_adam_ghatiyat_p56 = float(p56_before[i]['motalebat_riyali']) + sum_of_adam_ghatiyat_p56
             i = i+1
-        sum_of_adam_ghatiyat_p56 = 834675673780
+        # sum_of_adam_ghatiyat_p56 = 834675673780
         #end
         db.mycursor.execute("select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",('لوله های 56 اینچ' , 'before'))
         naftanir_pardakht_adam = db.mycursor.fetchall()
@@ -897,6 +899,7 @@ class jadval562(Resource):
             #
             ret[i]['jarime'] = jarime
             ret[i]['tarikh'] = data[i][2]
+            ret[i]['sharh'] = data[i][4]
             ret[i]['pardakht_nashode_dore_ghabl'] = pardakht_nashode_dore_ghabl
             print (i)
             i = i +1
