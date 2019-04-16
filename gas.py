@@ -821,10 +821,13 @@ class jadval562(Resource):
         while i < len(p56_before):
             sum_of_adam_ghatiyat_p56 = float(p56_before[i]['motalebat_riyali']) + sum_of_adam_ghatiyat_p56
             i = i+1
+        # return sum_of_adam_ghatiyat_p56
         # sum_of_adam_ghatiyat_p56 = 834675673780
+        db.mydb.commit()
         #end
         db.mycursor.execute("select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",('لوله های 56 اینچ' , 'before'))
         naftanir_pardakht_adam = db.mycursor.fetchall()
+        db.mydb.commit()
         i = 0
         final_sum=0
         while i < len(naftanir_pardakht_adam):
@@ -849,16 +852,19 @@ class jadval562(Resource):
         p56 = pipeLinesF().get2(ghatiyat="false")
         db.mycursor.execute('select id from jadval56')
         idies = db.mycursor.fetchall()
-        i = 0
+        db.mydb.commit()
+        i= 0
         values = []
         while i < len(idies):
             # values.append(idies[i][0])
             db.mycursor.execute('delete from jadval56 where id = '+str(idies[i][0]))
             i = i + 1
+        db.mydb.commit()
         db.mycursor.execute(
             "select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",
             ('لوله های 56 اینچ', 'after'))
         data = db.mycursor.fetchall()
+        db.mydb.commit()
         i = 0
         while i < len(data):
             db.mycursor.execute('INSERT INTO jadval56 (pool , tarikh , ekhtelaf , sharh) values (%s , %s , %s , %s)',
@@ -866,15 +872,18 @@ class jadval562(Resource):
 
             db.mydb.commit()
             i = i+1
+        db.mydb.commit()
         i = 0
         while i < len(p56):
             db.mycursor.execute('INSERT INTO jadval56 (pool , tarikh , ekhtelaf , sharh) values (%s , %s , %s , %s)',
                                 (str(p56[i]['motalebat_riyali']),str(p56[i]['tarikh']) , int(khayyam_time_sort(p56[i]['tarikh'])) , str(p56[i]['dataBase'][5])))
             db.mydb.commit()
             i = i + 1
+        db.mydb.commit()
         i = 0
         db.mycursor.execute("select * from jadval56 order by ekhtelaf")
         data = db.mycursor.fetchall()
+        db.mydb.commit()
         ret ={}
         ret['befor'] = data_b
         ret['befor_p56'] = data_b_p56
