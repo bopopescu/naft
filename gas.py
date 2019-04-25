@@ -237,17 +237,57 @@ class pipeLinesF(Resource):
         db.mydb.commit()
         return ret
 
-    def get2(self,ghatiyat):
+    def get2(self,ghatiyat , s_inch = 'NULL'):
         if ghatiyat=="true":
-            db.mycursor.execute("SELECT * FROM pipelinesf WHERE adam_ghatiyat = %s",('before',))
+            db.mycursor.execute("SELECT * FROM pipelinesf WHERE se is NULL and adam_ghatiyat = %s AND se = %s",('before',s_inch,))
             data =  db.mycursor.fetchall()
-        # parser = reqparse.RequestParser()
-        # parser.add_argument("inch36")
-        # args = parser.parse_args()
-        # if args['inch36']:
         else :
-            db.mycursor.execute("SELECT * FROM pipelinesf WHERE adam_ghatiyat = %s",('after',))
+            db.mycursor.execute("SELECT * FROM pipelinesf WHERE se is NULL and adam_ghatiyat = %s",('after',))
             data = db.mycursor.fetchall()
+        ret = {}
+        i = 0
+        for record in data:
+            mablaghe_varagh = float(record[3])*1033
+            avarez_gomrok = mablaghe_varagh * float(record[9]) * 4/100
+            # maliyat_bar_arzesh_afzoode_varagh = avarez_gomrok * 1/10
+            hazine_sakht_loole = 0
+            if record[5] == "ورق" :
+                hazine_sakht_loole = 0
+                hazine_pooshesh = 0
+            else :
+                hazine_sakht_loole = float(record[3]) * 125
+                hazine_pooshesh = 0
+            if record[5] == "پوشش داده شده":
+                hazine_sakht_loole = float(record[3])*95
+                hazine_pooshesh = float(record[3]) * 125
+            maliyat_bar_arzesh_afzoode_sakht_pooshesh = (hazine_sakht_loole + hazine_pooshesh) *  float(record[9]) * 10/100
+            maliyat_bar_arzesh_afzoode_varagh = ((mablaghe_varagh * float(record[9])) + float(record[10]) + float(record[11]) + avarez_gomrok) * 1 / 10
+            motalebate_riyali = float(record[10]) + float(record[11]) + avarez_gomrok + maliyat_bar_arzesh_afzoode_varagh + maliyat_bar_arzesh_afzoode_sakht_pooshesh
+            motalebat_arzi = hazine_pooshesh + hazine_sakht_loole
+
+            ret[i] ={'dataBase' : record ,
+                             'mablaghe_varagh':mablaghe_varagh,
+                             'avarez_gomrok':avarez_gomrok,
+                             'maliyat_bar_arzesh_varagh':maliyat_bar_arzesh_afzoode_varagh,
+                             'hazine_sakhte_loole':hazine_sakht_loole,
+                             'hazine_pooshesh':hazine_pooshesh,
+                             'maliyat_bara_arzesh_afzoode_sakhte_pooshesh':maliyat_bar_arzesh_afzoode_sakht_pooshesh,
+                             'motalebat_riyali':motalebate_riyali,
+                             'motalebat_arzi':motalebat_arzi,
+                    'tarikh':record[4]}
+            i = i+ 1
+        return ret
+
+    def get36inch(self,ghatiyat ):
+        if ghatiyat=="true":
+            # db.mycursor.execute("SELECT * FROM pipelinesf WHERE se IS NULL and adam_ghatiyat = %s",('before',))
+            db.mycursor.execute("SELECT * FROM pipelinesf WHERE se is NOT NULL and adam_ghatiyat = %s ",('before',))
+            data =  db.mycursor.fetchall()
+            db.mydb.commit()
+        else :
+            db.mycursor.execute("SELECT * FROM pipelinesf WHERE se is NOT NULL AND adam_ghatiyat = %s",('after',))
+            data = db.mycursor.fetchall()
+            db.mydb.commit()
         ret = {}
         i = 0
         for record in data:
@@ -798,7 +838,7 @@ class jadvalPeymankaran(Resource):
             'kole_motalebat':abs(dore_ghable )* -1
         }
         i = 0
-        return jadval;
+        # return jadval;
         while i < len(jadval):
             ret[i]={}
             ret[i]['sharh'] = 'بدهی به شرکت مهندسی توسعه گاز'
@@ -813,10 +853,10 @@ class jadvalPeymankaran(Resource):
             else:
                 ret[i]['pardakht_nashode_dore_ghable'] = ret[i-1]['kole_motalebat']
                 ret[i]['jarime'] = (float(ret[i]['pardakht_nashode_dore_ghable']) * (1 + nerkh) ** (
-                    abs(khayam_type(jadval[i-1][4], jadval[i][4])))) - float(
+                    abs(khayam_type(jadval[i-1][2], jadval[i][2])))) - float(
                     ret[i]['pardakht_nashode_dore_ghable'])
                 print (float(ret[i]['pardakht_nashode_dore_ghable']))
-                print (abs(khayam_type(jadval[i-1][4], jadval[i][4])))
+                print (abs(khayam_type(jadval[i-1][2], jadval[i][2])))
                 print ("\n")
             ret[i]['kole_motalebat'] = float(ret[i]['jarime']) + float(ret[i]['pardakht_nashode_dore_ghable']) + float(ret[i]['pool'])
             i = i+1
@@ -944,6 +984,311 @@ class jadval562(Resource):
             print (i)
             i = i +1
         return ret
+
+class jadval56dollar(Resource):
+    def get(self):
+        #HANDELING BEFORE IN PIPELINES
+        p56_before = pipeLinesF().get2(ghatiyat="true")
+        i = 0
+        # return p56_before
+        sum_of_adam_ghatiyat_p56 = 0
+        while i < len(p56_before):
+            sum_of_adam_ghatiyat_p56 = float(p56_before[i]['motalebat_arzi']) + sum_of_adam_ghatiyat_p56
+            i = i+1
+        # return sum_of_adam_ghatiyat_p56
+        # sum_of_adam_ghatiyat_p56 = 834675673780
+        db.mydb.commit()
+        #end
+        db.mycursor.execute("select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",('لوله های 56 اینچ' , 'before'))
+        naftanir_pardakht_adam = db.mycursor.fetchall()
+        db.mydb.commit()
+        i = 0
+        final_sum=0
+        while i < len(naftanir_pardakht_adam):
+            final_sum = float(naftanir_pardakht_adam[i][2]) + final_sum
+            i = i +1
+        data_b = {}
+        data_b={
+            'sharh': 'پرداختی شرکت توسعه گاز',
+            'tarikh': '1394-11-19',
+            'pool': final_sum,
+            'kole_motalebat': abs(final_sum) * -1 ,
+            'pardakht_nashode_dore_ghabl':0
+        }
+        data_b_p56={
+            'sharh': 'تعهدات پرداخت بابت 56',
+            'tarikh': '94/12/12',
+            'pool': sum_of_adam_ghatiyat_p56,
+            'pardakht_nashode_dore_ghabl':final_sum,
+            'kole_motalebat': abs(abs(final_sum) - sum_of_adam_ghatiyat_p56)
+        }
+
+        p56 = pipeLinesF().get2(ghatiyat="false")
+        db.mycursor.execute('select id from jadval56')
+        idies = db.mycursor.fetchall()
+        db.mydb.commit()
+        i= 0
+        values = []
+        while i < len(idies):
+            # values.append(idies[i][0])
+            db.mycursor.execute('delete from jadval56 where id = '+str(idies[i][0]))
+            i = i + 1
+        db.mydb.commit()
+        db.mycursor.execute(
+            "select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",
+            ('لوله های 56 اینچ', 'after'))
+        data = db.mycursor.fetchall()
+        db.mydb.commit()
+        i = 0
+        while i < len(data):
+            db.mycursor.execute('INSERT INTO jadval56 (pool , tarikh , ekhtelaf , sharh) values (%s , %s , %s , %s)',
+                                (data[i][2], data[i][1],int(khayyam_time_sort(data[i][1])) , "sharh"))
+
+            db.mydb.commit()
+            i = i+1
+        db.mydb.commit()
+        i = 0
+        while i < len(p56):
+            db.mycursor.execute('INSERT INTO jadval56 (pool , tarikh , ekhtelaf , sharh) values (%s , %s , %s , %s)',
+                                (str(p56[i]['motalebat_arzi']),str(p56[i]['tarikh']) , int(khayyam_time_sort(p56[i]['tarikh'])) , str(p56[i]['dataBase'][5])))
+            db.mydb.commit()
+            i = i + 1
+        db.mydb.commit()
+        i = 0
+        db.mycursor.execute("select * from jadval56 order by ekhtelaf")
+        data = db.mycursor.fetchall()
+        db.mydb.commit()
+        ret ={}
+        ret['befor'] = data_b
+        ret['befor_p56'] = data_b_p56
+        i = 0
+        nerkh = 0.0180875824835107
+        # return data
+        while i <len(data):
+            ret[i]={}
+            ret[i]['pool'] = data[i][1]
+            pool = data[i][1]
+            if i == 0 :
+                ret[i]['kole_motalebat'] = sum_of_adam_ghatiyat_p56 - data_b['pool']
+                # return data[i][2]
+                jarime = (data_b_p56['kole_motalebat'] * (1 + nerkh) ** khayam_type(data[i][2], '1394-12-12') -
+                          data_b_p56['kole_motalebat'])
+                pardakht_nashode_dore_ghabl = data_b['pool']
+            else:
+                pardakht_nashode_dore_ghabl =ret[i-1]['kole_motalebat']
+                jarime = (pardakht_nashode_dore_ghabl * (1 + nerkh) ** khayam_type(data[i][2], data[i - 1][
+                    2]) - pardakht_nashode_dore_ghabl)
+                ret[i]['kole_motalebat'] = float(pardakht_nashode_dore_ghabl )+ float(pool) + float(jarime)
+            #
+            ret[i]['jarime'] = jarime
+            ret[i]['tarikh'] = data[i][2]
+            ret[i]['sharh'] = data[i][4]
+            ret[i]['pardakht_nashode_dore_ghabl'] = pardakht_nashode_dore_ghabl
+            print (i)
+            i = i +1
+        return ret
+class jadval36(Resource):
+    def get(self):
+        #HANDELING BEFORE IN PIPELINES
+        p56_before = pipeLinesF().get36inch(ghatiyat="true")
+        i = 0
+        # return p56_before
+        sum_of_adam_ghatiyat_p56 = 0
+        while i < len(p56_before):
+            sum_of_adam_ghatiyat_p56 = float(p56_before[i]['motalebat_riyali']) + sum_of_adam_ghatiyat_p56
+            i = i+1
+        # return sum_of_adam_ghatiyat_p56
+        # sum_of_adam_ghatiyat_p56 = 834675673780
+        db.mydb.commit()
+        #end
+        db.mycursor.execute("select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",('لوله های 56 اینچ' , 'before'))
+        naftanir_pardakht_adam = db.mycursor.fetchall()
+        db.mydb.commit()
+        i = 0
+        final_sum=0
+        while i < len(naftanir_pardakht_adam):
+            final_sum = float(naftanir_pardakht_adam[i][2]) + final_sum
+            i = i +1
+        data_b = {}
+        data_b={
+            'sharh': 'پرداختی شرکت توسعه گاز',
+            'tarikh': '1394-11-19',
+            'pool': final_sum,
+            'kole_motalebat': abs(final_sum) * -1 ,
+            'pardakht_nashode_dore_ghabl':0
+        }
+        data_b_p56={
+            'sharh': 'تعهدات پرداخت بابت 56',
+            'tarikh': '94/12/12',
+            'pool': sum_of_adam_ghatiyat_p56,
+            'pardakht_nashode_dore_ghabl':final_sum,
+            'kole_motalebat': abs(abs(final_sum) - sum_of_adam_ghatiyat_p56)
+        }
+
+        p56 = pipeLinesF().get2(ghatiyat="false")
+        db.mycursor.execute('select id from jadval56')
+        idies = db.mycursor.fetchall()
+        db.mydb.commit()
+        i= 0
+        values = []
+        while i < len(idies):
+            # values.append(idies[i][0])
+            db.mycursor.execute('delete from jadval56 where id = '+str(idies[i][0]))
+            i = i + 1
+        db.mydb.commit()
+        db.mycursor.execute(
+            "select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",
+            ('لوله های 56 اینچ', 'after'))
+        data = db.mycursor.fetchall()
+        db.mydb.commit()
+        i = 0
+        while i < len(data):
+            db.mycursor.execute('INSERT INTO jadval56 (pool , tarikh , ekhtelaf , sharh) values (%s , %s , %s , %s)',
+                                (data[i][2], data[i][1],int(khayyam_time_sort(data[i][1])) , "sharh"))
+
+            db.mydb.commit()
+            i = i+1
+        db.mydb.commit()
+        i = 0
+        while i < len(p56):
+            db.mycursor.execute('INSERT INTO jadval56 (pool , tarikh , ekhtelaf , sharh) values (%s , %s , %s , %s)',
+                                (str(p56[i]['motalebat_riyali']),str(p56[i]['tarikh']) , int(khayyam_time_sort(p56[i]['tarikh'])) , str(p56[i]['dataBase'][5])))
+            db.mydb.commit()
+            i = i + 1
+        db.mydb.commit()
+        i = 0
+        db.mycursor.execute("select * from jadval56 order by ekhtelaf")
+        data = db.mycursor.fetchall()
+        db.mydb.commit()
+        ret ={}
+        ret['befor'] = data_b
+        ret['befor_p56'] = data_b_p56
+        i = 0
+        nerkh = 0.0180875824835107
+        # return data
+        while i <len(data):
+            ret[i]={}
+            ret[i]['pool'] = data[i][1]
+            pool = data[i][1]
+            if i == 0 :
+                ret[i]['kole_motalebat'] = sum_of_adam_ghatiyat_p56 - data_b['pool']
+                # return data[i][2]
+                jarime = (data_b_p56['kole_motalebat'] * (1 + nerkh) ** khayam_type(data[i][2], '1394-12-12') -
+                          data_b_p56['kole_motalebat'])
+                pardakht_nashode_dore_ghabl = data_b['pool']
+            else:
+                pardakht_nashode_dore_ghabl =ret[i-1]['kole_motalebat']
+                jarime = (pardakht_nashode_dore_ghabl * (1 + nerkh) ** khayam_type(data[i][2], data[i - 1][
+                    2]) - pardakht_nashode_dore_ghabl)
+                ret[i]['kole_motalebat'] = float(pardakht_nashode_dore_ghabl )+ float(pool) + float(jarime)
+            #
+            ret[i]['jarime'] = jarime
+            ret[i]['tarikh'] = data[i][2]
+            ret[i]['sharh'] = data[i][4]
+            ret[i]['pardakht_nashode_dore_ghabl'] = pardakht_nashode_dore_ghabl
+            print (i)
+            i = i +1
+        return ret
+
+class jadval36_dollar(Resource):
+    def get(self):
+        #HANDELING BEFORE IN PIPELINES
+        p56_before = pipeLinesF().get36inch(ghatiyat="true")
+        i = 0
+        sum_of_adam_ghatiyat_p56 = 0
+        while i < len(p56_before):
+            sum_of_adam_ghatiyat_p56 = float(p56_before[i]['motalebat_arzi']) + sum_of_adam_ghatiyat_p56
+            i = i+1
+        db.mydb.commit()
+        #end
+        db.mycursor.execute("select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",('لوله های 56 اینچ' , 'before'))
+        naftanir_pardakht_adam = db.mycursor.fetchall()
+        db.mydb.commit()
+        i = 0
+        final_sum=0
+        while i < len(naftanir_pardakht_adam):
+            final_sum = float(naftanir_pardakht_adam[i][2]) + final_sum
+            i = i +1
+        data_b = {}
+        data_b={
+            'sharh': 'پرداختی شرکت توسعه گاز',
+            'tarikh': '1394-11-19',
+            'pool': final_sum,
+            'kole_motalebat': abs(final_sum) * -1 ,
+            'pardakht_nashode_dore_ghabl':0
+        }
+        data_b_p56={
+            'sharh': 'تعهدات پرداخت بابت 56',
+            'tarikh': '94/12/12',
+            'pool': sum_of_adam_ghatiyat_p56,
+            'pardakht_nashode_dore_ghabl':final_sum,
+            'kole_motalebat': abs(abs(final_sum) - sum_of_adam_ghatiyat_p56)
+        }
+
+        p56 = pipeLinesF().get2(ghatiyat="false")
+        db.mycursor.execute('select id from jadval56')
+        idies = db.mycursor.fetchall()
+        db.mydb.commit()
+        i= 0
+        values = []
+        while i < len(idies):
+            # values.append(idies[i][0])
+            db.mycursor.execute('delete from jadval56 where id = '+str(idies[i][0]))
+            i = i + 1
+        db.mydb.commit()
+        db.mycursor.execute(
+            "select * from pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate = %s and state = %s",
+            ('لوله های 56 اینچ', 'after'))
+        data = db.mycursor.fetchall()
+        db.mydb.commit()
+        i = 0
+        while i < len(data):
+            db.mycursor.execute('INSERT INTO jadval56 (pool , tarikh , ekhtelaf , sharh) values (%s , %s , %s , %s)',
+                                (data[i][2], data[i][1],int(khayyam_time_sort(data[i][1])) , "sharh"))
+
+            db.mydb.commit()
+            i = i+1
+        db.mydb.commit()
+        i = 0
+        while i < len(p56):
+            db.mycursor.execute('INSERT INTO jadval56 (pool , tarikh , ekhtelaf , sharh) values (%s , %s , %s , %s)',
+                                (str(p56[i]['motalebat_arzi']),str(p56[i]['tarikh']) , int(khayyam_time_sort(p56[i]['tarikh'])) , str(p56[i]['dataBase'][5])))
+            db.mydb.commit()
+            i = i + 1
+        db.mydb.commit()
+        i = 0
+        db.mycursor.execute("select * from jadval56 order by ekhtelaf")
+        data = db.mycursor.fetchall()
+        db.mydb.commit()
+        ret ={}
+        ret['befor'] = data_b
+        ret['befor_p56'] = data_b_p56
+        i = 0
+        nerkh = 0.0180875824835107
+        # return data
+        while i <len(data):
+            ret[i]={}
+            ret[i]['pool'] = data[i][1]
+            pool = data[i][1]
+            if i == 0 :
+                ret[i]['kole_motalebat'] = sum_of_adam_ghatiyat_p56 - data_b['pool']
+                # return data[i][2]
+                jarime = (data_b_p56['kole_motalebat'] * (1 + nerkh) ** khayam_type(data[i][2], '1394-12-12') -
+                          data_b_p56['kole_motalebat'])
+                pardakht_nashode_dore_ghabl = data_b['pool']
+            else:
+                pardakht_nashode_dore_ghabl =ret[i-1]['kole_motalebat']
+                jarime = (pardakht_nashode_dore_ghabl * (1 + nerkh) ** khayam_type(data[i][2], data[i - 1][
+                    2]) - pardakht_nashode_dore_ghabl)
+                ret[i]['kole_motalebat'] = float(pardakht_nashode_dore_ghabl )+ float(pool) + float(jarime)
+            #
+            ret[i]['jarime'] = jarime
+            ret[i]['tarikh'] = data[i][2]
+            ret[i]['sharh'] = data[i][4]
+            ret[i]['pardakht_nashode_dore_ghabl'] = pardakht_nashode_dore_ghabl
+            print (i)
+            i = i +1
+        return ret
 # api.add_resource(adam_ghateyat_peymankaran,"/naftanir_aadam_ghatiyat_peymankaran")
 api.add_resource(gostare,"/gostare")
 api.add_resource(comper,"/comperosor")
@@ -955,6 +1300,9 @@ api.add_resource(pardakht_shode_tavasote_naftanir , "/pardakht_shode_tavasote_na
 api.add_resource(kala_30 , "/kala_30")
 api.add_resource(sadid_mahshahr , "/sadid_mahshahr")
 api.add_resource(jadval562 , "/jadval56")
+api.add_resource(jadval56dollar , "/jadval56_dollar")
+api.add_resource(jadval36 , "/jadval36")
+api.add_resource(jadval36_dollar , "/jadval36_dollar")
 api.add_resource(jadvalArazi , "/jadvalArazi")
 api.add_resource(looleSaziSadid , "/jadval_loole_sazi_sadid")
 api.add_resource(jadvalPeymankaran , "/jadval_peymankaran")

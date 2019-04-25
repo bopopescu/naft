@@ -389,11 +389,17 @@
 						{
 							"key": "Inch36",
 							"value": "1.1",
-							"type": "text"
+							"type": "text",
+							"disabled": true
 						},
 						{
 							"key": "tarikh",
-							"value": "1370-1-3",
+							"value": "1370-1-4",
+							"type": "text"
+						},
+						{
+							"key": "adam_ghatiyat",
+							"value": "YES",
 							"type": "text"
 						}
 					]
@@ -778,17 +784,22 @@
 					"formdata": [
 						{
 							"key": "tarikh",
-							"value": "12/5/97",
+							"value": "1397-10-15",
 							"type": "text"
 						},
 						{
 							"key": "mablagh",
-							"value": "10000000",
+							"value": "336000000000",
 							"type": "text"
 						},
 						{
 							"key": "pardakht_shod_babate",
-							"value": "لوله",
+							"value": "لوله های 56 اینچ",
+							"type": "text"
+						},
+						{
+							"key": "shomare_sanad",
+							"value": "874",
 							"type": "text"
 						},
 						{
@@ -797,8 +808,8 @@
 							"type": "text"
 						},
 						{
-							"key": "shomare_sanad",
-							"value": "874",
+							"key": "state",
+							"value": "before",
 							"type": "text"
 						}
 					]
@@ -1234,6 +1245,84 @@
 					"port": "5000",
 					"path": [
 						"naftanir_aadam_ghatiyat_peymankaran"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jadval36",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/jadval36",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"jadval36"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jadval36_dollar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/jadval36_dollar",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"jadval36_dollar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jadval56_dollar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/jadval56_dollar",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"jadval56_dollar"
 					]
 				}
 			},
