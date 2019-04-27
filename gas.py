@@ -849,7 +849,6 @@ class jadvalPeymankaran(Resource):
             ret[i]['tarikh'] = jadval[i][2]
             ret[i]['pool']=jadval[i][3]
             if i == 0:
-
                 ret[i]['pardakht_nashode_dore_ghable'] = abs(dore_ghable )* -1
                 ret[i]['jarime'] = 0
             else:
@@ -861,6 +860,7 @@ class jadvalPeymankaran(Resource):
                 print (abs(khayam_type(jadval[i-1][2], jadval[i][2])))
                 print ("\n")
             ret[i]['kole_motalebat'] = float(ret[i]['jarime']) + float(ret[i]['pardakht_nashode_dore_ghable']) + float(ret[i]['pool'])
+            ret[i]['pool'] = abs(float(ret[i]['pool']))
             i = i+1
         return ret
 
