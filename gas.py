@@ -782,19 +782,19 @@ class jadvalPeymankaran(Resource):
         jadval = list()
         # jadval[0] = []
         n = (
-            'sharh',
+            'بدهی به توسعه گذار',
             'tozihat',
             '1394-12-27',
             str(sum_kole_peymankaran / 3)
         )
         n2 = (
-            'sharh',
+            'بدهی به توسعه گذار',
             'tozihat',
             '1395-1-27',
             str(sum_kole_peymankaran / 3)
         )
         n3 = (
-            'sharh',
+            'بدهی به توسعه گذار',
             'tozihat',
             '1395-2-27',
             str(sum_kole_peymankaran / 3)
@@ -810,15 +810,15 @@ class jadvalPeymankaran(Resource):
         i = 0
         while i< len(jadval_naftanir):
             apending = [
-                jadval_naftanir[i][0],
                 'پرداخت شده توسط نفتانیر',
                 'no_check_id',
-                '-'+jadval_naftanir[i][2],
                 jadval_naftanir[i][1],
-                jadval_naftanir[i][5]
+                '-'+jadval_naftanir[i][2],
+                # jadval_naftanir[i][5]
                 ]
             i = i+1
             jadval.append(apending)
+        # return jadval
         sql = "SELECT * FROM pardakht_shode_tavasote_naftanir_tm where pardakht_shod_babate =  %s AND state = %s"
         values = ('پیمانکاران', 'before')
         db.mycursor.execute(sql, values)
@@ -838,10 +838,10 @@ class jadvalPeymankaran(Resource):
             'kole_motalebat':abs(dore_ghable )* -1
         }
         i = 0
-        # return jadval;
+        # return jadval
         while i < len(jadval):
             ret[i]={}
-            ret[i]['sharh'] = 'بدهی به شرکت مهندسی توسعه گاز'
+            ret[i]['sharh'] = jadval[i][0]
             # ret[i]['noe'] = jadval[i][1]
             ret[i]['tozihat'] = 'telegram coming'
             ret[i]['tarikh'] = jadval[i][2]

@@ -34,8 +34,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="1129" column="21" lean-forward="true" selection-start-line="1129" selection-start-column="21" selection-end-line="1129" selection-end-column="21" />
+            <state relative-caret-position="230">
+              <caret line="843" column="39" selection-start-line="843" selection-start-column="39" selection-end-line="843" selection-end-column="39" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -125,8 +125,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -195,12 +195,13 @@
       <workItem from="1555218925396" duration="3574000" />
       <workItem from="1555336342676" duration="5064000" />
       <workItem from="1556111037698" duration="3958000" />
-      <workItem from="1556363067397" duration="3360000" />
+      <workItem from="1556363067397" duration="5114000" />
+      <workItem from="1556377152715" duration="1448000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90138000" />
+    <option name="totallyTimeSpent" value="93340000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -215,7 +216,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26172465" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18381241" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -278,8 +279,8 @@
     <entry file="file://$USER_HOME$/Downloads/Telegram Desktop/gas.py" />
     <entry file="file://$PROJECT_DIR$/gas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="1129" column="21" lean-forward="true" selection-start-line="1129" selection-start-column="21" selection-end-line="1129" selection-end-column="21" />
+        <state relative-caret-position="230">
+          <caret line="843" column="39" selection-start-line="843" selection-start-column="39" selection-end-line="843" selection-end-column="39" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
