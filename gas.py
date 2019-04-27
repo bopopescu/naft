@@ -1125,7 +1125,7 @@ class jadval36(Resource):
             'kole_motalebat': abs(abs(final_sum) - sum_of_adam_ghatiyat_p56)
         }
 
-        p56 = pipeLinesF().get2(ghatiyat="false")
+        p56 = pipeLinesF().get36inch(ghatiyat="false")
         db.mycursor.execute('select id from jadval56')
         idies = db.mycursor.fetchall()
         db.mydb.commit()
@@ -1385,4 +1385,6 @@ def ekhtelaf_rooz(datee1 , datee2):
                     mah_shomar = 1
         return roozHa
 
+# app.run(host='192.168.43.7',debug=True)
 app.run(debug=True)
+
