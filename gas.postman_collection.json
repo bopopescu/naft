@@ -1165,21 +1165,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "money",
-							"value": "50000",
-							"type": "text"
-						},
-						{
-							"key": "tik",
-							"value": "yes",
-							"type": "text"
-						}
-					]
-				},
+				"body": {},
 				"url": {
 					"raw": "http://127.0.0.1:5000/jadval_peymankaran",
 					"protocol": "http",
