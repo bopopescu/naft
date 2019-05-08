@@ -27,7 +27,7 @@ class jarime_takhir_dar_pardakht(Resource):
         else:
             fileName = None
         sql = "insert into jarime_taakhir_dar_pardakht (shomare_pardakht_be_taakhir_oftade ,mablagh_pardakht, tarikh_barname_pardakht,tarikh_jadid_pardakht,mizane_taakhir_dar_mohasebat_ghest,file_peyvast) values (%s ,%s , %s ,%s ,%s,%s)"
-        values = (args['shomare_pardakht_be_taakhir_oftade'],args['mablagh_pardakht'] , args['tarikh_barname_pardakht'] , args['tarikh_jadid_pardakht'] , args['mizane_taakhir_dar_mohasebat_ghest'] , args['file_peyvast'])
+        values = (args['shomare_pardakht_be_taakhir_oftade'],args['mablagh_pardakht'] , args['tarikh_barname_pardakht'] , args['tarikh_jadid_pardakht'] , args['mizane_taakhir_dar_mohasebat_ghest'] , fileName)
         mycursor.execute(sql,values)
         mydb.commit()
         return True
