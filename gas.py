@@ -1293,6 +1293,7 @@ class jadval36_dollar(Resource):
             print (i)
             i = i +1
         return ret
+
 # api.add_resource(adam_ghateyat_peymankaran,"/naftanir_aadam_ghatiyat_peymankaran")
 api.add_resource(gostare,"/gostare")
 api.add_resource(comper,"/comperosor")

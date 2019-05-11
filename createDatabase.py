@@ -17,7 +17,7 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
-mycursor.execute("CREATE TABLE gostare (id INTEGER AUTO_INCREMENT PRIMARY key,name VARCHAR(255),percent VARCHAR (255))")
+mycursor.execute("CREATE TABLE gostare (id INTEGER AUTO_INCREMENT PRIMARY key,name VARCHAR(255),percent VARCHAR (255) , tarikh VARCHAR (255))")
 mycursor.execute("CREATE TABLE gostare_pishraft (id INTEGER AUTO_INCREMENT PRIMARY key , gostare_id INTEGER(10) , darsad VARCHAR(255) , tarikh VARCHAR(255))")
 mycursor.execute("CREATE TABLE peymankaran (id INTEGER AUTO_INCREMENT PRIMARY key,peymankar_name VARCHAR(255) , check_id INTEGER(10) , check_money VARCHAR (255) , tarikh VARCHAR(255) , tozihat VARCHAR(255)) ")
 mycursor.execute("CREATE TABLE pipelinesF (id INTEGER AUTO_INCREMENT PRIMARY key  , zekhamat VARCHAR (255) , metraj VARCHAR (255) , tonaj VARCHAR (255),tarikhTahvil VARCHAR (255),typeKalaTahvili VARCHAR (255) , shomareHavaleAnbar VARCHAR (255) , shomareTaghaza VARCHAR(255), shomareGhalam VARCHAR (255) , nerkhTashilBankMarkazi VARCHAR (255) , hazineAnbar VARCHAR (255), hazineSodoorBime VARCHAR (255) , se VARCHAR (255) ,tarikh VARCHAR (255) , adam_ghatiyat VARCHAR (255)) ")
@@ -31,7 +31,33 @@ mycursor.execute("CREATE TABLE sadid_mahshahr (id INTEGER AUTO_INCREMENT PRIMARY
 mycursor.execute("CREATE TABLE jadval56 (id INTEGER AUTO_INCREMENT PRIMARY key, pool varchar(255), tarikh VARCHAR (255) , ekhtelaf INTEGER (255) , sharh VARCHAR (255))")
 mycursor.execute("CREATE TABLE naftanir_peymankaran_adam (id INTEGER AUTO_INCREMENT PRIMARY KEY , tarikh VARCHAR(255), mablagh VARCHAR(255), pardakht_shod_babate VARCHAR(255),shomare_sanad VARCHAR(255),tozihat VARCHAR(255),state VARCHAR (255),softDelete VARCHAR(255))")
 
-mycursor.execute("CREATE TABLE jarime_taakhir_dar_pardakht (id INTEGER AUTO_INCREMENT PRIMARY KEY , shomare_pardakht_be_taakhir_oftade VARCHAR(255), mablagh_pardakht VARCHAR(255), tarikh_barname_pardakht VARCHAR(255),tarikh_jadid_pardakht VARCHAR(255),mizane_taakhir_dar_mohasebat_ghest VARCHAR(255) , file_peyvast VARCHAR(255))")
+mycursor.execute("CREATE TABLE jarime_taakhir_dar_pardakht (id INTEGER AUTO_INCREMENT PRIMARY KEY , shomare_pardakht_be_taakhir_oftade VARCHAR(255), mablagh_pardakht VARCHAR(255), tarikh_barname_pardakht VARCHAR(255),tarikh_jadid_pardakht VARCHAR(255),tarikh_pardakht_shode VARCHAR(255) , file_peyvast VARCHAR(255))")
 mycursor.execute("CREATE TABLE taahodat_pardakht_sherkat_mohandesi_tose_gas(id INTEGER AUTO_INCREMENT PRIMARY KEY , tarikh VARCHAR(255), sharh VARCHAR(255), mablagh_dollari VARCHAR(255),tozihat VARCHAR(255),file_peyvast VARCHAR(255))")
 mycursor.execute("CREATE TABLE taahodat_pardakht_sherkat_naftanir(id INTEGER AUTO_INCREMENT PRIMARY KEY , tarikh VARCHAR(255), sharh VARCHAR(255), mablagh_dollari VARCHAR(255),tozihat VARCHAR(255),file_peyvast VARCHAR(255))")
 
+
+mydb.commit()
+mycursor.execute("insert into gostare (name , percent , tarikh) values (%s , %s , %s)", ("ahwaz" , "15.95" ,"1396-2-12"))
+mycursor.execute("insert into gostare (name , percent , tarikh) values (%s , %s , %s)", ("koohdasht" , "14.10" ,"1396-2-12"))
+mycursor.execute("insert into gostare (name , percent , tarikh) values (%s , %s , %s)", ("bestoon" , "15.10" ,"1396-2-12"))
+mycursor.execute("insert into gostare (name , percent , tarikh) values (%s , %s , %s)", ("dezfool" , "16.83" ,"1396-2-12"))
+mycursor.execute("insert into gostare (name , percent , tarikh) values (%s , %s , %s)", ("kermanshah" , "1.75" ,"1396-2-12"))
+# mycursor.execute("insert into gostare (name , percent , tarikh) values (koohdasht , 14.10 , 1396-2-12)")
+# mycursor.execute("insert into gostare (name , percent , tarikh) values (bestoon , 15.10 , 1396-2-12)")
+# mycursor.execute("insert into gostare (name , percent , tarikh) values (dezfool , 16.83 , 1396-2-12)")
+# mycursor.execute("insert into gostare (name , percent , tarikh) values (kermanshah , 1.75 , 1396-2-12)")
+
+mycursor.execute("insert into gostare (name , percent , tarikh) values (%s , %s , %s)", ("feshar_ahwaz" , "7.69" ,"1396-2-12"))
+mycursor.execute("insert into gostare (name , percent , tarikh) values (%s , %s , %s)", ("feshar_hoseiniye" , "7.69" ,"1396-2-12"))
+mycursor.execute("insert into gostare (name , percent , tarikh) values (%s , %s , %s)", ("feshar_koohdasht" , "6.69" ,"1396-2-12"))
+mycursor.execute("insert into gostare (name , percent , tarikh) values (%s , %s , %s)", ("feshar_deylam" , "6.69" ,"1396-2-12"))
+mycursor.execute("insert into gostare (name , percent , tarikh) values (%s , %s , %s)", ("feshar_bidboland" , "6.69" ,"1396-2-12"))
+
+# mycursor.execute("insert into gostare (name , percent , tarikh) values (feshar_ahwaz , 7.69 , 1397-2-12)")
+# mycursor.execute("insert into gostare (name , percent , tarikh) values (feshar_hoseiniye , 7.69 , 1397-2-12)")
+# mycursor.execute("insert into gostare (name , percent , tarikh) values (feshar_koohdasht , 6.96 , 1397-2-12)")
+# mycursor.execute("insert into gostare (name , percent , tarikh) values (feshar_deylam , 6.96 , 1397-2-12)")
+# mycursor.execute("insert into gostare (name , percent , tarikh) values (feshar_bidboland , 6.96 , 1397-2-12)")
+
+
+mydb.commit()
