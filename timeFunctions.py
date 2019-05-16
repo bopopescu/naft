@@ -17,6 +17,15 @@ def khayam_type(date1, date2):
     time = time - time2
     days = abs(int(time.days))
     return days / int(time1.daysinmonth)
+def khayam_type_days(date1, date2):
+    d1 = date1.split('-')
+    d2 = date2.split('-')
+    time = JalaliDate(d1[0], d1[1], d1[2])
+    time1 = JalaliDate(d1[0], d1[1], d1[2])
+    time2 = JalaliDate(d2[0], d2[1], d2[2])
+    time = time - time2
+    days = abs(int(time.days))
+    return days
 def ekhtelaf_rooz(datee1 , datee2):
     sal = {}
     sal[1] = 31
