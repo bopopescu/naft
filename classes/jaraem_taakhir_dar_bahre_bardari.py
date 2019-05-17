@@ -3,7 +3,8 @@ import os
 import werkzeug
 from flask import Flask , jsonify
 from flask_restful import Api, Resource, reqparse
-
+from khayyam import *
+from datetime import timedelta
 from timeFunctions import khayam_type_days
 
 
@@ -42,8 +43,26 @@ class jaraem_taakhir_dar_bahre_bardari(Resource):
         #     dataye_return[i]['tarikh_shorooe_ghest'] = "do mah bad az ghabli"
         #     dataye_return[i]['tarikh_shorooe_mohasebat_jarime'] = "se mah bad az ghabli"
         #     i = i + 1
-
-        for i in pishraft:
-            print(i)
-        return i
-        return jarime_ghabl_az_shorooe_kar
+        time_1 = pishraft[0][3].split('-')
+        time_1 = JalaliDate(time_1[0],time_1[1],time_1[2])
+        # time2 = JalaliDate('1350', '01', '01')
+        # # time = (time_1 - time2).days
+        # print(time2.month)
+        # time = timedelta(days= time)
+        # print(time)
+        retu = {}
+        for pish in pishraft:
+            d = pish[3].split('-')
+            time = JalaliDate(d[0], d[1], d[2])
+            days = (time - time_1).days
+            retu[pish[0]] = {}
+            retu[pish[0]]['jarime'] = (50000 * int(abs(days)) * float(gostare_data[0][2]))
+            retu[pish[0]]['esme_gostare'] = gostare_data[0][1]
+            retu[pish[0]]['vazne_kole'] = gostare_data[0][2]
+            retu[pish[0]]['jame_kole_anjam_shode'] = jame_kole_pishraft
+            retu[pish[0]]['darsade_kare_baghi_mande'] = jame_kole_pishraft - float(gostare_data[0][2])
+            retu[pish[0]]['tarikh_barname_rizi_shode_bahre_bardari'] = gostare_data[0][3]
+            retu[pish[0]]['shorooe_bahre_bardari_az_pishraft_fiziki'] = pishraft[0][3]
+            retu[pish[0]]['tarikh_shorooe_ghest'] = "do mah bad az ghabli"
+            retu[pish[0]]['tarikh_shorooe_mohasebat_jarime'] = "se mah bad az ghabli"
+        return retu
