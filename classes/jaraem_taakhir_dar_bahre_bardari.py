@@ -69,6 +69,7 @@ class jaraem_taakhir_dar_bahre_bardari(Resource):
             retu[i]['esme_gostare'] = gostare_data[0][1]
             retu[i]['vazne_kole'] = gostare_data[0][2]
             retu[i]['darsade_pishraft'] = int(pish[2])
+            retu[i]['tarikh_pishraft'] = pish[3]
             if i>0:
                 jame_kole_pishraft = jame_kole_pishraft + int(pish[2])
             else:
