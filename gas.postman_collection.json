@@ -466,7 +466,6 @@
 						},
 						{
 							"key": "peyvast",
-							"value": null,
 							"type": "file"
 						}
 					]
@@ -577,6 +576,7 @@
 						},
 						{
 							"key": "peyvast",
+							"value": null,
 							"type": "file"
 						}
 					]
@@ -675,6 +675,7 @@
 						},
 						{
 							"key": "peyvast",
+							"value": null,
 							"type": "file"
 						}
 					]
@@ -1357,39 +1358,7 @@
 				"header": [],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "shomare_pardakht_be_taakhir_oftade",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "mablagh_pardakht",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "tarikh_barname_pardakht",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "tarikh_jadid_pardakht",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "mizane_taakhir_dar_mohasebat_ghest",
-							"value": "2",
-							"type": "text"
-						},
-						{
-							"key": "peyvast",
-							"value": "",
-							"type": "text",
-							"disabled": true
-						}
-					]
+					"formdata": []
 				},
 				"url": {
 					"raw": "http://127.0.0.1:5000/taahodat_pardakht_sherkat_mohandesi_tose_gas",
@@ -1518,8 +1487,8 @@
 						},
 						{
 							"key": "file_peyvast",
-							"value": null,
-							"type": "file"
+							"type": "file",
+							"src": []
 						}
 					]
 				},
