@@ -21,7 +21,8 @@ class jarime_takhir_dar_pardakht(Resource):
         args = parser.parse_args()
         file = args['file_peyvast']
         if file:
-            dirname = os.path.dirname(__file__)
+            import secrets
+            dirname = secrets.dirname
             file.save(os.path.join(dirname, 'files', file.filename))
             fileName = file.filename
         else:

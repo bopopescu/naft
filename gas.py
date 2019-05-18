@@ -1315,8 +1315,10 @@ api.add_resource(jadvalPeymankaran , "/jadval_peymankaran")
 from classes.classes import *
 from classes.taahodat_pardakht_sherkat_mohandesi_tose_gas import *
 from classes.jaraem_taakhir_dar_bahre_bardari import *
+from classes.taahodat_pardakht_sherkat_naftanir import *
 api.add_resource(jarime_takhir_dar_pardakht , "/jarime_takhir_dar_pardakht")
 api.add_resource(taahodat_pardakht_sherkat_mohandesi_tose_gas , "/taahodat_pardakht_sherkat_mohandesi_tose_gas")
+api.add_resource(taahodat_pardakht_sherkat_naftanir , "/taahodat_pardakht_sherkat_naftanir")
 
 
 api.add_resource(jaraem_taakhir_dar_bahre_bardari,'/jaraem_taakhir_dar_bahre_bardari')

@@ -5,9 +5,9 @@ from flask import Flask , jsonify
 from flask_restful import Api, Resource, reqparse
 import secrets
 
-class taahodat_pardakht_sherkat_mohandesi_tose_gas(Resource):
+class taahodat_pardakht_sherkat_naftanir(Resource):
     def get(self):
-        mycursor.execute("select * from taahodat_pardakht_sherkat_mohandesi_tose_gas")
+        mycursor.execute("select * from taahodat_pardakht_sherkat_naftanir")
         data = mycursor.fetchall()
         return data
     def post(self):
@@ -25,7 +25,7 @@ class taahodat_pardakht_sherkat_mohandesi_tose_gas(Resource):
             fileName = file.filename
         else:
             fileName = None
-        sql = "INSERT INTO taahodat_pardakht_sherkat_mohandesi_tose_gas (tarikh , sharh,mablagh_dollari,tozihat,file_peyvast) VALUES (%s,%s,%s,%s,%s)"
+        sql = "INSERT INTO taahodat_pardakht_sherkat_naftanir (tarikh , sharh,mablagh_dollari,tozihat,file_peyvast) VALUES (%s,%s,%s,%s,%s)"
         values = (args['tarikh'] , args['sharh'] , args['mablagh_dollar'] , args['tozihat'] , fileName)
         mycursor.execute(sql,values)
         mydb.commit()

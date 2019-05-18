@@ -1,4 +1,4 @@
-
+import os
 import mysql.connector
 
 
@@ -10,3 +10,4 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor(buffered=True)
+dirname = os.path.dirname(__file__)
