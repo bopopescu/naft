@@ -36,6 +36,7 @@ mycursor.execute("CREATE TABLE taahodat_pardakht_sherkat_mohandesi_tose_gas(id I
 mycursor.execute("CREATE TABLE taahodat_pardakht_sherkat_naftanir(id INTEGER AUTO_INCREMENT PRIMARY KEY , tarikh VARCHAR(255), sharh VARCHAR(255), mablagh_dollari VARCHAR(255),tozihat VARCHAR(255),file_peyvast VARCHAR(255))")
 
 
+mycursor.execute("CREATE TABLE taakhir_dar_bahre_bardari (id  INTEGER AUTO_INCREMENT PRIMARY KEY ,gostare_id VARCHAR (255) , darsad VARCHAR (255) , tarikh_ghest_avaliye VARCHAR (255), tarikh_ghest_jariye VARCHAR (255),shomare_ghest VARCHAR (255) , javab VARCHAR (255))")
 mydb.commit()
 mycursor.execute("insert into gostare (name , percent , tarikh) values (%s , %s , %s)", ("ahwaz" , "15.95" ,"1396-2-12"))
 mycursor.execute("insert into gostare (name , percent , tarikh) values (%s , %s , %s)", ("koohdasht" , "14.10" ,"1396-2-12"))
