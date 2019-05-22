@@ -466,6 +466,7 @@
 						},
 						{
 							"key": "peyvast",
+							"value": null,
 							"type": "file"
 						}
 					]
@@ -576,7 +577,6 @@
 						},
 						{
 							"key": "peyvast",
-							"value": null,
 							"type": "file"
 						}
 					]
@@ -675,7 +675,6 @@
 						},
 						{
 							"key": "peyvast",
-							"value": null,
 							"type": "file"
 						}
 					]
@@ -1324,10 +1323,25 @@
 							"type": "text"
 						},
 						{
-							"key": "peyvast",
-							"value": "",
-							"type": "text",
-							"disabled": true
+							"key": "file_peyvast",
+							"type": "file",
+							"src": "//////////////C:/Users/hossein/Desktop/190217185829-man-finds-old-computer-still-working-exlarge-169.jpg"
+						},
+						{
+							"key": "mohasebe_takhir",
+							"value": "1",
+							"description": "1",
+							"type": "text"
+						},
+						{
+							"key": "mizan_takhir",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "jarime",
+							"value": "1",
+							"type": "text"
 						}
 					]
 				},
@@ -1487,8 +1501,8 @@
 						},
 						{
 							"key": "file_peyvast",
-							"type": "file",
-							"src": []
+							"value": null,
+							"type": "file"
 						}
 					]
 				},
@@ -1504,6 +1518,98 @@
 					"port": "5000",
 					"path": [
 						"taahodat_pardakht_sherkat_naftanir"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jaraem_taakhir_dar_bahre_bardari",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "gostare_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "darsad",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "tarikh_ghest_avaliye",
+							"value": "1395-10-11",
+							"type": "text"
+						},
+						{
+							"key": "tarikh_ghest_jariye",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "shomare_ghest",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "javab",
+							"value": "100",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/jaraem_taakhir_dar_bahre_bardari",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"jaraem_taakhir_dar_bahre_bardari"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jaraem_taakhir_dar_bahre_bardari",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/jaraem_taakhir_dar_bahre_bardari?gostare_id=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"jaraem_taakhir_dar_bahre_bardari"
+					],
+					"query": [
+						{
+							"key": "gostare_id",
+							"value": "1"
+						}
 					]
 				}
 			},
