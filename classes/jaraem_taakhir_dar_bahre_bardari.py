@@ -104,7 +104,7 @@ class jaraem_taakhir_dar_bahre_bardari(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('gostare_id')
         args = parser.parse_args()
-        mycursor.execute('select * from taakhir_dar_bahre_bardari')
+        mycursor.execute('select * from taakhir_dar_bahre_bardari WHERE gostare_id = %s' , ( args['gostare_id'] ,))
         jarime_data = mycursor.fetchall()
         sql = ('select * from gostare where id = %s')
         mycursor.execute(sql ,( args['gostare_id'] ,))
@@ -127,5 +127,43 @@ class jaraem_taakhir_dar_bahre_bardari(Resource):
             jarime_datas['n'][i]['darsade_baghi_mande'] = jarime_data[i][2]
             jarime_datas['n'][i]['tarikh_anjam_bahre_bardarfi'] = jarime_data[i][4]
             i += 1
-        return jarime_datas
+        i = 0
+        list_ghests = []
+        ape = []
+        # ape.append([
+        #     1
+        # ])
+        # ape.append([
+        #     2
+        # ])
+        while i < len(jarime_data):
+            gostare_id = jarime_data[i][1]
+            if jarime_data[i][5] == jarime_data[i-1][5] and i > 0:
+                n = str(int(jarime_data[i][2]) + int(jarime_data[i-1][2]))
+                del ape[i-1]
+                data = [
+                gostare_id ,
+                n ,
+                jarime_data[i][3],
+                jarime_data[i][4],
+                jarime_data[i][5],
+                jarime_data[i][6],
+                ]
+            else:
+                n = jarime_data[i][2]
+                data = [
+                gostare_id ,
+                n ,
+                jarime_data[i][3],
+                jarime_data[i][4],
+                jarime_data[i][5],
+                jarime_data[i][6],
+                ]
+            ape.append(data)
+            # ape[i].append(jarime_data[i][4])
+            # ape[i].append(jarime_data[i][5])
+            # ape[i].append(jarime_data[i][6])
 
+            i +=1
+        jarime_datas['list'] = ape
+        return jarime_datas
