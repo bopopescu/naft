@@ -130,16 +130,29 @@ class jaraem_taakhir_dar_bahre_bardari(Resource):
         i = 0
         list_ghests = []
         ape = []
+        jarime_ghest_ghabl_az_avalin_kar= 0
         # ape.append([
         #     1
         # ])
         # ape.append([
         #     2
         # ])
+        sum_jarime = 0
         while i < len(jarime_data):
+            if i == 0:
+                days_dif = khayam_type_days(jarime_data[i][3] ,gostare[3] )
+                jarime_ghest_ghabl_az_avalin_kar = (50000 * int(abs(days_dif)) * float(jarime_data[i][2]))
+                jarime_ghest= 0
+            # if i > 0:
+            #     days_dif = khayam_type_days(jarime_data[i][3], jarime_data[i-1][3])
+            #     jarime_ghest = (50000 * int(abs(days_dif)) * float(jarime_data[i][2]))
             gostare_id = jarime_data[i][1]
             if jarime_data[i][5] == jarime_data[i-1][5] and i > 0:
                 n = str(int(jarime_data[i][2]) + int(jarime_data[i-1][2]))
+                days_dif = khayam_type_days(jarime_data[i][3], jarime_data[i - 1][3])
+                jarime_ghest = (50000 * int(abs(days_dif)) * float(n))
+                sum_jarime += jarime_ghest
+
                 del ape[i-1]
                 data = [
                 gostare_id ,
@@ -148,9 +161,13 @@ class jaraem_taakhir_dar_bahre_bardari(Resource):
                 jarime_data[i][4],
                 jarime_data[i][5],
                 jarime_data[i][6],
+                sum_jarime
                 ]
             else:
                 n = jarime_data[i][2]
+                days_dif = khayam_type_days(jarime_data[i][3], jarime_data[i - 1][3])
+                jarime_ghest = (50000 * int(abs(days_dif)) * float(n))
+                sum_jarime += jarime_ghest
                 data = [
                 gostare_id ,
                 n ,
@@ -158,6 +175,7 @@ class jaraem_taakhir_dar_bahre_bardari(Resource):
                 jarime_data[i][4],
                 jarime_data[i][5],
                 jarime_data[i][6],
+                sum_jarime
                 ]
             ape.append(data)
             # ape[i].append(jarime_data[i][4])
@@ -165,5 +183,8 @@ class jaraem_taakhir_dar_bahre_bardari(Resource):
             # ape[i].append(jarime_data[i][6])
 
             i +=1
+        mydb.commit()
+        jarime_datas['jadval_az_pish']['jarime_az_ghabl_az_karkard']=jarime_ghest_ghabl_az_avalin_kar
+
         jarime_datas['list'] = ape
         return jarime_datas
