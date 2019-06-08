@@ -188,3 +188,13 @@ class jaraem_taakhir_dar_bahre_bardari(Resource):
 
         jarime_datas['list'] = ape
         return jarime_datas
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('shomare_ghest',required=True)
+        parser.add_argument('gostare_id',required = True)
+        args = parser.parse_args()
+        sql = ('delete from taakhir_dar_bahre_bardari where shomare_ghest = %s and gostare_id=%s')
+        value = (args['shomare_ghest'],args['gostare_id'])
+        mycursor.execute(sql , value)
+        mydb.commit()
+        return True
