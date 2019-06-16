@@ -1316,10 +1316,14 @@ from classes.classes import *
 from classes.taahodat_pardakht_sherkat_mohandesi_tose_gas import *
 from classes.jaraem_taakhir_dar_bahre_bardari import *
 from classes.taahodat_pardakht_sherkat_naftanir import *
+from classes.model_mali import *
+from classes.mohasebe_aghsat import *
 api.add_resource(jarime_takhir_dar_pardakht , "/jarime_takhir_dar_pardakht")
 api.add_resource(taahodat_pardakht_sherkat_mohandesi_tose_gas , "/taahodat_pardakht_sherkat_mohandesi_tose_gas")
 api.add_resource(taahodat_pardakht_sherkat_naftanir , "/taahodat_pardakht_sherkat_naftanir")
-
+api.add_resource(model_mali , "/model_mali")
+api.add_resource(mohasebe_aghsat , "/mohasebe_aghsat")
+# UPDATE :: have to make new changes from here
 
 api.add_resource(jaraem_taakhir_dar_bahre_bardari,'/jaraem_taakhir_dar_bahre_bardari')
 # app.run(host='192.168.43.7',debug=True)
