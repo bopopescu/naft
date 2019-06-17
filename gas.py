@@ -37,8 +37,10 @@ class gostare(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('tarikh')
         parser.add_argument('darsade_bardari')
-        parser.add_argument('mahe_khali')
+        # parser.add_argument('mahe_khali')
         parser.add_argument('id_gostare')
+        parser.add_argument('id_ghest')
+        parser.add_argument('tozihat')
         args = parser.parse_args()
         #if args['mahe_khali'] and args['id_gostare']:
             #values =  ( float(args['id_gostare']) ,0 ,args['mahe_khali'] ,)
@@ -46,11 +48,10 @@ class gostare(Resource):
             #db.mycursor.execute("INSERT INTO gostare_pishraft(gostare_id , darsad , tarikh) values (%s , %s , %s)", values)
             #db.mydb.commit()
             #return True
-
         if args['darsade_bardari'] and args['tarikh'] and args['id_gostare']:
-            values = (args['id_gostare'],args['darsade_bardari'] , args['tarikh'] , )
+            values = (args['id_gostare'],args['darsade_bardari'] , args['tarikh'] ,args['id_ghest'] , args['tozihat'], )
             # print(values)
-            db.mycursor.execute("INSERT INTO gostare_pishraft(gostare_id , darsad , tarikh) values (%s , %s , %s)", values)
+            db.mycursor.execute("INSERT INTO gostare_pishraft(gostare_id , darsad , tarikh , id_ghest , tozihat) values (%s , %s , %s , %s ,%s)", values)
             db.mydb.commit()
             return True
         return False
@@ -1324,6 +1325,12 @@ api.add_resource(taahodat_pardakht_sherkat_naftanir , "/taahodat_pardakht_sherka
 api.add_resource(model_mali , "/model_mali")
 api.add_resource(mohasebe_aghsat , "/mohasebe_aghsat")
 # UPDATE :: have to make new changes from here
+from classes.gereftane_darsade_gostare_ba_shomare_ghest import *
+from classes.ghest_bandi_har_pishraft import *
+api.add_resource(gereftane_darsade_gostare_ba_shomare_ghest, '/gereftane_darsade_gostare_ba_shomare_ghest')
+
+api.add_resource(ghest_bandi_har_pishraft , '/ghest_bandi_har_pishraft')
+
 
 api.add_resource(jaraem_taakhir_dar_bahre_bardari,'/jaraem_taakhir_dar_bahre_bardari')
 # app.run(host='192.168.43.7',debug=True)
