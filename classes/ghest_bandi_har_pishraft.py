@@ -26,7 +26,6 @@ class ghest_bandi_har_pishraft(Resource):
         values = (args['gostare_id'] ,)
         mycursor.execute(query , values)
         gostare_pishrafts = mycursor.fetchall()
-
         df = self.opencsv()
         column = df.loc[0:29 , str(gostare_data[0][2]) + "%"]
         ret = {}
@@ -50,14 +49,15 @@ class ghest_bandi_har_pishraft(Resource):
                 month +=1
 
             i = 0
-        self.makeDataFrame(ret)
+        dataFrame = self.makeDataFrame(ret)
+        self.sumTheDataframe(dataFrame)
         return ret
 
 
 
     def opencsv(self):
         model_mali_csv = pandas.read_csv('model_mali.csv')
-        print (type(model_mali_csv))
+
         df = pandas.DataFrame(model_mali_csv)
         return df
 
@@ -99,26 +99,20 @@ class ghest_bandi_har_pishraft(Resource):
             n = 0
 
         dataframe_init = pandas.DataFrame(index=time , data = data_fin,columns=columns)
-        print (dataframe_init)
-        # print(time)
-        # print(data_fin)
-        # print(dataframe_init)
-        # print (data_fin['hamin'])
-        # INDEX IS DONE
-        #COLUMNS ARE DONE
+        # print (dataframe_init)
+        return dataframe_init
 
-
-
-
-
-
-
-
-
-
-        # for input in inputs:
-        # column = df.loc[0:29, str(gostare_data[0][2]) + "%"]
-        # print (init)
-        # df.insert(loc=time[0], column='hamin', value=init)
-
-        # print(df.loc[time[0]:time[int(len(time))-1],columns[0]])
+    def searchInDataframeToButtom(self,df , index):
+        df = df.loc[str(index):]
+        return df
+    def searchInDataframeToTop(self,df , index):
+        df = df.loc[:str(index)]
+        return df
+    def sumTheDataframe(self,df):
+        # return True
+        sum = 0
+        for index , data in df.iterrows():
+            # print(data)
+           for d in data:
+               sum += d
+        print(sum)

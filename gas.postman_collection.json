@@ -37,24 +37,27 @@
 					"formdata": [
 						{
 							"key": "darsade_bardari",
-							"value": "a",
-							"type": "text",
-							"disabled": true
+							"value": "10",
+							"type": "text"
 						},
 						{
 							"key": "tarikh",
-							"value": "18/5/1398",
-							"type": "text",
-							"disabled": true
-						},
-						{
-							"key": "mahe_khali",
-							"value": "sa",
+							"value": "18-5-1398",
 							"type": "text"
 						},
 						{
 							"key": "id_gostare",
 							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "id_ghest",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "tozihat",
+							"value": "hamin",
 							"type": "text"
 						}
 					]
@@ -466,7 +469,6 @@
 						},
 						{
 							"key": "peyvast",
-							"value": null,
 							"type": "file"
 						}
 					]
@@ -577,6 +579,7 @@
 						},
 						{
 							"key": "peyvast",
+							"value": null,
 							"type": "file"
 						}
 					]
@@ -675,6 +678,7 @@
 						},
 						{
 							"key": "peyvast",
+							"value": null,
 							"type": "file"
 						}
 					]
@@ -1501,8 +1505,8 @@
 						},
 						{
 							"key": "file_peyvast",
-							"value": null,
-							"type": "file"
+							"type": "file",
+							"src": []
 						}
 					]
 				},
@@ -1609,6 +1613,217 @@
 						{
 							"key": "gostare_id",
 							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jaraem_taakhir_dar_bahre_bardar",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/jaraem_taakhir_dar_bahre_bardari?shomare_ghest=1&gostare_id=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"jaraem_taakhir_dar_bahre_bardari"
+					],
+					"query": [
+						{
+							"key": "shomare_ghest",
+							"value": "1"
+						},
+						{
+							"key": "gostare_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "model_mali",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/model_mali",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"model_mali"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mohasebe_aghsat",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/mohasebe_aghsat",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"mohasebe_aghsat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gereftane_darsade_gostare_ba_shomare_ghest?shomare_ghest=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/gereftane_darsade_gostare_ba_shomare_ghest?shomare_ghest=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"gereftane_darsade_gostare_ba_shomare_ghest"
+					],
+					"query": [
+						{
+							"key": "shomare_ghest",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ghest_bandi_har_pishraft",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/ghest_bandi_har_pishraft?gostare_id=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"ghest_bandi_har_pishraft"
+					],
+					"query": [
+						{
+							"key": "gostare_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ghest_bandi_har_pishraft_tajamoee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/ghest_bandi_har_pishraft_tajamoee?gostare_id=1&time=1395-10-17",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"ghest_bandi_har_pishraft_tajamoee"
+					],
+					"query": [
+						{
+							"key": "gostare_id",
+							"value": "1"
+						},
+						{
+							"key": "time",
+							"value": "1395-10-17"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ghest_bandi_kole_gostare_ha_tajamoee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/ghest_bandi_kole_gostare_ha_tajamoee?time=1396-01-17",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"ghest_bandi_kole_gostare_ha_tajamoee"
+					],
+					"query": [
+						{
+							"key": "gostare_id",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "time",
+							"value": "1396-01-17"
 						}
 					]
 				}

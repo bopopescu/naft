@@ -1330,6 +1330,11 @@ from classes.ghest_bandi_har_pishraft import *
 api.add_resource(gereftane_darsade_gostare_ba_shomare_ghest, '/gereftane_darsade_gostare_ba_shomare_ghest')
 
 api.add_resource(ghest_bandi_har_pishraft , '/ghest_bandi_har_pishraft')
+from classes.ghest_bandi_har_pishraft_tajamoee import *
+api.add_resource(ghest_bandi_har_pishraft_tajamoee , '/ghest_bandi_har_pishraft_tajamoee')
+from classes.ghest_bandi_kole_gostare_ha_tajamoee import *
+api.add_resource(ghest_bandi_kole_gostare_ha_tajamoee , '/ghest_bandi_kole_gostare_ha_tajamoee')
+
 
 
 api.add_resource(jaraem_taakhir_dar_bahre_bardari,'/jaraem_taakhir_dar_bahre_bardari')
