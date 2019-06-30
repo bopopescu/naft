@@ -50,8 +50,9 @@ class ghest_bandi_har_pishraft(Resource):
 
             i = 0
         dataFrame = self.makeDataFrame(ret)
-        self.sumTheDataframe(dataFrame)
-        return ret
+        print (dataFrame)
+        # self.sumTheDataframe(dataFrame)
+        return json.loads(dataFrame.to_json())
 
 
 
@@ -72,8 +73,13 @@ class ghest_bandi_har_pishraft(Resource):
 
             data_fin[input] = []
             while i < 29:
-                if inputs[input][i][1] not in time:
-                    time.append(inputs[input][i][1])
+                full_time = inputs[input][i][1]
+                year_and_month = full_time.split('-')
+
+                if year_and_month[0] + "-" + year_and_month[1] not in time:
+                    full_time = inputs[input][i][1]
+                    year_and_month = full_time.split('-')
+                    time.append(year_and_month[0] + "-" + year_and_month[1])
                 init.append(inputs[input][i][0])
                 data_fin[input].append(inputs[input][i][0])
                 i += 1
@@ -82,23 +88,32 @@ class ghest_bandi_har_pishraft(Resource):
             # if n == 0:
             #     n = 1
         # print(data_fin)
+        # print (time)
+        # ///////////////
         for input in inputs:
             i = len(data_fin[input])
+            full_time = inputs[input][0][1]
+            year_and_month = full_time.split('-')
 
-            x = time.index(inputs[input][0][1])
+            x = time.index(year_and_month[0] + "-" + year_and_month[1])
+            # x = time.index(inputs[input][0][1])
+            # print (x)
             while n < x:
-                data_fin[input].insert(0,0)
-                n +=1
+                data_fin[input].insert(0, 0)
+                n += 1
             n = 0
-            x = time.index(inputs[input][28][1])
-            x = abs(x - (len(time)-1))
+            full_time = inputs[input][28][1]
+            year_and_month = full_time.split('-')
+
+            x = time.index(year_and_month[0] + "-" + year_and_month[1])
+            # x = time.index(inputs[input][28][1])
+            x = abs(x - (len(time) - 1))
             # print(x)
-            while n <x:
+            while n < x:
                 data_fin[input].append(0)
                 n += 1
             n = 0
-
-        dataframe_init = pandas.DataFrame(index=time , data = data_fin,columns=columns)
+        dataframe_init = pandas.DataFrame(index=time, data=data_fin, columns=columns)
         # print (dataframe_init)
         return dataframe_init
 
