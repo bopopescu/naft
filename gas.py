@@ -1337,6 +1337,8 @@ api.add_resource(ghest_bandi_kole_gostare_ha_tajamoee , '/ghest_bandi_kole_gosta
 from classes.jaraem_taakhir_dar_bahre_bardariV2 import *
 api.add_resource(jaraem_taakhir_dar_bahre_bardariV2 , '/jaraem_taakhir_dar_bahre_bardariV2')
 
+from classes.jaraem_taakhir_dar_bahre_bardari_tajamoe import *
+api.add_resource(jaraem_taakhir_dar_bahre_bardari_tajamoe , "/jaraem_taakhir_dar_bahre_bardari_tajamoe")
 
 api.add_resource(jaraem_taakhir_dar_bahre_bardari,'/jaraem_taakhir_dar_bahre_bardari')
 # app.run(host='192.168.43.7',debug=True)

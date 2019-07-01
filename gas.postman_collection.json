@@ -1864,6 +1864,41 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "jaraem_taakhir_dar_bahre_bardari_tajamoe",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/jaraem_taakhir_dar_bahre_bardari_tajamoe?ghest_id=2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"jaraem_taakhir_dar_bahre_bardari_tajamoe"
+					],
+					"query": [
+						{
+							"key": "ghest_id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
