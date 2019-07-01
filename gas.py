@@ -1334,7 +1334,8 @@ from classes.ghest_bandi_har_pishraft_tajamoee import *
 api.add_resource(ghest_bandi_har_pishraft_tajamoee , '/ghest_bandi_har_pishraft_tajamoee')
 from classes.ghest_bandi_kole_gostare_ha_tajamoee import *
 api.add_resource(ghest_bandi_kole_gostare_ha_tajamoee , '/ghest_bandi_kole_gostare_ha_tajamoee')
-
+from classes.jaraem_taakhir_dar_bahre_bardariV2 import *
+api.add_resource(jaraem_taakhir_dar_bahre_bardariV2 , '/jaraem_taakhir_dar_bahre_bardariV2')
 
 
 api.add_resource(jaraem_taakhir_dar_bahre_bardari,'/jaraem_taakhir_dar_bahre_bardari')

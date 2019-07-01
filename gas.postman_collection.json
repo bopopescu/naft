@@ -1803,7 +1803,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/ghest_bandi_kole_gostare_ha_tajamoee?time=1396-01-17",
+					"raw": "http://127.0.0.1:5000/ghest_bandi_kole_gostare_ha_tajamoee?time=1398-08",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1823,7 +1823,42 @@
 						},
 						{
 							"key": "time",
-							"value": "1396-01-17"
+							"value": "1398-08"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "jaraem_taakhir_dar_bahre_bardariv2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/jaraem_taakhir_dar_bahre_bardariV2?gostare_id=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"jaraem_taakhir_dar_bahre_bardariV2"
+					],
+					"query": [
+						{
+							"key": "gostare_id",
+							"value": "1"
 						}
 					]
 				}

@@ -198,3 +198,4 @@ class jaraem_taakhir_dar_bahre_bardari(Resource):
         mycursor.execute(sql , value)
         mydb.commit()
         return True
+
