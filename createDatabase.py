@@ -33,7 +33,7 @@ mycursor.execute("CREATE TABLE naftanir_peymankaran_adam (id INTEGER AUTO_INCREM
 
 mycursor.execute("CREATE TABLE jarime_taakhir_dar_pardakht (id INTEGER AUTO_INCREMENT PRIMARY KEY , shomare_pardakht_be_taakhir_oftade VARCHAR(255), mablagh_pardakht VARCHAR(255), tarikh_barname_pardakht VARCHAR(255),tarikh_jadid_pardakht VARCHAR(255) , file_peyvast VARCHAR(255) , mohasebe_takhir VARCHAR (255) , mizan_takhir VARCHAR (255) , jarime VARCHAR (255) , mizane_taakhir_dar_mohasebat_ghest VARCHAR (255))")
 mycursor.execute("CREATE TABLE taahodat_pardakht_sherkat_mohandesi_tose_gas(id INTEGER AUTO_INCREMENT PRIMARY KEY , tarikh VARCHAR(255), sharh VARCHAR(255), mablagh_dollari VARCHAR(255),tozihat VARCHAR(255),file_peyvast VARCHAR(255))")
-mycursor.execute("CREATE TABLE taahodat_pardakht_sherkat_naftanir(id INTEGER AUTO_INCREMENT PRIMARY KEY , tarikh VARCHAR(255), sharh VARCHAR(255), mablagh_dollari VARCHAR(255),tozihat VARCHAR(255),file_peyvast VARCHAR(255))")
+mycursor.execute("CREATE TABLE taahodat_pardakht_sherkat_naftanir(id INTEGER AUTO_INCREMENT PRIMARY KEY , tarikh VARCHAR(255), sharh VARCHAR(255), mablagh_dollari VARCHAR(255),tozihat VARCHAR(255),file_peyvast VARCHAR(255) ,id_ghest VARCHAR (255))")
 
 
 mycursor.execute("CREATE TABLE taakhir_dar_bahre_bardari (id  INTEGER AUTO_INCREMENT PRIMARY KEY ,gostare_id VARCHAR (255) , darsad VARCHAR (255) , tarikh_ghest_avaliye VARCHAR (255), tarikh_ghest_jariye VARCHAR (255),shomare_ghest VARCHAR (255) , javab VARCHAR (255))")
