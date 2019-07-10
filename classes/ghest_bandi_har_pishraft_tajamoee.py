@@ -24,11 +24,10 @@ class ghest_bandi_har_pishraft_tajamoee(Resource):
         mycursor.execute("select * from gostare where id = %s ",(args['gostare_id'],))
         gostare_data = mycursor.fetchall()
         mydb.commit()
-        query = "select * from gostare_pishraft where gostare_id = %s"
+        query = "select * from gostare_pishraft where gostare_id = %s and malg =1"
         values = (args['gostare_id'] ,)
         mycursor.execute(query , values)
         gostare_pishrafts = mycursor.fetchall()
-
         df = self.opencsv()
         column = df.loc[0:29 , str(gostare_data[0][2]) + "%"]
         ret = {}
@@ -50,15 +49,12 @@ class ghest_bandi_har_pishraft_tajamoee(Resource):
                 ]
                 i +=1
                 month +=1
-
             i = 0
         dataFrame = self.makeDataFrame(ret)
         # print(dataFrame)
         dataFrame= self.searchInDataframeToTop(dataFrame,args['time'])
         sum = self.sumTheDataframe(dataFrame)
         return sum
-
-
 
     def opencsv(self):
         model_mali_csv = pandas.read_csv('model_mali.csv')

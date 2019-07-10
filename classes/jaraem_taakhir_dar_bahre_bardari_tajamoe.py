@@ -51,10 +51,10 @@ class jaraem_taakhir_dar_bahre_bardari_tajamoe(Resource):
             # return "salam"
             # sql = "select * from gostare_pishraft where id_ghest = " + str(1)
             # print(sql)
-            mycursor.execute("select * from gostare_pishraft where id_ghest = " + str(1))
+            mycursor.execute("select * from gostare_pishraft where id_ghest = " + str(1) + "and malg =1")
             pishrafts = mycursor.fetchall()
         else:
-            mycursor.execute("select * from gostare_pishraft where id_ghest in "+ str(ghests))
+            mycursor.execute("select * from gostare_pishraft where id_ghest in "+ str(ghests)+"and malg =1")
             pishrafts = mycursor.fetchall()
         id_gostare_ha =  ()
         for gostare in pishrafts:
@@ -78,7 +78,7 @@ class jaraem_taakhir_dar_bahre_bardari_tajamoe(Resource):
         mycursor.execute("select * from gostare where id = %s ", (args['gostare_id'],))
         gostare_data = mycursor.fetchall()
         mydb.commit()
-        query = "select * from gostare_pishraft where gostare_id = %s"
+        query = "select * from gostare_pishraft where gostare_id = %s and malg =1"
         values = (args['gostare_id'],)
         mycursor.execute(query, values)
         gostare_pishrafts = mycursor.fetchall()

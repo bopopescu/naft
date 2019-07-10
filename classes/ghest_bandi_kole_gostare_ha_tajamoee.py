@@ -22,7 +22,7 @@ class ghest_bandi_kole_gostare_ha_tajamoee(Resource):
             mycursor.execute("select * from gostare where id = %s ",(n,))
             gostare_data = mycursor.fetchall()
             mydb.commit()
-            query = "select * from gostare_pishraft where gostare_id = %s"
+            query = "select * from gostare_pishraft where gostare_id = %s and malg =1"
             values = (n ,)
             mycursor.execute(query , values)
             gostare_pishrafts = mycursor.fetchall()

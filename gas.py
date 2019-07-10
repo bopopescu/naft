@@ -32,15 +32,13 @@ class gostare(Resource):
 
 
     def post(selfs):
-        # json = request.get_json()
-        # return {"you sent":json}, 201
         parser = reqparse.RequestParser()
         parser.add_argument('tarikh')
         parser.add_argument('darsade_bardari')
-        # parser.add_argument('mahe_khali')
         parser.add_argument('id_gostare')
         parser.add_argument('id_ghest')
         parser.add_argument('tozihat')
+        parser.add_argument('malg')
         args = parser.parse_args()
         #if args['mahe_khali'] and args['id_gostare']:
             #values =  ( float(args['id_gostare']) ,0 ,args['mahe_khali'] ,)
@@ -49,28 +47,26 @@ class gostare(Resource):
             #db.mydb.commit()
             #return True
         if args['darsade_bardari'] and args['tarikh'] and args['id_gostare']:
-            values = (args['id_gostare'],args['darsade_bardari'] , args['tarikh'] ,args['id_ghest'] , args['tozihat'], )
+            values = (args['id_gostare'],args['darsade_bardari'] , args['tarikh'] ,args['id_ghest'] , args['tozihat'], args['malg'])
             # print(values)
-            db.mycursor.execute("INSERT INTO gostare_pishraft(gostare_id , darsad , tarikh , id_ghest , tozihat) values (%s , %s , %s , %s ,%s)", values)
+            db.mycursor.execute("INSERT INTO gostare_pishraft(gostare_id , darsad , tarikh , id_ghest , tozihat,malg) values (%s , %s , %s , %s ,%s,%s)", values)
             db.mydb.commit()
             return True
         return False
 
     def delete(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('id_gostare')
         parser.add_argument('id_pishraft')
         args = parser.parse_args()
-        if args['id_gostare']:
-            db.mycursor.execute("DELETE FROM gostare WHERE id = %s" , (args['id_gostare'] ,))
-            db.mycursor.execute("DELETE FROM gostare_pishraft WHERE gostare_id = %s",(args['id_gostare'],))
-            db.mydb.commit()
-            return "gostare deleted"
+        # if args['id_gostare']:
+        #     db.mycursor.execute("DELETE FROM gostare WHERE id = %s" , (args['id_gostare'] ,))
+        #     db.mycursor.execute("DELETE FROM gostare_pishraft WHERE gostare_id = %s",(args['id_gostare'],))
+        #     db.mydb.commit()
+        #     return "gostare deleted"
         if args['id_pishraft']:
             db.mycursor.execute("DELETE FROM gostare_pishraft where id = %s" , (args['id_pishraft'],))
             db.mydb.commit()
             return "pishraft deleted"
-
     def put(self):
         parser = reqparse.RequestParser()
         parser.add_argument('id')

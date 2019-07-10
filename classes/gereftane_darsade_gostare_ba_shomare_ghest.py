@@ -13,7 +13,7 @@ class gereftane_darsade_gostare_ba_shomare_ghest(Resource):
         parser.add_argument('shomare_ghest',required=True)
         args = parser.parse_args()
 
-        query = "select * from gostare_pishraft where id_ghest = %s"
+        query = "select * from gostare_pishraft where gostare_id = %s and malg =1"
         values = (args['shomare_ghest'] ,)
         mycursor.execute(query , values)
         res = mycursor.fetchall()
