@@ -1336,6 +1336,13 @@ api.add_resource(jaraem_taakhir_dar_bahre_bardariV2 , '/jaraem_taakhir_dar_bahre
 from classes.jaraem_taakhir_dar_bahre_bardari_tajamoe import *
 api.add_resource(jaraem_taakhir_dar_bahre_bardari_tajamoe , "/jaraem_taakhir_dar_bahre_bardari_tajamoe")
 
+from classes.mohasebe_aghsat_tajamoee import *
+api.add_resource(mohasebe_aghsat_tajamoee,'/mohasebe_aghsat_tajamoee')
+
+from classes.taakhir_dar_bahre_bardari_tajamoee import *
+api.add_resource(taakhir_dar_bahre_bardari_tajamoee ,'/taakhir_dar_bahre_bardari_tajamoee')
+
+
 api.add_resource(jaraem_taakhir_dar_bahre_bardari,'/jaraem_taakhir_dar_bahre_bardari')
 # app.run(host='192.168.43.7',debug=True)
 app.run(debug=True)

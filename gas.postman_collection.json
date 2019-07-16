@@ -42,7 +42,7 @@
 						},
 						{
 							"key": "tarikh",
-							"value": "18-5-1398",
+							"value": "1398-5-18",
 							"type": "text"
 						},
 						{
@@ -58,6 +58,11 @@
 						{
 							"key": "tozihat",
 							"value": "hamin",
+							"type": "text"
+						},
+						{
+							"key": "malg",
+							"value": "0",
 							"type": "text"
 						}
 					]
@@ -148,7 +153,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/gostare",
+					"raw": "http://127.0.0.1:5000/gostare?id_pishraft=1",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -159,6 +164,12 @@
 					"port": "5000",
 					"path": [
 						"gostare"
+					],
+					"query": [
+						{
+							"key": "id_pishraft",
+							"value": "1"
+						}
 					]
 				}
 			},
@@ -469,6 +480,7 @@
 						},
 						{
 							"key": "peyvast",
+							"value": null,
 							"type": "file"
 						}
 					]
@@ -579,7 +591,6 @@
 						},
 						{
 							"key": "peyvast",
-							"value": null,
 							"type": "file"
 						}
 					]
@@ -678,7 +689,6 @@
 						},
 						{
 							"key": "peyvast",
-							"value": null,
 							"type": "file"
 						}
 					]
@@ -1507,6 +1517,78 @@
 							"key": "file_peyvast",
 							"type": "file",
 							"src": []
+						},
+						{
+							"key": "id_ghest",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/taahodat_pardakht_sherkat_naftanir",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"taahodat_pardakht_sherkat_naftanir"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "taahodat_pardakht_sherkat_naftanir",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tarikh",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "sharh",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "mablagh_dollar",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "tozihat",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "file_peyvast",
+							"value": null,
+							"type": "file"
+						},
+						{
+							"key": "id_ghest",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "1",
+							"type": "text"
 						}
 					]
 				},

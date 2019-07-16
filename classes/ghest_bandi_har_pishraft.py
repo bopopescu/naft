@@ -17,8 +17,6 @@ class ghest_bandi_har_pishraft(Resource):
         parser.add_argument('gostare_id',required=True)
         args = parser.parse_args()
 
-
-
         mycursor.execute("select * from gostare where id = %s ",(args['gostare_id'],))
         gostare_data = mycursor.fetchall()
         mydb.commit()
