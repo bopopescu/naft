@@ -28,6 +28,7 @@ class gostare(Resource):
         res= {}
         res["gostareha"] = gostare
         res["pishraft"] = pishraft
+        mydb.commit()
         return res
 
 
@@ -75,7 +76,14 @@ class gostare(Resource):
         db.mycursor.execute("UPDATE gostare_pishraft SET darsad = %s WHERE id = %s " , (args['darsad'], args['id'],))
         db.mydb.commit()
         return "salam"
-        
+    def patch(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('id',required=True)
+        parser.add_argument('malg',required=True)
+        args = parser.parse_args()
+        db.mycursor.execute('UPDATE gostare_pishraft SET malg = %s where id = %s' , (args['malg'] , args['id']))
+        db.mydb.commit()
+        return True
 
 class peymankaran(Resource):
     def get(self):
