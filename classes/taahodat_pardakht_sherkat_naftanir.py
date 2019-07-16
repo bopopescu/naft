@@ -8,10 +8,12 @@ import secrets
 class taahodat_pardakht_sherkat_naftanir(Resource):
     def get(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('id_ghest',required = True)
+        parser.add_argument('id_ghest')
         args = parser.parse_args()
-
-        mycursor.execute("select * from taahodat_pardakht_sherkat_naftanir where id_ghest = %s",(args['id_ghest'],))
+        if args['id_ghest']:
+            mycursor.execute("select * from taahodat_pardakht_sherkat_naftanir where id_ghest = %s",(args['id_ghest'],))
+        else:
+            mycursor.execute("select * from taahodat_pardakht_sherkat_naftanir")
         data = mycursor.fetchall()
         return data
     def post(self):

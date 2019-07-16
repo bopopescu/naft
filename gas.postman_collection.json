@@ -1356,6 +1356,11 @@
 							"key": "jarime",
 							"value": "1",
 							"type": "text"
+						},
+						{
+							"key": "id_ghest",
+							"value": "1",
+							"type": "text"
 						}
 					]
 				},
@@ -1435,8 +1440,13 @@
 						},
 						{
 							"key": "peyvast",
-							"value": null,
-							"type": "file"
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "id_ghest",
+							"value": "20",
+							"type": "text"
 						}
 					]
 				},
@@ -1925,7 +1935,7 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/jaraem_taakhir_dar_bahre_bardariV2?gostare_id=1",
+					"raw": "http://127.0.0.1:5000/jaraem_taakhir_dar_bahre_bardariV2?gostare_id=1&date=1399-5-12",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1941,6 +1951,15 @@
 						{
 							"key": "gostare_id",
 							"value": "1"
+						},
+						{
+							"key": "id_ghest",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "date",
+							"value": "1399-5-12"
 						}
 					]
 				}
@@ -1976,6 +1995,179 @@
 						{
 							"key": "ghest_id",
 							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "taahodat_pardakht_sherkat_mohandesi_tose_gas",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/taahodat_pardakht_sherkat_mohandesi_tose_gas?id=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"taahodat_pardakht_sherkat_mohandesi_tose_gas"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mohasebe_aghsat_tajamoee",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/mohasebe_aghsat_tajamoee?id_ghest=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"mohasebe_aghsat_tajamoee"
+					],
+					"query": [
+						{
+							"key": "id_ghest",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "taakhir_dar_bahre_bardari_tajamoee",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/taakhir_dar_bahre_bardari_tajamoee?id_ghest=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"taakhir_dar_bahre_bardari_tajamoee"
+					],
+					"query": [
+						{
+							"key": "id_ghest",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "taahodat_pardakht_sherkat_naftanir",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tarikh",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "sharh",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "mablagh_dollar",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "tozihat",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "file_peyvast",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "id_ghest",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/taahodat_pardakht_sherkat_naftanir?id_ghest=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"taahodat_pardakht_sherkat_naftanir"
+					],
+					"query": [
+						{
+							"key": "id_ghest",
+							"value": "1"
 						}
 					]
 				}
